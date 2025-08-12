@@ -8,15 +8,12 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Imagen final con Node para correr backend Express + frontend construido
-FROM node:20
+FROM nginx:alpine
 
-WORKDIR /app
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 5000
+EXPOSE 80
 
-CMD ["node", "dist/index.js"]
+CMD ["nginx", "-g", "daemon off;"]
