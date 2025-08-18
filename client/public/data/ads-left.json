@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "title": "Promoción 1",
+      "imageUrl": "/assets/ad1.jpeg",
+      "link": "/promocion-1"
+    },
+    {
+      "id": 2,
+      "title": "Promoción 2",
+      "imageUrl": "/assets/ad2.png",
+      "link": "/promocion-2"
+    },
+    {
+      "id": 3,
+      "title": "Promoción 3",
+      "imageUrl": "/assets/ad3.png",
+      "link": "/promocion-3"
+    }
+  ]
+  

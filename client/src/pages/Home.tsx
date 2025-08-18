@@ -7,6 +7,7 @@
   import { ErrorState } from "@/components/ErrorState";
   import { Pagination } from "@/components/Pagination";
   import { Footer } from "@/components/Footer";
+  import { CustomAdsLeft } from "@/components/CustomAdsLeft";
   import { AdBannerVertical } from "@/components/AdBannerVertical";
   import { useFetchData } from "@/hooks/useFetchData";
   import type { Category } from "@shared/schema";
@@ -72,50 +73,60 @@
           onCategorySelect={handleCategorySelect} 
         />
   
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Search Results Header */}
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">
-              {debouncedSearchTerm 
-                ? `Resultados para "${debouncedSearchTerm}"` 
-                : selectedCategory !== "all" 
-                  ? `Productos de ${selectedCategory}`
-                  : "Todos los productos"
-              }
-            </h2>
-            <p className="text-slate-600">
-              {products.length} productos encontrados
-            </p>
+        <main className="w-full mx-auto px-2 sm:px-4 lg:px-6 py-8 flex gap-4">
+          {/* Columna izquierda: anuncios propios */}
+          <div className="w-1/8">
+            <CustomAdsLeft />
           </div>
-  
-          {/* Content */}
-          {isLoading ? (
-            <LoadingState />
-          ) : error ? (
-            <ErrorState error={error} onRetry={refetch} />
-          ) : products.length === 0 ? (
-            <EmptyState
-              searchTerm={debouncedSearchTerm || "tu búsqueda"}
-              selectedCategory={selectedCategory}
-              onClearFilters={handleClearFilters}
-            />
-          ) : (
-            <>
-              <ProductGrid products={paginatedProducts} />
-              
-              {totalPages > 1 && (
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  totalResults={products.length}
-                  resultsPerPage={resultsPerPage}
-                  onPageChange={handlePageChange}
-                />
-              )}
-            </>
-          )}
-          <div className="ml-4">
-            <AdBannerVertical adSlot="TU_AD_SLOT_VERTICAL" />
+          {/* Columna central: productos */}
+          <div className="flex-1">
+
+            {/* Search Results Header */}
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold text-slate-900 mb-2">
+                {debouncedSearchTerm 
+                  ? `Resultados para "${debouncedSearchTerm}"` 
+                  : selectedCategory !== "all" 
+                    ? `Productos de ${selectedCategory}`
+                    : "Todos los productos"
+                }
+              </h2>
+              <p className="text-slate-600">
+                {products.length} productos encontrados
+              </p>
+            </div>
+    
+            {/* Content */}
+            {isLoading ? (
+              <LoadingState />
+            ) : error ? (
+              <ErrorState error={error} onRetry={refetch} />
+            ) : products.length === 0 ? (
+              <EmptyState
+                searchTerm={debouncedSearchTerm || "tu búsqueda"}
+                selectedCategory={selectedCategory}
+                onClearFilters={handleClearFilters}
+              />
+            ) : (
+              <>
+                <ProductGrid products={paginatedProducts} />
+                
+                {totalPages > 1 && (
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    totalResults={products.length}
+                    resultsPerPage={resultsPerPage}
+                    onPageChange={handlePageChange}
+                  />
+                )}
+              </>
+            )}
+          </div>
+
+          {/* Columna derecha: anuncios de terceros */}
+          <div className="w-1/6 flex flex-col gap-4">
+            <AdBannerVertical adSlot="8365869664" />
           </div>
         </main>
   

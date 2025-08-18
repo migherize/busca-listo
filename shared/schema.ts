@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+export interface Ad {
+  id: number;
+  title: string;
+  imageUrl: string;
+  link: string;
+}
+
 export const productSchema = z.object({
   id: z.string(),
   name: z.string(),
