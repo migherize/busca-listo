@@ -1,10 +1,5 @@
 import { useEffect, useRef } from 'react';
-
-interface QRCodeProps {
-  value: string;
-  size?: number;
-  className?: string;
-}
+import type { QRCodeProps } from '@shared/schema';
 
 export function QRCode({ value, size = 128, className = "" }: QRCodeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

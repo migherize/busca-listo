@@ -1,10 +1,5 @@
 import { Button } from "@/components/ui/button";
-import type { Category } from "@shared/schema";
-
-interface CategoryNavbarProps {
-  selectedCategory: Category | "all";
-  onCategorySelect: (category: Category | "all") => void;
-}
+import type { Category, CategoryNavbarProps } from "@shared/schema";
 
 const categories = [
   { key: "all" as const, label: "Todos" },

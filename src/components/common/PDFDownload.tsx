@@ -1,11 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
-
-interface PDFDownloadProps {
-  targetId: string;
-  filename?: string;
-  children?: React.ReactNode;
-}
+import type { PDFDownloadProps } from '@shared/schema';
 
 export function PDFDownload({ targetId, filename = "busca-listo-flyer.pdf", children }: PDFDownloadProps) {
   const handleDownload = async () => {

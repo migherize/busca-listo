@@ -1,8 +1,5 @@
 import { useEffect } from "react";
-
-interface AdBannerProps {
-  adSlot: string;
-}
+import type { AdBannerProps } from "@shared/schema";
 
 export const AdBannerVertical: React.FC<AdBannerProps> = ({ adSlot }) => {
   useEffect(() => {
