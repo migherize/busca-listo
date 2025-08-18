@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { QRCode } from '@/components/qr-code';
-import { PDFDownload } from '@/components/pdf-download';
+import { PDFDownload } from '@/components/common/PDFDownload';
 import { 
   PillBottle, 
   Download, 
