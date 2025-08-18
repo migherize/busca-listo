@@ -7,9 +7,10 @@
   import { ErrorState } from "@/components/ErrorState";
   import { Pagination } from "@/components/Pagination";
   import { Footer } from "@/components/Footer";
+  import { AdBannerVertical } from "@/components/AdBannerVertical";
   import { useFetchData } from "@/hooks/useFetchData";
   import type { Category } from "@shared/schema";
-  
+
   export default function Home() {
     const [searchTerm, setSearchTerm] = useState("");
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
@@ -113,6 +114,9 @@
               )}
             </>
           )}
+          <div className="ml-4">
+            <AdBannerVertical adSlot="TU_AD_SLOT_VERTICAL" />
+          </div>
         </main>
   
         <Footer />
