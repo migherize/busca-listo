@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*", "shared/**/*", "public/data", "/public/mockProducts.ts"],
+  "include": ["src/**/*", "shared/**/*", "public/data"],
   "exclude": ["node_modules", "build", "dist", "**/*.test.ts", "server/**/*"],
   "compilerOptions": {
     "incremental": true,

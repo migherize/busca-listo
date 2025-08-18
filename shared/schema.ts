@@ -9,6 +9,8 @@ export const adSchema = z.object({
 
 export type Ad = z.infer<typeof adSchema>;
 
+
+
 export const productSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -16,11 +18,11 @@ export const productSchema = z.object({
   category: z.string(),
   subcategory: z.string(),
   price: z.number(),
-  offerPrice: z.number().optional(),
+  offerPrice: z.number().nullable().optional(),
   imageUrl: z.string(),
   stock: z.number(),
   url: z.string(),
-  offerDescription: z.string().optional(),
+  offerDescription: z.string().nullable().optional(),
   requirePrescription: z.boolean(),
   supplier: z.string(),
   availableOnline: z.boolean(),

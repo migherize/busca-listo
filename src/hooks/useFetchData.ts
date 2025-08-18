@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { mockProducts } from "../../public/mockProducts";
+import { mockProducts } from "@/mockProducts";
 import type { Product, Category } from "@shared/schema";
 
 interface UseFetchDataProps {
