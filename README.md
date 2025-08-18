@@ -82,7 +82,6 @@ The backend follows a REST API architecture built with Express.js and TypeScript
 - **Build Tools**: Vite for frontend, esbuild for backend bundling
 - **Type System**: TypeScript with strict configuration
 - **Code Quality**: ESLint integration for code standards
-- **Development Platform**: Replit-optimized configuration for cloud development
 
 ### Frontend Libraries
 - **State Management**: TanStack Query for server state, React hooks for local state

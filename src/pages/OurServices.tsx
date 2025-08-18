@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 
 export default function OurServices() {
-  const registrationUrl = "https://busca-listo.vercel.app/";
+  const registrationUrl = import.meta.env.VITE_REGISTRATION_URL;
 
   const handleRegistration = () => {
     window.open(registrationUrl, '_blank');
