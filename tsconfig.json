@@ -1,5 +1,5 @@
 {
-  "include": ["client/src/**/*", "shared/**/*", "public/data", "client/public/data", "client/public/mockProducts.ts"],
+  "include": ["src/**/*", "shared/**/*", "public/data", "/public/mockProducts.ts"],
   "exclude": ["node_modules", "build", "dist", "**/*.test.ts", "server/**/*"],
   "compilerOptions": {
     "incremental": true,
@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "types": ["node", "vite/client"],
     "paths": {
-      "@/*": ["./client/src/*"],
+      "@/*": ["./src/*"],
       "@shared/*": ["./shared/*"]
     }
   }
