@@ -1,11 +1,13 @@
 import { z } from "zod";
 
-export interface Ad {
-  id: number;
-  title: string;
-  imageUrl: string;
-  link: string;
-}
+export const adSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  imageUrl: z.string(),
+  link: z.string(),
+});
+
+export type Ad = z.infer<typeof adSchema>;
 
 export const productSchema = z.object({
   id: z.string(),
