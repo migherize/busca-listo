@@ -118,81 +118,65 @@
                 "productos": [
                     {
                         "tipo": "Vitamina D",
+                        "necesario_recipe_medico": false,
+                        "nombre": "Calcibon Supra 30tabletas Calcio Citrato-Vit D3 Farma",
+                        "oferta": true,
+                        "precio": {
+                          "bs_sin_oferta": "1871.60",
+                          "bs_con_oferta": "1590.86",
+                          "dls": null
+                        },
+                        "disponible": false,
+                        "detalles": "Medicamentos",
+                        "compuesto": "",
+                        "imagen": [
+                          "https://lh3.googleusercontent.com/EbN5ns7PQSRoqb5ANQaPw5szk_L6KCCweH3UsAm9NVaLQoLb5RH2qfx1Z1z6IzhulkZZaEayRW_7P6FEo0F82PNZT9M3pqJj9qHI77D-0Qu0sb_s"
+                        ],
+                        "oferta_disponible_hasta": null,
+                        "url": "https://www.farmatodo.com.ve/producto/113249355-calcio--vitamina-d--vitamina-k--magnesio-calcibon-supra-30-tabletas"
+                      },
+                      {
+                        "tipo": "Vitamina D",
+                        "necesario_recipe_medico": false,
                         "nombre": "Vitamina D Farma D 2000Ui Laboratorios Farma Caja x 30 Tabletas",
-                        "delivery": true,
                         "oferta": true,
                         "precio": {
-                            "bs_sin_oferta": "759.94",
-                            "bs_con_oferta": "894.05",
-                            "dls": null
+                          "bs_sin_oferta": "759.94",
+                          "bs_con_oferta": "894.05",
+                          "dls": null
                         },
+                        "disponible": true,
+                        "detalles": "Vitaminas",
+                        "compuesto": "2000 UI Vitamina D",
                         "imagen": [
-                            "https://lh3.googleusercontent.com/jQkeFMDQ9X5eTcvBrWCs4w68cRD9U6PajjXswWBYp7PBTcyxvobvhynzL8mhao30c81cR1yUw6Jt3bpjJDsKiW-FpDRZ9lR8XG8",
-                            "https://lh3.googleusercontent.com/ul6sDg8l8FQMHXEXiKZgr5wNT8XZkWAyIetre9cyyF8jXsPGyneu_xVuuVuv3COlwguL39I0xbQErIral9s7YOe-sVv3z20wzpKwxjqUUbRBqO8z"
+                          "https://lh3.googleusercontent.com/jQkeFMDQ9X5eTcvBrWCs4w68cRD9U6PajjXswWBYp7PBTcyxvobvhynzL8mhao30c81cR1yUw6Jt3bpjJDsKiW-FpDRZ9lR8XG8",
+                          "https://lh3.googleusercontent.com/ul6sDg8l8FQMHXEXiKZgr5wNT8XZkWAyIetre9cyyF8jXsPGyneu_xVuuVuv3COlwguL39I0xbQErIral9s7YOe-sVv3z20wzpKwxjqUUbRBqO8z"
                         ],
-                        "ficha_tecnica": {
-                            "marca": "Farma",
-                            "modelo": "Farma D",
-                            "tipo_de_producto": "Vitaminas",
-                            "composicion": "2000 UI Vitamina D",
-                            "unidades_por_paquete": "30",
-                            "presentacion_del_producto": "Caja - Tabletas"
-                        },
-                        "unidades_en_stock": "7",
+                        "oferta_disponible_hasta": null,
                         "url": "https://www.farmatodo.com.ve/producto/112474358-vitamina-d-farma-d-2000ui-30tabletas-farma"
-                    },
-                    {
-                        "tipo": "Analgésicos",
-                        "nombre": "Diclofenac Potásico 50 mg Aflamax Oftalmi Caja x 20 Tabletas",
-                        "delivery": false,
-                        "oferta": true,
-                        "precio": {
-                            "bs_sin_oferta": "693.35",
-                            "bs_con_oferta": "312.01",
-                            "dls": null
-                        },
-                        "imagen": [
-                            "https://lh3.googleusercontent.com/9dawzYlBn0dd2Y_g4R2JeA19NDX6NISiTKMi3YbBUbK7uHgF1q1M5EGP8ttDZtUOhPqGIB9fWzbZKeCBo3xRAMOQnAhwYvjBqxhwyRlZZMtseQ6l",
-                            "https://lh3.googleusercontent.com/bcjSR6JxpW6P2wV2MthtzBnXOWxSt-1SbL4Iz88j-eXSQBYf53cKm1JpdM2L1AIZ8FkW5m6PiBUg7ZPMR0WgBWel3FFDTsJYZNfyTaTNobK9BxYJ",
-                            "https://lh3.googleusercontent.com/OgkJvACbrrtvU_OBk7r1zhxQ_rE6OPosUyYHpNaSUw2nxpKgbseuwD1jwWmcFJa4Rt1UNsBRTh1fVQ02j2uCNdBjy68jlCF2LjsS4cjAO07jB__o"
-                        ],
-                        "ficha_tecnica": {
-                            "marca": "Laboratorios Oftalmi",
-                            "modelo": "Aflamax",
-                            "tipo_de_producto": "Tabletas Recubiertas",
-                            "composicion": "",
-                            "unidades_por_paquete": "20",
-                            "presentacion_del_producto": "Blíster"
-                        },
-                        "unidades_en_stock": "40",
-                        "url": "https://www.farmatodo.com.ve/producto/111199216-diclofenac-potasico-aflamax-50-mg-x-20-tabletas"
-                    },
-                    {
+                      },
+                      {
                         "tipo": "Antialérgicos",
+                        "necesario_recipe_medico": false,
                         "nombre": "Cetirizina 10 mg Cetral Siegfried Caja x 10 Tabletas",
-                        "delivery": true,
                         "oferta": true,
                         "precio": {
-                            "bs_sin_oferta": "263.35",
-                            "bs_con_oferta": "223.85",
-                            "dls": null
+                          "bs_sin_oferta": "263.35",
+                          "bs_con_oferta": "223.85",
+                          "dls": null
                         },
+                        "disponible": true,
+                        "detalles": "",
+                        "compuesto": "",
                         "imagen": [
-                            "https://lh3.googleusercontent.com/6WcSk-vyHvlYq2iWh0Rmxpz65QnJMo2QYnb4xLs9s_6qcjPmfO0swWFxcTKWtqR6lfhOeHBTsuYMRyyZVgP4kvznfaFtu9R_JHIUd6J-TJ7voiuw",
-                            "https://lh3.googleusercontent.com/QMDo6lSz4CHTBXHLuHGpM-2lc1E2S5jwHDLJfJq4GkVBYynsB4MUnsCQ_Qtb39D8luX0WuGoQAN4iGB3x_GSg1tqHRkfVTWTMeRxeHG-OXb46YA",
-                            "https://lh3.googleusercontent.com/unGGeNxCAafZp-N84PQveoh3lrnHYYpVFQwmk8fwZ66liEBNr2Pxh2vQQiQGdDVGEopsM9hvrVw_l9oe1W8sqTziCBQeY_TsC0p-8AR5nedhkDwicA"
+                          "https://lh3.googleusercontent.com/6WcSk-vyHvlYq2iWh0Rmxpz65QnJMo2QYnb4xLs9s_6qcjPmfO0swWFxcTKWtqR6lfhOeHBTsuYMRyyZVgP4kvznfaFtu9R_JHIUd6J-TJ7voiuw",
+                          "https://lh3.googleusercontent.com/QMDo6lSz4CHTBXHLuHGpM-2lc1E2S5jwHDLJfJq4GkVBYynsB4MUnsCQ_Qtb39D8luX0WuGoQAN4iGB3x_GSg1tqHRkfVTWTMeRxeHG-OXb46YA",
+                          "https://lh3.googleusercontent.com/unGGeNxCAafZp-N84PQveoh3lrnHYYpVFQwmk8fwZ66liEBNr2Pxh2vQQiQGdDVGEopsM9hvrVw_l9oe1W8sqTziCBQeY_TsC0p-8AR5nedhkDwicA"
                         ],
-                        "ficha_tecnica": {
-                            "marca": "",
-                            "modelo": "",
-                            "tipo_de_producto": "",
-                            "composicion": "",
-                            "unidades_por_paquete": "",
-                            "presentacion_del_producto": ""
-                        },
-                        "unidades_en_stock": "28",
+                        "oferta_disponible_hasta": null,
                         "url": "https://www.farmatodo.com.ve/producto/111023147-cetirizina-cetral-10-mg-x-10-tabletas"
-                    }
+                      }
+                      
                 ]
             }
         }
@@ -208,22 +192,42 @@
                 "productos": [
                     {
                         "tipo": "Vitamina D",
+                        "necesario_recipe_medico": false,
                         "nombre": "HENOVIC 30ML GOTAS",
-                        "image": [
-                            "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202404%2Ffile_1712501225238_HENOVIC_30ML%20GOTAS.png&w=256&q=75"
+                        "oferta": false,
+                        "precio": {
+                            "bs_sin_oferta": "1117.81",
+                            "bs_con_oferta": null,
+                            "dls": null
+                        },
+                        "disponible": true,
+                        "detalles": "Suplemento de Vitamina D en gotas",
+                        "compuesto": "Vitamina D",
+                        "imagen": [
+                            "https://cdn.farmabien.com/web/media/202404/file_1712501225238_HENOVIC_30ML%20GOTAS.png"
                         ],
-                        "precio_bs": "1.117,81",
+                        "oferta_disponible_hasta": null,
                         "url": "https://www.farmabien.com/producto/7592349722963"
                     },
                     {
                         "tipo": "Antibióticos",
+                        "necesario_recipe_medico": true,
                         "nombre": "LEVOFLOXACINA 750MG X 5TAB CALOX",
-                        "image": [
-                            "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202403%2Ffile_1709825217247_LEVOFLOXACINA_750MG%20X%205TAB%20CALOX.png&w=256&q=75"
+                        "oferta": false,
+                        "precio": {
+                            "bs_sin_oferta": "1173.59",
+                            "bs_con_oferta": null,
+                            "dls": null
+                        },
+                        "disponible": true,
+                        "detalles": "Antibiótico de amplio espectro en tabletas",
+                        "compuesto": "Levofloxacina",
+                        "imagen": [
+                            "https://cdn.farmabien.com/web/media/202403/file_1709825217247_LEVOFLOXACINA_750MG%20X%205TAB%20CALOX.png"
                         ],
-                        "precio_bs": "1.173,59",
+                        "oferta_disponible_hasta": null,
                         "url": "https://www.farmabien.com/producto/7591519317329"
-                    }
+                    }                    
                 ]
             },
             "valera_los_ilustres": {
@@ -234,33 +238,94 @@
                 },
                 "productos": [
                     {
-                        "tipo": "Vitamina D",
-                        "nombre": "HENOVIC 30ML GOTAS",
-                        "image": [
-                            "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202404%2Ffile_1712501225238_HENOVIC_30ML%20GOTAS.png&w=256&q=75"
-                        ],
-                        "precio_bs": "1.117,81",
-                        "url": "https://www.farmabien.com/producto/7592349722963"
+                      "tipo": "Vitamina D",
+                      "necesario_recipe_medico": false,
+                      "nombre": "HENOVIC 30ML GOTAS",
+                      "oferta": false,
+                      "precio": {
+                        "bs_sin_oferta": "1117.81",
+                        "bs_con_oferta": null,
+                        "dls": null
+                      },
+                      "disponible": true,
+                      "detalles": null,
+                      "compuesto": null,
+                      "imagen": [
+                        "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202404%2Ffile_1712501225238_HENOVIC_30ML%20GOTAS.png&w=256&q=75"
+                      ],
+                      "oferta_disponible_hasta": null,
+                      "url": "https://www.farmabien.com/producto/7592349722963"
                     },
                     {
-                        "tipo": "Analgésicos",
-                        "nombre": "TACHIPIRIN FORTE 160MG/15ML X 120ML",
-                        "image": [
-                            "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202403%2Ffile_1711119104385_TACHIPIRIN_FORTE%20160M15ML%20X%20120ML.png&w=256&q=75"
-                        ],
-                        "precio_bs": "400,12",
-                        "url": "https://www.farmabien.com/producto/7591062017301"
+                      "tipo": "Analgésicos",
+                      "necesario_recipe_medico": false,
+                      "nombre": "TACHIPIRIN FORTE 160MG/15ML X 120ML",
+                      "oferta": false,
+                      "precio": {
+                        "bs_sin_oferta": "400.12",
+                        "bs_con_oferta": null,
+                        "dls": null
+                      },
+                      "disponible": true,
+                      "detalles": null,
+                      "compuesto": null,
+                      "imagen": [
+                        "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202403%2Ffile_1711119104385_TACHIPIRIN_FORTE%20160M15ML%20X%20120ML.png&w=256&q=75"
+                      ],
+                      "oferta_disponible_hasta": null,
+                      "url": "https://www.farmabien.com/producto/7591062017301"
                     },
                     {
-                        "tipo": "Antialérgicos",
-                        "nombre": "DESLORATADINA 5MG X 10TAB CALOX",
-                        "image": [
-                            "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202403%2Ffile_1709739763460_DESLORATADINA_5MG%20X%2010TAB%20CALOX.png&w=256&q=75"
-                        ],
-                        "precio_bs": "321,59",
-                        "url": "https://www.farmabien.com/producto/7591519008210"
+                      "tipo": "Antialérgicos",
+                      "necesario_recipe_medico": false,
+                      "nombre": "DESLORATADINA 5MG X 10TAB CALOX",
+                      "oferta": false,
+                      "precio": {
+                        "bs_sin_oferta": "321.59",
+                        "bs_con_oferta": null,
+                        "dls": null
+                      },
+                      "disponible": true,
+                      "detalles": null,
+                      "compuesto": null,
+                      "imagen": [
+                        "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202403%2Ffile_1709739763460_DESLORATADINA_5MG%20X%2010TAB%20CALOX.png&w=256&q=75"
+                      ],
+                      "oferta_disponible_hasta": null,
+                      "url": "https://www.farmabien.com/producto/7591519008210"
                     }
+                  ]
+                  
+            },
+            "san_saul_ca": {
+                "direccion": {
+                    "latitude": "10.6199",
+                    "longitude": "-71.8403",
+                    "telefono": "02622432537"
+                },
+                "productos": [
+                    {
+                        "tipo": "Vitamina D",
+                        "necesario_recipe_medico": false,
+                        "nombre": "CALCIBON D X 30TAB",
+                        "oferta": false,
+                        "precio": {
+                          "bs_sin_oferta": "1475.89",
+                          "bs_con_oferta": null,
+                          "dls": null
+                        },
+                        "disponible": true,
+                        "detalles": null,
+                        "compuesto": "Citrato De Calcio Vi",
+                        "imagen": [
+                          "https://www.farmabien.com/_next/image?url=https%3A%2F%2Fcdn.farmabien.com%2Fweb%2Fmedia%2F202408%2Ffile_1724334954546_thumbnail_cacibon-D-30-cap_-%20copia%20-%20copia%20-%20copia.png&w=256&q=75"
+                        ],
+                        "oferta_disponible_hasta": null,
+                        "url": "https://www.farmabien.com/producto/7591821101029"
+                      }
+                      
                 ]
+
             }
         }
     }
