@@ -1,11 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-
-interface EmptyStateProps {
-  searchTerm: string;
-  selectedCategory: string;
-  onClearFilters: () => void;
-}
+import type { EmptyStateProps } from "@shared/schema";
 
 export function EmptyState({ searchTerm, selectedCategory, onClearFilters }: EmptyStateProps) {
   return (

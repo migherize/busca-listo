@@ -1,9 +1,5 @@
 import { ProductCard } from "./ProductCard";
-import type { Product } from "@shared/schema";
-
-interface ProductGridProps {
-  products: Product[];
-}
+import type { ProductGridProps } from "@shared/schema";
 
 export function ProductGrid({ products }: ProductGridProps) {
   return (

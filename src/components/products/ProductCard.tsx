@@ -2,11 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Package, Store, ExternalLink } from "lucide-react";
-import type { Product } from "@shared/schema";
-
-interface ProductCardProps {
-  product: Product;
-}
+import type { ProductCardProps } from "@shared/schema";
 
 export function ProductCard({ product }: ProductCardProps) {
   const formatPrice = (price: number) => {

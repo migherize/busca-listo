@@ -1,10 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
-
-interface ErrorStateProps {
-  error: string;
-  onRetry: () => void;
-}
+import type { ErrorStateProps } from "@shared/schema";
 
 export function ErrorState({ error, onRetry }: ErrorStateProps) {
   return (

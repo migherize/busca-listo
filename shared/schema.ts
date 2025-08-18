@@ -37,3 +37,58 @@ export const categorySchema = z.enum([
 ]);
 
 export type Category = z.infer<typeof categorySchema>;
+
+// ---------- Component Props (UI domain) ----------
+
+export interface HeaderProps {
+  searchTerm: string;
+  onSearchChange: (value: string) => void;
+}
+
+export interface AdBannerProps {
+  adSlot: string;
+}
+
+export interface CategoryNavbarProps {
+  selectedCategory: Category | "all";
+  onCategorySelect: (category: Category | "all") => void;
+}
+
+export interface ProductCardProps {
+  product: Product;
+}
+
+export interface ProductGridProps {
+  products: Product[];
+}
+
+export interface QRCodeProps {
+  value: string;
+  size?: number;
+  className?: string;
+}
+
+export interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  totalResults: number;
+  resultsPerPage: number;
+  onPageChange: (page: number) => void;
+}
+
+export interface EmptyStateProps {
+  searchTerm: string;
+  selectedCategory: string;
+  onClearFilters: () => void;
+}
+
+export interface ErrorStateProps {
+  error: string;
+  onRetry: () => void;
+}
+
+export interface PDFDownloadProps {
+  targetId: string;
+  filename?: string;
+  children?: React.ReactNode;
+}

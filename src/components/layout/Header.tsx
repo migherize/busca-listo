@@ -1,10 +1,6 @@
 import { Search, Heart, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
-
-interface HeaderProps {
-  searchTerm: string;
-  onSearchChange: (value: string) => void;
-}
+import type { HeaderProps } from "@shared/schema";
 
 export function Header({ searchTerm, onSearchChange }: HeaderProps) {
   return (
