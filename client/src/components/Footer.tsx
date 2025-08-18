@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Instagram } from "lucide-react";
-
+import { Link } from "wouter";
 export function Footer() {
   return (
     <footer className="bg-white border-t border-slate-200 mt-16">
@@ -45,30 +45,42 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-slate-900 mb-4">Soporte</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li>
-                <a href="#" className="hover:text-blue-600 transition-colors">
-                  Centro de ayuda
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-600 transition-colors">
-                  Contacto
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-600 transition-colors">
-                  Términos y condiciones
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-600 transition-colors">
-                  Política de privacidad
-                </a>
-              </li>
-            </ul>
-          </div>
+              <h4 className="font-semibold text-slate-900 mb-4">Soporte</h4>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>
+                  <Link
+                    href="/help"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Centro de ayuda
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Contacto
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/terms"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Términos y condiciones
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/privacy"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Política de privacidad
+                  </Link>
+                </li>
+              </ul>
+            </div>
         </div>
 
         <div className="border-t border-slate-200 mt-8 pt-6 text-center text-sm text-slate-600">
