@@ -13,13 +13,13 @@ export function DealsCarousel({ products }: { products: Product[] }) {
   };
 
   return (
-    <div className="relative">
-      <div className="hidden sm:block absolute -left-2 top-1/2 -translate-y-1/2 z-10">
+    <div className="relative overflow-hidden">
+      <div className="hidden sm:block absolute left-2 top-1/2 -translate-y-1/2 z-10">
         <Button variant="secondary" size="icon" className="rounded-full" onClick={() => scrollByAmount(-320)}>
           ‹
         </Button>
       </div>
-      <div className="hidden sm:block absolute -right-2 top-1/2 -translate-y-1/2 z-10">
+      <div className="hidden sm:block absolute right-2 top-1/2 -translate-y-1/2 z-10">
         <Button variant="secondary" size="icon" className="rounded-full" onClick={() => scrollByAmount(320)}>
           ›
         </Button>
