@@ -127,7 +127,7 @@ export default function Home() {
           </div>
           {/* Columna central */}
           <div className="flex-1">
-            <div className="w-full mx-auto max-w-7xl px-2 sm:px-4 lg:px-6">
+            <div className="w-full px-4 sm:px-6 lg:px-8">
               {isSearchMode ? (
                 <>
                   {/* Encabezado de resultados */}
