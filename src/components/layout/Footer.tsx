@@ -1,6 +1,6 @@
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPinIcon, PillBottle, Tag, HelpCircle, LifeBuoy } from "lucide-react";
 import { Link } from "wouter";
-import { categories } from "@/data/categories";
+import { footerData } from "@/data/footerData";
+import { PillBottle } from "lucide-react";
 
 export function Footer() {
   return (
@@ -11,96 +11,97 @@ export function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
-                <PillBottle className="text-white" />
+                {(() => {
+                  const BrandingIcon = footerData.branding.icon ?? PillBottle;
+                  return <BrandingIcon className="text-white" />;
+                })()}
               </div>
-              <span className="text-xl font-bold">Busca Listo</span>
+              <span className="text-xl font-bold">{footerData.branding.name}</span>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
-              Una solución integral diseñada para conectar personas, negocios y oportunidades de manera simple. 
-              Encuentra los mejores productos, compara precios y descubre ofertas en un solo lugar.
+              {footerData.branding.description}
             </p>
 
             {/* Redes sociales */}
-            <div className="flex space-x-4 mb-4">
-              <Facebook className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-              <Twitter className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-              <Instagram className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-            </div>
+            {footerData.branding.socialLinks?.length ? (
+              <div className="flex space-x-4 mb-4">
+                {footerData.branding.socialLinks.map((social) => {
+                  const SocialIcon = social.icon;
+                  return (
+                    <a key={social.label} href={social.href} aria-label={social.label} className="hover:text-white transition-colors">
+                      {SocialIcon ? (
+                        <SocialIcon className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                      ) : null}
+                    </a>
+                  );
+                })}
+              </div>
+            ) : null}
             
-            <div className="mt-6">
-              <h4 className="font-semibold text-white mb-2 flex items-center space-x-2">
-                <PillBottle className="w-5 h-5" />
-                <span>¿Tienes una tienda?</span>
+            {footerData.branding.storeCTA ? (
+              <div className="mt-6">
+                <h4 className="font-semibold text-white mb-2 flex items-center space-x-2">
+                  {(() => {
+                    const StoreIcon = footerData.branding.storeCTA?.icon ?? PillBottle;
+                    return <StoreIcon className="w-5 h-5" />;
+                  })()}
+                  <span>¿Tienes una tienda?</span>
+                </h4>
+                <p className="text-gray-300 mb-2 text-sm max-w-xs">
+                  {footerData.branding.storeCTA.description}
+                </p>
+                <Link
+                    href={footerData.branding.storeCTA.href}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors inline-block text-center"
+                  >
+                  {footerData.branding.storeCTA.text}
+                </Link>
+              </div>
+            ) : null}
+          </div>
+
+          {/* Secciones dinámicas (Categorías, Soporte, Contacto) */}
+          {footerData.sections.map((section) => (
+            <div key={section.title}>
+              <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
+                {(() => {
+                  const SectionIcon = section.icon;
+                  return SectionIcon ? <SectionIcon className="w-5 h-5" /> : null;
+                })()}
+                <span>{section.title}</span>
               </h4>
-              <p className="text-gray-300 mb-2 text-sm max-w-xs">
-                Registra tu tienda en Busca Listo y alcanza más clientes rápidamente.
-              </p>
-              <Link
-                  href="/register-store"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors inline-block text-center"
-                >
-                  Registrar Tienda
-              </Link>
+              {section.description ? (
+                <p className="text-gray-300 text-sm mb-3">{section.description}</p>
+              ) : null}
+              {section.links?.length ? (
+                <ul className="space-y-2 text-sm text-gray-300">
+                  {section.links.map((link) => {
+                    const LinkIcon = link.icon;
+                    return (
+                      <li key={`${section.title}-${link.label}`}>
+                        {link.href.startsWith("/") ? (
+                          <Link href={link.href} className="hover:text-white transition-colors">
+                            {LinkIcon ? <LinkIcon className="w-4 h-4 inline mr-2" /> : null}
+                            {link.label}
+                          </Link>
+                        ) : (
+                          <a href={link.href} className="hover:text-white transition-colors">
+                            {LinkIcon ? <LinkIcon className="w-4 h-4 inline mr-2" /> : null}
+                            {link.label}
+                          </a>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : null}
             </div>
-          </div>
-
-          {/* Categorías */}
-          <div>
-            <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
-              <Tag className="w-5 h-5" />
-              <span>Categorías</span>
-            </h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              {categories.slice(0, 8).map((category) => (
-                <li key={category.key}>
-                  <a href="#" className="hover:text-white transition-colors">
-                    {category.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Soporte */}
-          <div>
-            <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
-              <HelpCircle className="w-5 h-5" />
-              <span>Soporte</span>
-            </h4>
-            <ul className="space-y-2 text-sm text-gray-300 mb-6">
-              <li>
-                <Link href="/help" className="hover:text-white transition-colors">
-                  Centro de ayuda
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-white transition-colors">
-                  Términos y condiciones
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="hover:text-white transition-colors">
-                  Política de privacidad
-                </Link>
-              </li>
-            </ul>
-
-            {/* Contacto */}
-            <h4 className="flex items-center font-semibold text-white mt-6 mb-2 space-x-2">
-              <LifeBuoy className="w-5 h-5" />
-              <span>Contacto</span>
-            </h4>
-            <div className="space-y-2 text-gray-300 text-sm">
-              <p><Mail className="w-4 h-4 inline mr-2" /> contacto@buscalisto.com</p>
-              <p><Phone className="w-4 h-4 inline mr-2" /> +1 (555) 123-4567</p>
-              <p><MapPinIcon className="w-4 h-4 inline mr-2" /> Ciudad, País</p>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Copyright */}
         <div className="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Busca Listo. Todos los derechos reservados.</p>
+          <p>{footerData.copyright}</p>
         </div>
       </div>
     </footer>
