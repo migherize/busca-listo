@@ -5,7 +5,7 @@ import { categories } from "@/data/categories";
 const categoryLinks = categories
   .filter((c) => c.key !== "all")
   .slice(0, 8)
-  .map((c) => ({ label: c.label, href: "#" }));
+  .map((c) => ({ label: c.label, href: `/?category=${c.key}` }));
 
 export const footerData: FooterData = {
   branding: {
