@@ -9,8 +9,6 @@ export const adSchema = z.object({
 
 export type Ad = z.infer<typeof adSchema>;
 
-
-
 export const productSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -32,21 +30,6 @@ export const productSchema = z.object({
 
 export type Product = z.infer<typeof productSchema>;
 
-export const categorySchema = z.enum([
-  "all",
-  "medicamentos",
-  "vitaminas",
-  "cuidado-personal",
-  "suplementos",
-  "belleza",
-  "ropa",
-  "zapatos",
-  "telefonos",
-  "computadoras"
-]);
-
-export type Category = z.infer<typeof categorySchema>;
-
 // ---------- Component Props (UI domain) ----------
 
 export interface HeaderProps {
@@ -58,10 +41,6 @@ export interface AdBannerProps {
   adSlot: string;
 }
 
-export interface CategoryNavbarProps {
-  selectedCategory: Category | "all";
-  onCategorySelect: (category: Category | "all") => void;
-}
 
 export interface ProductCardProps {
   product: Product;

@@ -1,6 +1,6 @@
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPinIcon, PillBottle, Tag, HelpCircle, LifeBuoy } from "lucide-react";
+import { categories } from "@shared/category";
 import type { FooterData } from "@shared/Footer";
-import { categories } from "@/data/categories";
 
 const categoryLinks = categories
   .filter((c) => c.key !== "all")
