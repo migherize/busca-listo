@@ -12,6 +12,7 @@
                         "tipo": "Vitamina D",
                         "necesario_recipe_medico": false,
                         "nombre": "Calcibon Natal Forte X 30 Tab Konsuma",
+                        "views": 100,
                         "oferta": false,
                         "precio": {
                             "bs_sin_oferta": "1542.90",
@@ -120,6 +121,7 @@
                         "tipo": "Vitamina D",
                         "necesario_recipe_medico": false,
                         "nombre": "Calcibon Supra 30tabletas Calcio Citrato-Vit D3 Farma",
+                        "views": 50,
                         "oferta": true,
                         "precio": {
                           "bs_sin_oferta": "1871.60",
@@ -308,6 +310,7 @@
                         "tipo": "Vitamina D",
                         "necesario_recipe_medico": false,
                         "nombre": "CALCIBON D X 30TAB",
+                        "views": 25,
                         "oferta": false,
                         "precio": {
                           "bs_sin_oferta": "1475.89",

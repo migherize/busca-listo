@@ -33,11 +33,16 @@ export const productSchema = z.object({
 export type Product = z.infer<typeof productSchema>;
 
 export const categorySchema = z.enum([
+  "all",
   "medicamentos",
   "vitaminas",
   "cuidado-personal",
   "suplementos",
   "belleza",
+  "ropa",
+  "zapatos",
+  "telefonos",
+  "computadoras"
 ]);
 
 export type Category = z.infer<typeof categorySchema>;

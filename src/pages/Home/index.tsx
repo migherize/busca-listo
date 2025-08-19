@@ -13,6 +13,7 @@
   import { AdBannerVertical } from "@/components/ads/AdBannerVertical";
   import { useFetchData } from "@/hooks/useFetchData";
   import type { Category } from "@shared/schema";
+  import { RecentProductsList } from "@/components/products/RecentProductCard";
 
   export default function Home() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -103,6 +104,12 @@
       setCurrentPage(page);
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
+    
+    const [selectedSort, setSelectedSort] = useState<string>("precio");
+    
+    const handleSortSelect = (sortKey: string) => {
+      setSelectedSort(sortKey);
+    };
   
     return (
       <div className="min-h-screen bg-slate-50">
@@ -112,6 +119,8 @@
           <CategoryNavbar 
             selectedCategory={selectedCategory} 
             onCategorySelect={handleCategorySelect} 
+            selectedSort={selectedSort}
+            onSortSelect={handleSortSelect}
           />
         )}
   
@@ -166,7 +175,7 @@
                 {/* Landing: Lo más reciente */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más reciente</h2>
-                  {isLoading ? <LoadingState /> : <ProductGrid products={recentProducts} variant="recent" />}
+                  {isLoading ? <LoadingState /> : <RecentProductsList products={recentProducts} />}
                 </section>
 
                 {/* Landing: Lo más visto */}
