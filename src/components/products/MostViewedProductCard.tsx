@@ -5,7 +5,6 @@ import type { Product } from "@shared/schema";
 import { Link } from "wouter";
 
 export function MostViewedProductCard({ product }: { product: Product }) {
-  console.log("MostViewedProductCard", product);
   return (
     <Link href={`/product/${product.id}`} className="block">
       <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200">

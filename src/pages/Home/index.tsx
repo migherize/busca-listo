@@ -15,6 +15,8 @@
   import type { Category } from "@shared/category";
   import { RecentProductsList } from "@/components/products/RecentProductCard";
   import { MostViewedProductsList } from "@/components/products/MostViewedProductCard";
+  import { categoryImages } from "@shared/category";
+
   export default function Home() {
     const [searchTerm, setSearchTerm] = useState("");
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
@@ -83,17 +85,21 @@
       .sort((a, b) => offerScore(b.price, b.offerPrice) - offerScore(a.price, a.offerPrice))
       .slice(0, 8);
 
-    const popularSubcategories = (() => {
-      const counts = new Map<string, number>();
-      for (const p of products) {
-        counts.set(p.subcategory, (counts.get(p.subcategory) || 0) + 1);
-      }
-      return Array.from(counts.entries())
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 12)
-        .map(([name]) => name);
-    })();
+    // const popularSubcategories = (() => {
+    //   const counts = new Map<string, number>();
+    //   for (const p of products) {
+    //     counts.set(p.subcategory, (counts.get(p.subcategory) || 0) + 1);
+    //   }
+    //   return Array.from(counts.entries())
+    //     .sort((a, b) => b[1] - a[1])
+    //     .slice(0, 12)
+    //     .map(([name]) => name);
+    // })();
 
+    const popularSubcategories = Object.entries(categoryImages)
+    .slice(0, 6)
+    .map(([name, image]) => ({ name, image }));
+  
     const handlePopularSubcategoryClick = (name: string) => {
       setSelectedCategory("all");
       setSearchTerm(name);
@@ -190,10 +196,10 @@
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                     {popularSubcategories.map((sub) => (
                       <PopularCategoryCard
-                        key={sub}
-                        name={sub}
-                        imageUrl={`https://source.unsplash.com/400x300/?${encodeURIComponent(sub)}`}
-                        onClick={() => handlePopularSubcategoryClick(sub)}
+                        key={sub.name}
+                        name={sub.name}
+                        categoryKey={sub.name}
+                        imageUrl={sub.image || "/assets/defaultcategory.jpeg"}
                       />
                     ))}
                   </div>

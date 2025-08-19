@@ -3,14 +3,14 @@ import { z } from "zod";
 export const categorySchema = z.enum([
   "all",
   "medicamentos",
-  "vitaminas",
-  "cuidado-personal",
+  "repuestos",
+  "telefonos",
+  "TV",
+  "comidarapida",
+  "zapatos",
   "suplementos",
   "belleza",
   "ropa",
-  "zapatos",
-  "telefonos",
-  "computadoras"
 ]);
 
 export type Category = z.infer<typeof categorySchema>;
@@ -37,3 +37,12 @@ export interface CategoryNavbarProps {
   selectedCategory: Category | "all";
   onCategorySelect: (category: Category | "all") => void;
 }
+
+export const categoryImages: Record<string, string> = {
+  "medicamentos": "/assets/medicamentos.jpeg",
+  "repuestos": "/assets/repuestos.jpeg",
+  "telefonos": "/assets/telefonos.jpeg",
+  "TV": "/assets/TV.jpeg",
+  "comidarapida": "/assets/comidarapida.png",
+  "zapatos": "/assets/zapatos.jpeg",
+};
