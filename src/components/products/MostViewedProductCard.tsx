@@ -45,7 +45,7 @@ interface MostViewedProductsList {
 
 export function MostViewedProductsList({ products, maxProducts = 4 }: MostViewedProductsList) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
       {products.slice(0, maxProducts).map((product) => (
         <MostViewedProductCard key={product.id} product={product} />
       ))}
