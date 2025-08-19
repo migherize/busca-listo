@@ -2,6 +2,8 @@
   import { Header } from "@/components/layout/Header";
   import { CategoryNavbar } from "@/components/products/CategoryNavbar";
   import { ProductGrid } from "@/components/products/ProductGrid";
+  import { DealsCarousel } from "@/components/products/DealsCarousel";
+  import { PopularCategoryCard } from "@/components/products/PopularCategoryCard";
   import { LoadingState } from "@/components/common/LoadingState";
   import { EmptyState } from "@/components/common/EmptyState";
   import { ErrorState } from "@/components/common/ErrorState";
@@ -10,7 +12,10 @@
   import { CustomAdsLeft } from "@/components/ads/CustomAdsLeft";
   import { AdBannerVertical } from "@/components/ads/AdBannerVertical";
   import { useFetchData } from "@/hooks/useFetchData";
-  import type { Category } from "@shared/schema";
+  import type { Category } from "@shared/category";
+  import { RecentProductsList } from "@/components/products/RecentProductCard";
+  import { MostViewedProductsList } from "@/components/products/MostViewedProductCard";
+  import { categoryImages } from "@shared/category";
 
   export default function Home() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -68,7 +73,7 @@
       .slice(0, 8);
 
     const mostViewedProducts = [...products]
-      .sort((a, b) => b.price - a.price)
+      .sort((a, b) => (b.views || 0) - (a.views || 0))
       .slice(0, 8);
 
     const offerScore = (price: number, offerPrice: number | null | undefined) => {
@@ -80,17 +85,21 @@
       .sort((a, b) => offerScore(b.price, b.offerPrice) - offerScore(a.price, a.offerPrice))
       .slice(0, 8);
 
-    const popularSubcategories = (() => {
-      const counts = new Map<string, number>();
-      for (const p of products) {
-        counts.set(p.subcategory, (counts.get(p.subcategory) || 0) + 1);
-      }
-      return Array.from(counts.entries())
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 12)
-        .map(([name]) => name);
-    })();
+    // const popularSubcategories = (() => {
+    //   const counts = new Map<string, number>();
+    //   for (const p of products) {
+    //     counts.set(p.subcategory, (counts.get(p.subcategory) || 0) + 1);
+    //   }
+    //   return Array.from(counts.entries())
+    //     .sort((a, b) => b[1] - a[1])
+    //     .slice(0, 12)
+    //     .map(([name]) => name);
+    // })();
 
+    const popularSubcategories = Object.entries(categoryImages)
+    .slice(0, 6)
+    .map(([name, image]) => ({ name, image }));
+  
     const handlePopularSubcategoryClick = (name: string) => {
       setSelectedCategory("all");
       setSearchTerm(name);
@@ -101,6 +110,12 @@
       setCurrentPage(page);
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
+    
+    const [selectedSort, setSelectedSort] = useState<string>("precio");
+    
+    const handleSortSelect = (sortKey: string) => {
+      setSelectedSort(sortKey);
+    };
   
     return (
       <div className="min-h-screen bg-slate-50">
@@ -110,6 +125,8 @@
           <CategoryNavbar 
             selectedCategory={selectedCategory} 
             onCategorySelect={handleCategorySelect} 
+            selectedSort={selectedSort}
+            onSortSelect={handleSortSelect}
           />
         )}
   
@@ -164,27 +181,26 @@
                 {/* Landing: Lo más reciente */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más reciente</h2>
-                  {isLoading ? <LoadingState /> : <ProductGrid products={recentProducts} />}
+                  {isLoading ? <LoadingState /> : <RecentProductsList products={recentProducts} />}
                 </section>
 
                 {/* Landing: Lo más visto */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más visto</h2>
-                  {isLoading ? <LoadingState /> : <ProductGrid products={mostViewedProducts} />}
+                  {isLoading ? <LoadingState /> : <MostViewedProductsList products={mostViewedProducts} />}
                 </section>
 
                 {/* Landing: Categorías más populares (por subcategoría) */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Las categorías más populares</h2>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                     {popularSubcategories.map((sub) => (
-                      <button
-                        key={sub}
-                        className="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-sm hover:bg-slate-100"
-                        onClick={() => handlePopularSubcategoryClick(sub)}
-                      >
-                        {sub}
-                      </button>
+                      <PopularCategoryCard
+                        key={sub.name}
+                        name={sub.name}
+                        categoryKey={sub.name}
+                        imageUrl={sub.image || "/assets/defaultcategory.jpeg"}
+                      />
                     ))}
                   </div>
                 </section>
@@ -192,7 +208,7 @@
                 {/* Landing: Ofertas del día */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Ofertas del día</h2>
-                  {isLoading ? <LoadingState /> : <ProductGrid products={dailyDeals} />}
+                  {isLoading ? <LoadingState /> : <DealsCarousel products={dailyDeals} />}
                 </section>
               </>
             )}

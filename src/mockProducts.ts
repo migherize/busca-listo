@@ -36,6 +36,7 @@ for (const [farmaciaName, farmaciaData] of Object.entries(rawData)) {
         requirePrescription: p.necesario_recipe_medico,
         supplier: farmaciaName,
         availableOnline: true,
+        views: p.views ? parseInt(p.views, 10) : undefined,
       };
 
       mockProducts.push(product);

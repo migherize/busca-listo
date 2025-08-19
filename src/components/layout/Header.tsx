@@ -21,7 +21,7 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
               <Input
                 type="text"
                 className="w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg bg-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Buscar productos... ej: acetaminofen"
+                placeholder="Buscar productos... ej: Calcibon, ropa, zapatos"
                 value={searchTerm}
                 onChange={(e) => onSearchChange(e.target.value)}
               />

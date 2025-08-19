@@ -1,14 +1,6 @@
 import { Button } from "@/components/ui/button";
-import type { CategoryNavbarProps } from "@shared/schema";
-import { categories } from "@/data/categories";
-
-// Opciones de ordenamiento
-const sortOptions = [
-  { key: "precio", label: "Precio" },
-  { key: "relevancia", label: "Relevancia" },
-  { key: "popularidad", label: "Popularidad" },
-  { key: "descuento", label: "Descuento" },
-];
+import { categories, sortOptions } from "@shared/category";
+import type { CategoryNavbarProps } from "@shared/category";
 
 export function CategoryNavbar({
   selectedCategory,
