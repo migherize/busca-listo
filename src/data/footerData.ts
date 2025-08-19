@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPinIcon, PillBottle, Tag, HelpCircle, LifeBuoy } from "lucide-react";
-import type { FooterData } from "./Footer";
+import type { FooterData } from "@shared/Footer";
 
 export const footerData: FooterData = {
   branding: {
