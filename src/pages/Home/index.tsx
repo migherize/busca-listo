@@ -130,9 +130,9 @@
           />
         )}
   
-        <main className="w-full mx-auto px-2 sm:px-4 lg:px-6 py-8 flex gap-4">
+        <main className="w-full mx-auto max-w-7xl px-2 sm:px-4 lg:px-6 py-6 lg:py-8 flex flex-col lg:flex-row gap-4">
           {/* Columna izquierda: anuncios propios */}
-          <div className="w-1/8">
+          <div className="hidden lg:block lg:w-56 xl:w-64 flex-shrink-0">
             <CustomAdsLeft />
           </div>
           {/* Columna central */}
@@ -215,7 +215,7 @@
           </div>
 
           {/* Columna derecha: anuncios de terceros */}
-          <div className="w-1/6 flex flex-col gap-4">
+          <div className="hidden lg:flex lg:w-[160px] flex-col gap-4 flex-shrink-0 items-center">
             <AdBannerVertical adSlot="8365869664" />
           </div>
         </main>
