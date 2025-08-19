@@ -11,7 +11,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/contact" component={OurServices} />
+      <Route path="/register-store" component={OurServices} />
       {/* <Route path="/services/register" component={Register} /> */}
       {/* <Route path="/services/subscriptions" component={Subscriptions} /> */}
       {/* <Route path="/help">⚡ Página de ayuda</Route>

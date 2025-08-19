@@ -15,9 +15,7 @@ export function Pagination({
   return (
     <div className="mt-12 flex items-center justify-between">
       <div className="flex items-center text-sm text-slate-600">
-        Mostrando <span className="font-medium">{startResult}</span> a{" "}
-        <span className="font-medium">{endResult}</span> de{" "}
-        <span className="font-medium">{totalResults}</span> productos
+        {`Mostrando ${startResult} a ${endResult} de ${totalResults} productos`}
       </div>
 
       <div className="flex items-center space-x-2">

@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { QRCode } from '@/components/qr-code';
 import { PDFDownload } from '@/components/common/PDFDownload';
+import { Footer } from "@/components/layout/Footer";
 import { 
   PillBottle, 
   Download, 
@@ -339,45 +340,7 @@ export default function OurServices() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 no-print">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
-                  <PillBottle className="text-white" />
-                </div>
-                <span className="text-xl font-bold">Busca-Listo</span>
-              </div>
-              <p className="text-gray-300">
-                La plataforma que conecta farmacias con clientes de manera gratuita y eficiente.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">Contacto</h3>
-              <div className="space-y-2 text-gray-300">
-                <p><Mail className="w-4 h-4 inline mr-2" />info@busca-listo.com</p>
-                <p><Phone className="w-4 h-4 inline mr-2" />+1 (555) 123-4567</p>
-                <p><MapPinIcon className="w-4 h-4 inline mr-2" />Ciudad, País</p>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">Enlaces</h3>
-              <div className="space-y-2">
-                <a href="#" className="text-gray-300 hover:text-white block">Términos y Condiciones</a>
-                <a href="#" className="text-gray-300 hover:text-white block">Política de Privacidad</a>
-                <a href="#" className="text-gray-300 hover:text-white block">Soporte</a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-            <p>&copy; 2024 Busca-Listo. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer></Footer>
     </div>
   );
 }

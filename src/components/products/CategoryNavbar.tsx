@@ -1,20 +1,30 @@
 import { Button } from "@/components/ui/button";
-import type { Category, CategoryNavbarProps } from "@shared/schema";
+import type { CategoryNavbarProps } from "@shared/schema";
+import { categories } from "@/data/categories";
 
-const categories = [
-  { key: "all" as const, label: "Todos" },
-  { key: "medicamentos" as const, label: "Medicamentos" },
-  { key: "vitaminas" as const, label: "Vitaminas" },
-  { key: "cuidado-personal" as const, label: "Cuidado Personal" },
-  { key: "suplementos" as const, label: "Suplementos" },
-  { key: "belleza" as const, label: "Belleza" },
+// Opciones de ordenamiento
+const sortOptions = [
+  { key: "precio", label: "Precio" },
+  { key: "relevancia", label: "Relevancia" },
+  { key: "popularidad", label: "Popularidad" },
+  { key: "descuento", label: "Descuento" },
 ];
 
-export function CategoryNavbar({ selectedCategory, onCategorySelect }: CategoryNavbarProps) {
+export function CategoryNavbar({
+  selectedCategory,
+  onCategorySelect,
+  selectedSort,
+  onSortSelect,
+}: CategoryNavbarProps & {
+  selectedSort: string;
+  onSortSelect: (sortKey: string) => void;
+}) {
   return (
     <nav className="bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center space-x-8 py-4 overflow-x-auto">
+        
+        {/* Categorías */}
+        <div className="flex items-center space-x-4 py-3 overflow-x-auto">
           {categories.map((category) => (
             <Button
               key={category.key}
@@ -28,6 +38,25 @@ export function CategoryNavbar({ selectedCategory, onCategorySelect }: CategoryN
               onClick={() => onCategorySelect(category.key)}
             >
               {category.label}
+            </Button>
+          ))}
+        </div>
+
+        {/* Ordenar por */}
+        <div className="flex items-center space-x-4 py-3 overflow-x-auto border-t border-slate-100">
+          {sortOptions.map((option) => (
+            <Button
+              key={option.key}
+              variant={selectedSort === option.key ? "default" : "ghost"}
+              size="sm"
+              className={
+                selectedSort === option.key
+                  ? "whitespace-nowrap px-4 py-2 text-sm font-medium text-purple-600 bg-purple-50 rounded-full border border-purple-200 hover:bg-purple-100"
+                  : "whitespace-nowrap px-4 py-2 text-sm font-medium text-slate-600 hover:text-purple-600 hover:bg-slate-50 rounded-full"
+              }
+              onClick={() => onSortSelect(option.key)}
+            >
+              {option.label}
             </Button>
           ))}
         </div>

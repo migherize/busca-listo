@@ -30,11 +30,11 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
 
           {/* User Actions */}
           <div className="flex items-center space-x-4">
-            <button className="text-slate-600 hover:text-blue-600 transition-colors">
-              <Heart className="h-5 w-5" />
-            </button>
-            <button className="text-slate-600 hover:text-blue-600 transition-colors">
-              <User className="h-5 w-5" />
+            <button
+              className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors"
+              onClick={() => window.open("/register-store", "_blank")}
+            >
+              Registrar Tienda
             </button>
           </div>
         </div>

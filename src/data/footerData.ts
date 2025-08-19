@@ -1,0 +1,57 @@
+import { Facebook, Twitter, Instagram, Mail, Phone, MapPinIcon, PillBottle, Tag, HelpCircle, LifeBuoy } from "lucide-react";
+import type { FooterData } from "./Footer";
+
+export const footerData: FooterData = {
+  branding: {
+    name: "Busca Listo",
+    icon: PillBottle,
+    description:
+      "Una solución integral diseñada para conectar personas, negocios y oportunidades de manera simple. Encuentra los mejores productos, compara precios y descubre ofertas en un solo lugar.",
+    socialLinks: [
+      { label: "Facebook", href: "#", icon: Facebook },
+      { label: "Twitter", href: "#", icon: Twitter },
+      { label: "Instagram", href: "#", icon: Instagram },
+    ],
+    storeCTA: {
+      text: "Registrar Tienda",
+      description: "Registra tu tienda en Busca Listo y alcanza más clientes rápidamente.",
+      href: "/register-store",
+      icon: PillBottle,
+    },
+  },
+  sections: [
+    {
+      title: "Categorías",
+      icon: Tag,
+      links: [
+        { label: "Medicamentos", href: "#" },
+        { label: "Vitaminas", href: "#" },
+        { label: "Suplementos", href: "#" },
+        { label: "Cuidado Personal", href: "#" },
+        { label: "Belleza", href: "#" },
+        { label: "Ropa", href: "#" },
+        { label: "Zapatos", href: "#" },
+        { label: "Teléfonos", href: "#" },
+      ],
+    },
+    {
+      title: "Soporte",
+      icon: HelpCircle,
+      links: [
+        { label: "Centro de ayuda", href: "/help" },
+        { label: "Términos y condiciones", href: "/terms" },
+        { label: "Política de privacidad", href: "/privacy" },
+      ],
+    },
+    {
+      title: "Contacto",
+      icon: LifeBuoy,
+      links: [
+        { label: "contacto@buscalisto.com", href: "mailto:contacto@buscalisto.com", icon: Mail },
+        { label: "+1 (555) 123-4567", href: "tel:+15551234567", icon: Phone },
+        { label: "Ciudad, País", href: "#", icon: MapPinIcon },
+      ],
+    },
+  ],
+  copyright: `© ${new Date().getFullYear()} Busca Listo. Todos los derechos reservados.`,
+};
