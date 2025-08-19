@@ -2,6 +2,8 @@
   import { Header } from "@/components/layout/Header";
   import { CategoryNavbar } from "@/components/products/CategoryNavbar";
   import { ProductGrid } from "@/components/products/ProductGrid";
+  import { DealsCarousel } from "@/components/products/DealsCarousel";
+  import { PopularCategoryCard } from "@/components/products/PopularCategoryCard";
   import { LoadingState } from "@/components/common/LoadingState";
   import { EmptyState } from "@/components/common/EmptyState";
   import { ErrorState } from "@/components/common/ErrorState";
@@ -68,7 +70,7 @@
       .slice(0, 8);
 
     const mostViewedProducts = [...products]
-      .sort((a, b) => b.price - a.price)
+      .sort((a, b) => (b.views || 0) - (a.views || 0))
       .slice(0, 8);
 
     const offerScore = (price: number, offerPrice: number | null | undefined) => {
@@ -164,27 +166,26 @@
                 {/* Landing: Lo más reciente */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más reciente</h2>
-                  {isLoading ? <LoadingState /> : <ProductGrid products={recentProducts} />}
+                  {isLoading ? <LoadingState /> : <ProductGrid products={recentProducts} variant="recent" />}
                 </section>
 
                 {/* Landing: Lo más visto */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más visto</h2>
-                  {isLoading ? <LoadingState /> : <ProductGrid products={mostViewedProducts} />}
+                  {isLoading ? <LoadingState /> : <ProductGrid products={mostViewedProducts} variant="mostViewed" />}
                 </section>
 
                 {/* Landing: Categorías más populares (por subcategoría) */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Las categorías más populares</h2>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                     {popularSubcategories.map((sub) => (
-                      <button
+                      <PopularCategoryCard
                         key={sub}
-                        className="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-sm hover:bg-slate-100"
+                        name={sub}
+                        imageUrl={`https://source.unsplash.com/400x300/?${encodeURIComponent(sub)}`}
                         onClick={() => handlePopularSubcategoryClick(sub)}
-                      >
-                        {sub}
-                      </button>
+                      />
                     ))}
                   </div>
                 </section>
@@ -192,7 +193,7 @@
                 {/* Landing: Ofertas del día */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Ofertas del día</h2>
-                  {isLoading ? <LoadingState /> : <ProductGrid products={dailyDeals} />}
+                  {isLoading ? <LoadingState /> : <DealsCarousel products={dailyDeals} />}
                 </section>
               </>
             )}
