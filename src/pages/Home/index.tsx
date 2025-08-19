@@ -12,9 +12,9 @@
   import { CustomAdsLeft } from "@/components/ads/CustomAdsLeft";
   import { AdBannerVertical } from "@/components/ads/AdBannerVertical";
   import { useFetchData } from "@/hooks/useFetchData";
-  import type { Category } from "@shared/schema";
+  import type { Category } from "@shared/category";
   import { RecentProductsList } from "@/components/products/RecentProductCard";
-
+  import { MostViewedProductsList } from "@/components/products/MostViewedProductCard";
   export default function Home() {
     const [searchTerm, setSearchTerm] = useState("");
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
@@ -181,7 +181,7 @@
                 {/* Landing: Lo más visto */}
                 <section className="mb-10">
                   <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más visto</h2>
-                  {isLoading ? <LoadingState /> : <ProductGrid products={mostViewedProducts} variant="mostViewed" />}
+                  {isLoading ? <LoadingState /> : <MostViewedProductsList products={mostViewedProducts} />}
                 </section>
 
                 {/* Landing: Categorías más populares (por subcategoría) */}

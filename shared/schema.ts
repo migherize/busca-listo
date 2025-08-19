@@ -24,7 +24,6 @@ export const productSchema = z.object({
   requirePrescription: z.boolean(),
   supplier: z.string(),
   availableOnline: z.boolean(),
-  // Optional analytics field for most-viewed section
   views: z.number().optional(),
 });
 

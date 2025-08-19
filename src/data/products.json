@@ -32,6 +32,7 @@
                         "tipo": "Analgésicos",
                         "necesario_recipe_medico": true,
                         "nombre": "Acetaminofen-tramad 325/37.5mg X 10 Calo",
+                        "views": 75,
                         "oferta": false,
                         "precio": {
                             "bs_sin_oferta": "504.90",
