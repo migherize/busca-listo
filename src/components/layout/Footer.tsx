@@ -37,7 +37,7 @@ export function Footer() {
                 })}
               </div>
             ) : null}
-            
+
             {footerData.branding.storeCTA ? (
               <div className="mt-6">
                 <h4 className="font-semibold text-white mb-2 flex items-center space-x-2">
@@ -51,52 +51,116 @@ export function Footer() {
                   {footerData.branding.storeCTA.description}
                 </p>
                 <Link
-                    href={footerData.branding.storeCTA.href}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors inline-block text-center"
-                  >
+                  href={footerData.branding.storeCTA.href}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors inline-block text-center"
+                >
                   {footerData.branding.storeCTA.text}
                 </Link>
               </div>
             ) : null}
           </div>
 
-          {/* Secciones dinámicas (Categorías, Soporte, Contacto) */}
-          {footerData.sections.map((section) => (
-            <div key={section.title}>
-              <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
-                {(() => {
-                  const SectionIcon = section.icon;
-                  return SectionIcon ? <SectionIcon className="w-5 h-5" /> : null;
-                })()}
-                <span>{section.title}</span>
-              </h4>
-              {section.description ? (
-                <p className="text-gray-300 text-sm mb-3">{section.description}</p>
-              ) : null}
-              {section.links?.length ? (
-                <ul className="space-y-2 text-sm text-gray-300">
-                  {section.links.map((link) => {
-                    const LinkIcon = link.icon;
-                    return (
-                      <li key={`${section.title}-${link.label}`}>
-                        {link.href.startsWith("/") ? (
-                          <Link href={link.href} className="hover:text-white transition-colors">
-                            {LinkIcon ? <LinkIcon className="w-4 h-4 inline mr-2" /> : null}
-                            {link.label}
-                          </Link>
-                        ) : (
-                          <a href={link.href} className="hover:text-white transition-colors">
-                            {LinkIcon ? <LinkIcon className="w-4 h-4 inline mr-2" /> : null}
-                            {link.label}
-                          </a>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : null}
-            </div>
-          ))}
+          {/* Secciones dinámicas */}
+          <div className="col-span-1">
+            {/* Soporte */}
+            {(() => {
+              const soporteSection = footerData.sections.find(s => s.title === "Soporte");
+              if (!soporteSection) return null;
+              return (
+                <>
+                  <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
+                    {soporteSection.icon && <soporteSection.icon className="w-5 h-5" />}
+                    <span>{soporteSection.title}</span>
+                  </h4>
+                  {soporteSection.description && (
+                    <p className="text-gray-300 text-sm mb-3">{soporteSection.description}</p>
+                  )}
+                  {soporteSection.links?.length && (
+                    <ul className="space-y-2 text-sm text-gray-300 mb-6">
+                      {soporteSection.links.map(link => {
+                        const LinkIcon = link.icon;
+                        return (
+                          <li key={link.label}>
+                            {link.href.startsWith("/") ? (
+                              <Link href={link.href} className="hover:text-white transition-colors flex items-center space-x-2">
+                                {LinkIcon && <LinkIcon className="w-4 h-4 inline" />}
+                                <span>{link.label}</span>
+                              </Link>
+                            ) : (
+                              <a href={link.href} className="hover:text-white transition-colors flex items-center space-x-2">
+                                {LinkIcon && <LinkIcon className="w-4 h-4 inline" />}
+                                <span>{link.label}</span>
+                              </a>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </>
+              );
+            })()}
+
+            {/* Contacto */}
+            {(() => {
+              const contactoSection = footerData.sections.find(s => s.title === "Contacto");
+              if (!contactoSection) return null;
+              return (
+                <>
+                  <h4 className="flex items-center font-semibold text-white mt-6 mb-2 space-x-2">
+                    {contactoSection.icon && <contactoSection.icon className="w-5 h-5" />}
+                    <span>{contactoSection.title}</span>
+                  </h4>
+                  <div className="space-y-2 text-gray-300 text-sm">
+                    {contactoSection.links.map(link => (
+                      <p key={link.label} className="flex items-center space-x-2">
+                        {link.icon && <link.icon className="w-4 h-4 inline" />}
+                        <span>{link.label}</span>
+                      </p>
+                    ))}
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+
+          {/* Otras secciones (Categorías u otras) */}
+          {footerData.sections
+            .filter(s => s.title !== "Soporte" && s.title !== "Contacto")
+            .map(section => (
+              <div key={section.title}>
+                <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
+                  {section.icon && <section.icon className="w-5 h-5" />}
+                  <span>{section.title}</span>
+                </h4>
+                {section.description && (
+                  <p className="text-gray-300 text-sm mb-3">{section.description}</p>
+                )}
+                {section.links?.length && (
+                  <ul className="space-y-2 text-sm text-gray-300">
+                    {section.links.map(link => {
+                      const LinkIcon = link.icon;
+                      return (
+                        <li key={link.label}>
+                          {link.href.startsWith("/") ? (
+                            <Link href={link.href} className="hover:text-white transition-colors flex items-center space-x-2">
+                              {LinkIcon && <LinkIcon className="w-4 h-4 inline" />}
+                              <span>{link.label}</span>
+                            </Link>
+                          ) : (
+                            <a href={link.href} className="hover:text-white transition-colors flex items-center space-x-2">
+                              {LinkIcon && <LinkIcon className="w-4 h-4 inline" />}
+                              <span>{link.label}</span>
+                            </a>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+            ))}
+
         </div>
 
         {/* Copyright */}
