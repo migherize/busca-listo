@@ -42,7 +42,7 @@ export default function Home() {
 
   // Recientes desde backend
   const { data: backendRecentProducts, isLoading: isLoadingRecent } = useRecentProducts();
-
+  console.log("Backend recent products:", backendRecentProducts);
   // Reset to first page when category changes
   useEffect(() => {
     setCurrentPage(1);
