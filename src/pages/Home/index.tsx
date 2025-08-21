@@ -14,6 +14,7 @@ import { AdBannerVertical } from "@/components/ads/AdBannerVertical";
 import { useFetchData } from "@/hooks/useFetchData";
 import type { Category } from "@shared/category";
 import { RecentProductsList } from "@/components/products/RecentProductCard";
+import { useRecentProducts } from "@/hooks/useRecentProducts";
 import { MostViewedProductsList } from "@/components/products/MostViewedProductCard";
 import { categoryImages } from "@shared/category";
 
@@ -38,6 +39,9 @@ export default function Home() {
     searchTerm: debouncedSearchTerm,
     selectedCategory,
   });
+
+  // Recientes desde backend
+  const { data: backendRecentProducts, isLoading: isLoadingRecent } = useRecentProducts();
 
   // Reset to first page when category changes
   useEffect(() => {
@@ -68,9 +72,10 @@ export default function Home() {
   const isSearchMode = (debouncedSearchTerm && debouncedSearchTerm.trim() !== "") || selectedCategory !== "all";
 
   // Landing sections (computed from all/filtered products)
-  const recentProducts = [...products]
-    .sort((a, b) => parseInt(b.id, 10) - parseInt(a.id, 10))
-    .slice(0, 8);
+  const recentProducts = (backendRecentProducts && backendRecentProducts.length > 0
+    ? backendRecentProducts
+    : [...products].sort((a, b) => parseInt(b.id, 10) - parseInt(a.id, 10))
+  ).slice(0, 8);
 
   const mostViewedProducts = [...products]
     .sort((a, b) => (b.views || 0) - (a.views || 0))
@@ -172,7 +177,7 @@ export default function Home() {
                   {/* Landing: Lo más reciente */}
                   <section className="mb-10">
                     <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más reciente</h2>
-                    {isLoading ? <LoadingState /> : <RecentProductsList products={recentProducts} />}
+                    {isLoadingRecent || isLoading ? <LoadingState /> : <RecentProductsList products={recentProducts} />}
                   </section>
 
                   {/* Landing: Lo más visto */}
