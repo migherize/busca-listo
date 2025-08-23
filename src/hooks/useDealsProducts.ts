@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { apiService } from "@/services/apiService";
 
-export function useRecentProducts(limit?: number) {
+export function useDealsProducts(limit?: number) {
   return useQuery<Product[]>({
-    queryKey: ["products", "recientes", limit],
+    queryKey: ["products", "deals", limit],
     queryFn: async () => {
-      const response = await apiService.getRecentProducts(limit);
+      const response = await apiService.getDealsProducts(limit);
       if (!response.success) {
-        throw new Error(response.error || "Error al cargar productos");
+        throw new Error(response.error || "Error al cargar productos en oferta");
       }
       return response.data;
     },
