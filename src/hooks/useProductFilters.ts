@@ -93,3 +93,4 @@ export function useProductFilters(initialFilters: Partial<ProductFilters> = {}) 
     getFilterSummary,
   };
 }
+

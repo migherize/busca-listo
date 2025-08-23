@@ -94,3 +94,4 @@ export function useProductPagination({
     resetToFirstPage: () => setCurrentPage(1),
   };
 }
+

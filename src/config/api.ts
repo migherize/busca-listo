@@ -3,7 +3,7 @@ export const API_CONFIG = {
   
   ENDPOINTS: {
     PRODUCTS: {
-      RECENT: "/productos/top/newest", //products/top/recent
+      RECENT: "/productos/top/newest", //TODO: cambiar a products/top/recent
       MOST_VIEWED: "/products/top/viewed",
       DEALS: "/products/deals",
       BY_CATEGORY: "/products/category",
@@ -36,3 +36,4 @@ export const buildApiUrl = (endpoint: string, params?: Record<string, string | n
   
   return url.toString();
 };
+
