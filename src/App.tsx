@@ -1,35 +1,31 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { Route, Switch } from "wouter";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import Home from "@/pages/Home";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import Home from "@/pages/Home/index";
 import NotFound from "@/pages/NotFound";
 import OurServices from "@/pages/OurServices";
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/register-store" component={OurServices} />
-      {/* <Route path="/services/register" component={Register} /> */}
-      {/* <Route path="/services/subscriptions" component={Subscriptions} /> */}
-      {/* <Route path="/help">⚡ Página de ayuda</Route>
-      <Route path="/contact">📩 Página de contacto</Route>
-      <Route path="/terms">📜 Términos y condiciones</Route>
-      <Route path="/privacy">🔒 Política de privacidad</Route> */}
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
+import ProductDetail from "@/pages/ProductDetail";
+import { queryClient } from "@/lib/queryClient";
+import "./index.css";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1">
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/services" component={OurServices} />
+            <Route path="/product/:id" component={ProductDetail} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+        <Footer />
         <Toaster />
-        <Router />
-      </TooltipProvider>
+      </div>
     </QueryClientProvider>
   );
 }

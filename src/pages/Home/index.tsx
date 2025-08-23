@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Header } from "@/components/layout/Header";
 import { CategoryNavbar } from "@/components/products/CategoryNavbar";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { DealsCarousel } from "@/components/products/DealsCarousel";
@@ -8,7 +7,6 @@ import { LoadingState } from "@/components/common/LoadingState";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Pagination } from "@/components/common/Pagination";
-import { Footer } from "@/components/layout/Footer";
 import { CustomAdsLeft } from "@/components/ads/CustomAdsLeft";
 import { AdBannerVertical } from "@/components/ads/AdBannerVertical";
 import { useFetchData } from "@/hooks/useFetchData";
@@ -113,7 +111,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-50 overflow-x-hidden">
-      <Header searchTerm={searchTerm} onSearchChange={handleSearchChange} />
+
 
       {isSearchMode && (
         <CategoryNavbar
@@ -218,7 +216,6 @@ export default function Home() {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 }

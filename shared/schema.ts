@@ -18,6 +18,7 @@ export const productSchema = z.object({
   price: z.number(),
   offerPrice: z.number().nullable().optional(),
   imageUrl: z.string(),
+  imageUrls: z.array(z.string()).optional(), // Lista de imágenes para carrusel
   stock: z.number(),
   url: z.string(),
   offerDescription: z.string().nullable().optional(),
@@ -25,6 +26,23 @@ export const productSchema = z.object({
   supplier: z.string(),
   availableOnline: z.boolean(),
   views: z.number().optional(),
+  
+  // Campos adicionales del backend
+  description: z.string().nullable().optional(),
+  characteristics: z.string().nullable().optional(),
+  advancedCharacteristics: z.string().nullable().optional(),
+  accessories: z.string().nullable().optional(),
+  highlightedFeatures: z.string().nullable().optional(),
+  pros: z.string().nullable().optional(),
+  cons: z.string().nullable().optional(),
+  historicalPrice: z.number().nullable().optional(),
+  priceUSD: z.number().nullable().optional(),
+  
+  // Metadatos
+  createdAt: z.string().nullable().optional(),
+  createdBy: z.string().nullable().optional(),
+  isActive: z.boolean().optional(),
+  code: z.string().nullable().optional(),
 });
 
 export type Product = z.infer<typeof productSchema>;

@@ -251,7 +251,29 @@ function MyComponent() {
 }
 ```
 
-### 11. `useApiStatus` ⭐ **NUEVO**
+### 11. `useProductById` ⭐ **NUEVO**
+Obtiene un producto individual por ID con fallback automático.
+
+```tsx
+import { useProductById } from '@/hooks';
+
+function ProductDetail({ productId }: { productId: string }) {
+  const { data: product, isLoading, error } = useProductById(productId);
+  
+  if (isLoading) return <div>Cargando producto...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  
+  return (
+    <div>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+      {/* Resto de la información del producto */}
+    </div>
+  );
+}
+```
+
+### 12. `useApiStatus` ⭐ **NUEVO**
 Detecta el estado de la API y proporciona indicadores visuales.
 
 ```tsx
@@ -273,6 +295,56 @@ function MyComponent() {
     </div>
   );
 }
+```
+
+## Página de Detalle del Producto 🆕
+
+### **📱 Características de la Página**
+
+- **🖼️ Carrusel de Imágenes**: Soporte para múltiples imágenes con vista fullscreen
+- **💰 Información de Precios**: Precio actual, ofertas, histórico y USD
+- **📋 Características Detalladas**: Principales, avanzadas, pros/cons, accesorios
+- **💬 Sistema de Comentarios**: Reseñas con calificaciones y respuestas
+- **📱 Diseño Responsivo**: Optimizado para móvil y desktop
+- **🔄 Fallback Automático**: Funciona con API o datos mockup
+
+### **🔗 URL de Acceso**
+
+```
+/product/{id}
+```
+
+Ejemplo: `/product/9` para el producto con ID 9
+
+### **📁 Componentes de la Página**
+
+```
+src/
+├── pages/
+│   └── ProductDetail/
+│       └── index.tsx          # Página principal
+├── components/
+│   └── products/
+│       ├── ProductImageCarousel.tsx    # Carrusel de imágenes
+│       ├── ProductFeatures.tsx         # Características del producto
+│       ├── ProductPricing.tsx          # Información de precios
+│       └── ProductComments.tsx         # Sistema de comentarios
+```
+
+### **🎨 Uso de la Página**
+
+```tsx
+import { ProductDetail } from '@/pages/ProductDetail';
+
+// En tu router
+<Route path="/product/:id" component={ProductDetail} />
+
+// O navegar programáticamente
+import { useLocation } from 'wouter';
+const [, setLocation] = useLocation();
+
+// Al hacer click en un producto
+setLocation(`/product/${product.id}`);
 ```
 
 ## Características Comunes
@@ -364,6 +436,7 @@ import {
   useRecentProducts, 
   useMostViewedProducts, 
   useDealsProducts,
+  useProductById,
   API_CONFIG,
   useApiStatus 
 } from '@/hooks';
@@ -392,14 +465,23 @@ src/
 │   ├── useFilteredProducts.ts
 │   ├── useProductPagination.ts
 │   ├── useProductFilters.ts
-│   ├── useApiStatus.ts        # Hook para estado de la API
-│   ├── index.ts              # Exportaciones de hooks
-│   └── README.md             # Esta documentación
+│   ├── useProductById.ts        # Hook para producto individual
+│   ├── useApiStatus.ts          # Hook para estado de la API
+│   ├── index.ts                 # Exportaciones de hooks
+│   └── README.md                # Esta documentación
 ├── components/
-│   └── common/
-│       └── ApiStatusIndicator.tsx  # Indicadores de estado de API
+│   ├── common/
+│   │   └── ApiStatusIndicator.tsx  # Indicadores de estado de API
+│   └── products/
+│       ├── ProductImageCarousel.tsx # Carrusel de imágenes
+│       ├── ProductFeatures.tsx      # Características del producto
+│       ├── ProductPricing.tsx       # Información de precios
+│       └── ProductComments.tsx      # Sistema de comentarios
+├── pages/
+│   └── ProductDetail/
+│       └── index.tsx              # Página de detalle del producto
 └── data/
-    └── products.json          # Datos mockup de respaldo
+    └── products.json              # Datos mockup de respaldo
 ```
 
 ## Ventajas del Sistema de Fallback
@@ -411,3 +493,25 @@ src/
 5. **🛡️ Robustez**: Múltiples capas de fallback
 6. **📊 Monitoreo**: Indicadores visuales del estado
 7. **🔄 Reconexión Automática**: Se recupera cuando la API vuelve
+
+## Campos del Producto Disponibles
+
+### **Campos Básicos**
+- `id`, `name`, `brand`, `category`, `subcategory`
+- `price`, `offerPrice`, `imageUrl`, `stock`, `url`
+- `requirePrescription`, `supplier`, `availableOnline`, `views`
+
+### **Campos Extendidos** 🆕
+- `imageUrls`: Array de imágenes para carrusel
+- `description`: Descripción detallada del producto
+- `characteristics`: Características principales
+- `advancedCharacteristics`: Características avanzadas
+- `accessories`: Accesorios incluidos
+- `highlightedFeatures`: Características destacadas
+- `pros`: Ventajas del producto
+- `cons`: Consideraciones
+- `historicalPrice`: Precio histórico
+- `priceUSD`: Precio en dólares
+- `createdAt`, `createdBy`, `isActive`, `code`
+
+Todos estos campos se muestran automáticamente en la página de detalle del producto cuando están disponibles.
