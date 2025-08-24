@@ -10,9 +10,10 @@ import type { StoreRegistrationData, SubscriptionPlan } from "@/types/subscripti
 interface SubscriptionSelectionProps {
   storeData: StoreRegistrationData;
   onBack: () => void;
+  onSuccess: (planId: string) => void;
 }
 
-export function SubscriptionSelection({ storeData, onBack }: SubscriptionSelectionProps) {
+export function SubscriptionSelection({ storeData, onBack, onSuccess }: SubscriptionSelectionProps) {
   const [selectedPlan, setSelectedPlan] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,17 +36,14 @@ export function SubscriptionSelection({ storeData, onBack }: SubscriptionSelecti
       }
 
       // Enviar email de confirmación al propietario de la tienda
-      const emailSent = await emailService.sendStoreRegistrationConfirmation(storeData, plan);
+      const emailSent = await emailService.sendStoreRegistrationConfirmation(storeData, plan as any);
       
       if (emailSent) {
         // Enviar notificación al equipo (opcional)
-        await emailService.sendTeamNotification(storeData, plan);
+        await emailService.sendTeamNotification(storeData, plan as any);
         
-        // Mostrar mensaje de éxito
-        alert("¡Registro exitoso! Hemos enviado un email de confirmación a tu correo.");
-        
-        // Aquí podrías redirigir a una página de éxito o dashboard
-        window.location.href = "/";
+        // Llamar a la función de éxito en lugar de redirigir
+        onSuccess(selectedPlan);
       } else {
         throw new Error("Error al enviar email de confirmación");
       }

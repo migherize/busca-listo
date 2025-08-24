@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Store, Mail, Phone, MapPin, Building } from "lucide-react";
 import type { StoreRegistrationData } from "@/types/subscription";
 import { SubscriptionSelection } from "@/components/store/SubscriptionSelection";
+import { RegistrationSuccess } from "@/components/store/RegistrationSuccess";
 
 interface StoreFormData extends StoreRegistrationData {}
 
@@ -25,6 +26,7 @@ export default function RegisterStore() {
   });
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   const handleInputChange = (field: keyof StoreFormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -73,6 +75,14 @@ export default function RegisterStore() {
               currentStep >= 2 ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-gray-300 text-gray-500'
             }`}>
               2
+            </div>
+            <div className={`w-16 h-1 ${
+              currentStep >= 3 ? 'bg-blue-600' : 'bg-gray-300'
+            }`}></div>
+            <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
+              currentStep >= 3 ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-gray-300 text-gray-500'
+            }`}>
+              3
             </div>
           </div>
         </div>
@@ -247,6 +257,18 @@ export default function RegisterStore() {
           <SubscriptionSelection 
             storeData={formData} 
             onBack={() => setCurrentStep(1)}
+            onSuccess={(planId) => {
+              setSelectedPlan(planId);
+              setCurrentStep(3);
+            }}
+          />
+        )}
+
+        {currentStep === 3 && (
+          <RegistrationSuccess 
+            storeName={formData.storeName}
+            ownerName={formData.ownerName}
+            selectedPlan={selectedPlan}
           />
         )}
       </div>
