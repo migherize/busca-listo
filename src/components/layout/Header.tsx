@@ -1,9 +1,9 @@
 import { Search, Heart, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useSearch } from "@/contexts/SearchContext";
 
 export function Header() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const { searchTerm, setSearchTerm } = useSearch();
   return (
     <header className="bg-white shadow-sm border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

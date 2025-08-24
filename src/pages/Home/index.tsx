@@ -15,9 +15,10 @@ import { RecentProductsList } from "@/components/products/RecentProductCard";
 import { useRecentProducts } from "@/hooks/useRecentProducts";
 import { MostViewedProductsList } from "@/components/products/MostViewedProductCard";
 import { categoryImages } from "@shared/category";
+import { useSearch } from "@/contexts/SearchContext";
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const { searchTerm, setSearchTerm } = useSearch();
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);

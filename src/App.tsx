@@ -12,29 +12,32 @@ import Help from "@/pages/Help";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import { queryClient } from "@/lib/queryClient";
+import { SearchProvider } from "@/contexts/SearchContext";
 import "./index.css";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">
-          <Switch>
-            <Route path="/" component={Home} />
-            <Route path="/about" component={OurServices} />
-            <Route path="/services" component={OurServices} />
-            <Route path="/product/:id" component={ProductDetail} />
-            <Route path="/register-store" component={RegisterStore} />
-            <Route path="/help" component={Help} />
-            <Route path="/terms" component={Terms} />
-            <Route path="/privacy" component={Privacy} />
-            <Route component={NotFound} />
-          </Switch>
-        </main>
-        <Footer />
-        <Toaster />
-      </div>
+      <SearchProvider>
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1">
+            <Switch>
+              <Route path="/" component={Home} />
+              <Route path="/about" component={OurServices} />
+              <Route path="/services" component={OurServices} />
+              <Route path="/product/:id" component={ProductDetail} />
+              <Route path="/register-store" component={RegisterStore} />
+              <Route path="/help" component={Help} />
+              <Route path="/terms" component={Terms} />
+              <Route path="/privacy" component={Privacy} />
+              <Route component={NotFound} />
+            </Switch>
+          </main>
+          <Footer />
+          <Toaster />
+        </div>
+      </SearchProvider>
     </QueryClientProvider>
   );
 }
