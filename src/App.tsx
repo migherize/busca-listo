@@ -8,6 +8,9 @@ import NotFound from "@/pages/NotFound";
 import OurServices from "@/pages/OurServices";
 import ProductDetail from "@/pages/ProductDetail";
 import RegisterStore from "@/pages/RegisterStore";
+import Help from "@/pages/Help";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
 import { queryClient } from "@/lib/queryClient";
 import "./index.css";
 
@@ -19,9 +22,13 @@ function App() {
         <main className="flex-1">
           <Switch>
             <Route path="/" component={Home} />
+            <Route path="/about" component={OurServices} />
             <Route path="/services" component={OurServices} />
             <Route path="/product/:id" component={ProductDetail} />
             <Route path="/register-store" component={RegisterStore} />
+            <Route path="/help" component={Help} />
+            <Route path="/terms" component={Terms} />
+            <Route path="/privacy" component={Privacy} />
             <Route component={NotFound} />
           </Switch>
         </main>

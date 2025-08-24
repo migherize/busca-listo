@@ -58,6 +58,9 @@ Alias de paths (Vite/TS):
 - Cada página vive en su carpeta con `index.tsx` y se importa como `@/pages/Nombre`.
 - **Nuevas rutas agregadas:**
   - `/register-store` - Sistema de registro de tiendas
+  - `/help` - Centro de ayuda y soporte
+  - `/terms` - Términos y condiciones
+  - `/privacy` - Política de privacidad
 
 ## Estándares de código
 
@@ -97,4 +100,19 @@ Requisitos: Node 18+.
 Ver `EMAIL_IMPLEMENTATION.md` para implementar envío real de emails con SendGrid, Mailgun o AWS SES.
 
 ### Variables de Entorno
-Copiar `env.example` a `.env` y configurar credenciales del servicio de email elegido. 
+Copiar `env.example` a `.env` y configurar credenciales del servicio de email elegido.
+
+## Páginas del Footer
+
+### Características
+- ✅ **Centro de Ayuda**: FAQ organizadas, métodos de contacto, recursos útiles
+- ✅ **Términos y Condiciones**: 10 secciones legales, resumen ejecutivo, contacto legal
+- ✅ **Política de Privacidad**: Manejo transparente de datos, derechos del usuario, seguridad
+
+### Diseño
+- UI moderna con gradientes y iconos temáticos
+- Responsive design para todos los dispositivos
+- Navegación interna entre páginas relacionadas
+- CTAs prominentes para contacto y soporte
+
+Ver `FOOTER_PAGES_GUIDE.md` para documentación completa de estas páginas. 
