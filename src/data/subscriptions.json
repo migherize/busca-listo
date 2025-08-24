@@ -1,0 +1,55 @@
+{
+  "subscriptions": [
+    {
+      "id": "basic",
+      "name": "Básico",
+      "price": 0,
+      "currency": "USD",
+      "features": {
+        "products": 30,
+        "ads": false,
+        "listingPriority": "none",
+        "locations": "limited",
+        "statistics": false,
+        "support": "basic",
+        "extras": []
+      },
+      "description": "Plan ideal para pequeñas tiendas que están comenzando",
+      "popular": false
+    },
+    {
+      "id": "medium",
+      "name": "Medio",
+      "price": 10,
+      "currency": "USD",
+      "features": {
+        "products": 100,
+        "ads": true,
+        "listingPriority": "medium",
+        "locations": "sidebar_internal",
+        "statistics": false,
+        "support": "standard",
+        "extras": ["personalized_links"]
+      },
+      "description": "Perfecto para tiendas en crecimiento con necesidades moderadas",
+      "popular": true
+    },
+    {
+      "id": "premium",
+      "name": "Premium",
+      "price": 30,
+      "currency": "USD",
+      "features": {
+        "products": 500,
+        "ads": true,
+        "listingPriority": "high",
+        "locations": "home_sidebar_exclusive",
+        "statistics": true,
+        "support": "priority",
+        "extras": ["exclusive_locations", "special_campaigns"]
+      },
+      "description": "Solución completa para tiendas establecidas que buscan maximizar su presencia",
+      "popular": false
+    }
+  ]
+}

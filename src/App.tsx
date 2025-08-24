@@ -7,6 +7,7 @@ import Home from "@/pages/Home/index";
 import NotFound from "@/pages/NotFound";
 import OurServices from "@/pages/OurServices";
 import ProductDetail from "@/pages/ProductDetail";
+import RegisterStore from "@/pages/RegisterStore";
 import { queryClient } from "@/lib/queryClient";
 import "./index.css";
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" component={Home} />
             <Route path="/services" component={OurServices} />
             <Route path="/product/:id" component={ProductDetail} />
+            <Route path="/register-store" component={RegisterStore} />
             <Route component={NotFound} />
           </Switch>
         </main>
