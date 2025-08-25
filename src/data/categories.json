@@ -1,0 +1,94 @@
+{
+  "categories": [
+    {
+      "id": "medicamentos",
+      "name": "Medicamentos",
+      "description": "Medicamentos de venta libre y con receta",
+      "image": "/assets/categories/medicamentos.jpg",
+      "productCount": 1250,
+      "popular": true,
+      "subcategories": [
+        "analgésicos",
+        "antibióticos",
+        "vitaminas",
+        "antigripales",
+        "dermatológicos"
+      ]
+    },
+    {
+      "id": "cosmeticos",
+      "name": "Cosméticos",
+      "description": "Productos de belleza y cuidado personal",
+      "image": "/assets/categories/cosmeticos.jpg",
+      "productCount": 890,
+      "popular": true,
+      "subcategories": [
+        "cuidado facial",
+        "maquillaje",
+        "perfumes",
+        "cuidado corporal",
+        "cabello"
+      ]
+    },
+    {
+      "id": "suplementos",
+      "name": "Suplementos",
+      "description": "Vitaminas, minerales y suplementos nutricionales",
+      "image": "/assets/categories/suplementos.jpg",
+      "productCount": 456,
+      "popular": true,
+      "subcategories": [
+        "vitaminas",
+        "minerales",
+        "proteínas",
+        "omega-3",
+        "antioxidantes"
+      ]
+    },
+    {
+      "id": "equipos",
+      "name": "Equipos Médicos",
+      "description": "Equipos y dispositivos médicos",
+      "image": "/assets/categories/equipos.jpg",
+      "productCount": 234,
+      "popular": false,
+      "subcategories": [
+        "termómetros",
+        "tensiómetros",
+        "oxímetros",
+        "glucómetros",
+        "inhaladores"
+      ]
+    },
+    {
+      "id": "higiene",
+      "name": "Higiene Personal",
+      "description": "Productos de higiene y limpieza",
+      "image": "/assets/categories/higiene.jpg",
+      "productCount": 567,
+      "popular": true,
+      "subcategories": [
+        "jabones",
+        "shampoos",
+        "pasta dental",
+        "desodorantes",
+        "papel higiénico"
+      ]
+    },
+    {
+      "id": "bebes",
+      "name": "Bebés y Niños",
+      "description": "Productos especializados para bebés y niños",
+      "image": "/assets/categories/bebes.jpg",
+      "productCount": 345,
+      "popular": false,
+      "subcategories": [
+        "pañales",
+        "leche en polvo",
+        "juguetes",
+        "ropa",
+        "cuidado"
+      ]
+    }
+  ]
+}

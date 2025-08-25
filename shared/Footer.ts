@@ -17,6 +17,7 @@ export interface FooterData {
   branding: {
     name: string;
     icon?: Icon;
+    logo?: string;
     description: string;
     socialLinks: FooterLink[];
     storeCTA?: {

@@ -11,6 +11,7 @@ export const footerData: FooterData = {
   branding: {
     name: "Busca Listo",
     icon: PillBottle,
+    logo: "/assets/logo1.jpeg",
     description:
       "Una solución integral diseñada para conectar personas, negocios y oportunidades de manera simple. Encuentra los mejores productos, compara precios y descubre ofertas en un solo lugar.",
     socialLinks: [
@@ -27,9 +28,22 @@ export const footerData: FooterData = {
   },
   sections: [
     {
-      title: "Categorías",
-      icon: Tag,
-      links: categoryLinks,
+      title: "Empresa",
+      icon: PillBottle,
+      links: [
+        { label: "Sobre Nosotros", href: "/about" },
+        { label: "Nuestros Servicios", href: "/services" },
+        { label: "Registrar Tienda", href: "/register-store" },
+      ],
+    },
+    {
+      title: "Contacto",
+      icon: LifeBuoy,
+      links: [
+        { label: "contacto@buscalisto.com", href: "mailto:contacto@buscalisto.com", icon: Mail },
+        { label: "+1 (555) 123-4567", href: "tel:+15551234567", icon: Phone },
+        { label: "Ciudad, País", href: "#", icon: MapPinIcon },
+      ],
     },
     {
       title: "Soporte",
@@ -41,13 +55,9 @@ export const footerData: FooterData = {
       ],
     },
     {
-      title: "Contacto",
-      icon: LifeBuoy,
-      links: [
-        { label: "contacto@buscalisto.com", href: "mailto:contacto@buscalisto.com", icon: Mail },
-        { label: "+1 (555) 123-4567", href: "tel:+15551234567", icon: Phone },
-        { label: "Ciudad, País", href: "#", icon: MapPinIcon },
-      ],
+      title: "Categorías",
+      icon: Tag,
+      links: categoryLinks,
     },
   ],
   copyright: `© ${new Date().getFullYear()} Busca Listo. Todos los derechos reservados.`,

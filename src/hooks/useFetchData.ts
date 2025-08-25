@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { mockProducts } from "@/mockProducts";
-import type { Product, Category } from "@shared/schema";
+import { getMockProducts } from "@/mockProducts";
+import type { Product } from "@shared/schema";
 
 interface UseFetchDataProps {
   searchTerm: string;
-  selectedCategory: Category | "all";
+  selectedCategory: string | "all";
 }
 
 interface UseFetchDataReturn {
@@ -27,26 +27,11 @@ export const useFetchData = ({ searchTerm, selectedCategory }: UseFetchDataProps
       // Simular delay de API
       await new Promise(resolve => setTimeout(resolve, 800));
 
-      let filteredProducts = mockProducts;
-
-      // Filtrar por categoría
-      if (selectedCategory !== "all") {
-        filteredProducts = filteredProducts.filter(
-          product => product.category === selectedCategory
-        );
-      }
-
-      // Filtrar por término de búsqueda
-      if (searchTerm.trim()) {
-        const searchLower = searchTerm.toLowerCase().trim();
-        filteredProducts = filteredProducts.filter(
-          product =>
-            product.name.toLowerCase().includes(searchLower) ||
-            product.brand.toLowerCase().includes(searchLower) ||
-            product.category.toLowerCase().includes(searchLower) ||
-            product.subcategory.toLowerCase().includes(searchLower)
-        );
-      }
+      // Usar la nueva función getMockProducts que ya maneja filtros
+      const filteredProducts = getMockProducts({
+        category: selectedCategory,
+        searchTerm,
+      });
 
       setProducts(filteredProducts);
     } catch (err) {

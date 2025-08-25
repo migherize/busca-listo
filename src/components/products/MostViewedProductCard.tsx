@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PriceTag } from "@/components/products/PriceTag";
 import type { Product } from "@shared/schema";
 import { Link } from "wouter";
+import { useMostViewedProducts } from "@/hooks";
 
 export function MostViewedProductCard({ product }: { product: Product }) {
   return (
@@ -39,11 +40,30 @@ export function MostViewedProductCard({ product }: { product: Product }) {
 }
 
 interface MostViewedProductsList {
-  products: Product[];
   maxProducts?: number; // por defecto 4
 }
 
-export function MostViewedProductsList({ products, maxProducts = 4 }: MostViewedProductsList) {
+export function MostViewedProductsList({ maxProducts = 4 }: MostViewedProductsList) {
+  const { data: products, isLoading, error } = useMostViewedProducts(maxProducts);
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        {Array.from({ length: maxProducts }).map((_, index) => (
+          <div key={index} className="bg-gray-200 animate-pulse rounded-lg h-64"></div>
+        ))}
+      </div>
+    );
+  }
+
+  if (error || !products) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-red-500">Error al cargar productos más vistos</p>
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
       {products.slice(0, maxProducts).map((product) => (

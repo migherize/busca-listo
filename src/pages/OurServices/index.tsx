@@ -23,7 +23,8 @@ import {
   ArrowRight,
   Mail,
   Phone,
-  MapPinIcon
+  MapPinIcon,
+  Users
 } from 'lucide-react';
 
 export default function OurServices() {
@@ -72,15 +73,15 @@ export default function OurServices() {
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                  Más clientes, más ventas, 
-                  <span className="text-yellow-300"> sin costo inicial</span>
+                  Conectando personas con 
+                  <span className="text-yellow-300"> las mejores ofertas</span>
                 </h1>
                 <h2 className="text-xl md:text-2xl font-medium mb-6 text-blue-100">
-                  Tu farmacia online en minutos, gratis.
+                  La plataforma líder en comparación de precios
                 </h2>
                 <p className="text-lg text-blue-100 mb-8 leading-relaxed">
-                  Llega a cientos de personas que buscan medicamentos cerca de ti. 
-                  Crea tu perfil gratis y aumenta tu visibilidad sin anuncios.
+                  En Busca Listo, creemos que todos merecen encontrar los mejores productos 
+                  al mejor precio. Conectamos compradores inteligentes con tiendas confiables.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
@@ -276,6 +277,96 @@ export default function OurServices() {
                   Análisis detallado de ventas y comportamiento de tus clientes.
                 </p>
               </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Sobre Nosotros Section */}
+        <section className="mb-12">
+          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Sobre Busca Listo
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Somos una plataforma innovadora que revoluciona la forma en que las personas 
+                encuentran y comparan productos en línea.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Users className="text-blue-600 text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Nuestra Misión</h3>
+                    <p className="text-gray-600">
+                      Conectar a compradores inteligentes con las mejores ofertas, 
+                      facilitando decisiones de compra informadas y ahorrando tiempo y dinero.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Eye className="text-green-600 text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Nuestra Visión</h3>
+                    <p className="text-gray-600">
+                      Ser la plataforma líder en comparación de precios, reconocida por 
+                      su transparencia, confiabilidad y valor para usuarios y comercios.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Shield className="text-purple-600 text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Nuestros Valores</h3>
+                    <p className="text-gray-600">
+                      Transparencia, confiabilidad, innovación y compromiso con la 
+                      satisfacción del usuario en cada interacción.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+                  ¿Por qué elegir Busca Listo?
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <span className="text-gray-700">Comparación de precios en tiempo real</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <span className="text-gray-700">Miles de tiendas verificadas</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <span className="text-gray-700">Filtros avanzados de búsqueda</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <span className="text-gray-700">Reseñas y calificaciones auténticas</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <span className="text-gray-700">Soporte al cliente 24/7</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <span className="text-gray-700">Aplicación móvil disponible</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

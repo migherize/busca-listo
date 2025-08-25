@@ -7,8 +7,21 @@ export function Footer() {
     <footer className="bg-gray-800 text-white py-12 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Branding */}
+          
+          {/* Branding - Primeras dos columnas */}
           <div className="col-span-1 md:col-span-2">
+            {/* Logo */}
+            {footerData.branding.logo && (
+              <div className="mb-4">
+                <img 
+                  src={footerData.branding.logo} 
+                  alt={`${footerData.branding.name} Logo`}
+                  className="h-24 w-auto object-contain"
+                />
+              </div>
+            )}
+            
+            {/* Nombre de la empresa */}
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
                 {(() => {
@@ -18,6 +31,8 @@ export function Footer() {
               </div>
               <span className="text-xl font-bold">{footerData.branding.name}</span>
             </div>
+            
+            {/* Descripción */}
             <p className="text-gray-300 mb-4 max-w-md">
               {footerData.branding.description}
             </p>
@@ -38,6 +53,7 @@ export function Footer() {
               </div>
             ) : null}
 
+            {/* CTA para tiendas */}
             {footerData.branding.storeCTA ? (
               <div className="mt-6">
                 <h4 className="font-semibold text-white mb-2 flex items-center space-x-2">
@@ -60,24 +76,21 @@ export function Footer() {
             ) : null}
           </div>
 
-          {/* Secciones dinámicas */}
+          {/* Secciones dinámicas - Segunda columna */}
           <div className="col-span-1">
-            {/* Soporte */}
+            {/* Empresa */}
             {(() => {
-              const soporteSection = footerData.sections.find(s => s.title === "Soporte");
-              if (!soporteSection) return null;
+              const empresaSection = footerData.sections.find(s => s.title === "Empresa");
+              if (!empresaSection) return null;
               return (
                 <>
                   <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
-                    {soporteSection.icon && <soporteSection.icon className="w-5 h-5" />}
-                    <span>{soporteSection.title}</span>
+                    {empresaSection.icon && <empresaSection.icon className="w-5 h-5" />}
+                    <span>{empresaSection.title}</span>
                   </h4>
-                  {soporteSection.description && (
-                    <p className="text-gray-300 text-sm mb-3">{soporteSection.description}</p>
-                  )}
-                  {soporteSection.links?.length && (
+                  {empresaSection.links?.length && (
                     <ul className="space-y-2 text-sm text-gray-300 mb-6">
-                      {soporteSection.links.map(link => {
+                      {empresaSection.links.map(link => {
                         const LinkIcon = link.icon;
                         return (
                           <li key={link.label}>
@@ -107,59 +120,91 @@ export function Footer() {
               if (!contactoSection) return null;
               return (
                 <>
-                  <h4 className="flex items-center font-semibold text-white mt-6 mb-2 space-x-2">
+                  <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
                     {contactoSection.icon && <contactoSection.icon className="w-5 h-5" />}
                     <span>{contactoSection.title}</span>
                   </h4>
                   <div className="space-y-2 text-gray-300 text-sm">
-                    {contactoSection.links.map(link => (
+                    {contactoSection.links?.map(link => (
                       <p key={link.label} className="flex items-center space-x-2">
                         {link.icon && <link.icon className="w-4 h-4 inline" />}
-                        <span>{link.label}</span>
+                        {link.href.startsWith("mailto:") || link.href.startsWith("tel:") ? (
+                          <a href={link.href} className="hover:text-white transition-colors">
+                            <span>{link.label}</span>
+                          </a>
+                        ) : (
+                          <span>{link.label}</span>
+                        )}
                       </p>
                     ))}
                   </div>
                 </>
               );
             })()}
+
+            {/* Soporte */}
+            {(() => {
+              const soporteSection = footerData.sections.find(s => s.title === "Soporte");
+              if (!soporteSection) return null;
+              return (
+                <>
+                  <h4 className="flex items-center font-semibold text-white mt-6 mb-4 space-x-2">
+                    {soporteSection.icon && <soporteSection.icon className="w-5 h-5" />}
+                    <span>{soporteSection.title}</span>
+                  </h4>
+                  {soporteSection.links?.length && (
+                    <ul className="space-y-2 text-sm text-gray-300">
+                      {soporteSection.links.map(link => {
+                        const LinkIcon = link.icon;
+                        return (
+                          <li key={link.label}>
+                            {link.href.startsWith("/") ? (
+                              <Link href={link.href} className="hover:text-white transition-colors flex items-center space-x-2">
+                                {LinkIcon && <LinkIcon className="w-4 h-4 inline" />}
+                                <span>{link.label}</span>
+                              </Link>
+                            ) : (
+                              <a href={link.href} className="hover:text-white transition-colors flex items-center space-x-2">
+                                {LinkIcon && <LinkIcon className="w-4 h-4 inline" />}
+                                <span>{link.label}</span>
+                              </a>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </>
+              );
+            })()}
           </div>
 
-          {/* Otras secciones (Categorías u otras) */}
-          {footerData.sections
-            .filter(s => s.title !== "Soporte" && s.title !== "Contacto")
-            .map(section => (
-              <div key={section.title}>
-                <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
-                  {section.icon && <section.icon className="w-5 h-5" />}
-                  <span>{section.title}</span>
-                </h4>
-                {section.description && (
-                  <p className="text-gray-300 text-sm mb-3">{section.description}</p>
-                )}
-                {section.links?.length && (
-                  <ul className="space-y-2 text-sm text-gray-300">
-                    {section.links.map(link => {
-                      const LinkIcon = link.icon;
-                      return (
+          {/* Categorías - Tercera columna */}
+          <div className="col-span-1">
+            {(() => {
+              const categoriasSection = footerData.sections.find(s => s.title === "Categorías");
+              if (!categoriasSection) return null;
+              return (
+                <>
+                  <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
+                    {categoriasSection.icon && <categoriasSection.icon className="w-5 h-5" />}
+                    <span>{categoriasSection.title}</span>
+                  </h4>
+                  {categoriasSection.links?.length && (
+                    <ul className="space-y-2 text-sm text-gray-300">
+                      {categoriasSection.links.map(link => (
                         <li key={link.label}>
-                          {link.href.startsWith("/") ? (
-                            <Link href={link.href} className="hover:text-white transition-colors flex items-center space-x-2">
-                              {LinkIcon && <LinkIcon className="w-4 h-4 inline" />}
-                              <span>{link.label}</span>
-                            </Link>
-                          ) : (
-                            <a href={link.href} className="hover:text-white transition-colors flex items-center space-x-2">
-                              {LinkIcon && <LinkIcon className="w-4 h-4 inline" />}
-                              <span>{link.label}</span>
-                            </a>
-                          )}
+                          <Link href={link.href} className="hover:text-white transition-colors">
+                            {link.label}
+                          </Link>
                         </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-            ))}
+                      ))}
+                    </ul>
+                  )}
+                </>
+              );
+            })()}
+          </div>
 
         </div>
 

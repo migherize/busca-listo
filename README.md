@@ -20,13 +20,19 @@ src/
 │   ├── common/            # Reutilizables no genéricos: LoadingState, ErrorState, EmptyState, PDFDownload
 │   ├── products/          # Dominio productos: ProductCard, ProductGrid, CategoryNavbar
 │   ├── ads/               # Anuncios: AdBannerVertical, CustomAdsLeft
+│   ├── store/             # Registro de tiendas: SubscriptionSelection
 │   └── qr-code/           # Componentes muy específicos: QRCode (index.tsx)
 ├── hooks/
 ├── lib/
+├── services/              # Servicios: API, Email
+├── types/                 # Tipos TypeScript
+├── data/                  # Datos estáticos: suscripciones
 ├── pages/
 │   ├── Home/
 │   │   └── index.tsx
 │   ├── OurServices/
+│   │   └── index.tsx
+│   ├── RegisterStore/     # Registro de tiendas
 │   │   └── index.tsx
 │   └── NotFound/
 │       └── index.tsx
@@ -50,6 +56,11 @@ Alias de paths (Vite/TS):
 
 - El enrutamiento usa Wouter en `src/App.tsx`.
 - Cada página vive en su carpeta con `index.tsx` y se importa como `@/pages/Nombre`.
+- **Nuevas rutas agregadas:**
+  - `/register-store` - Sistema de registro de tiendas
+  - `/help` - Centro de ayuda y soporte
+  - `/terms` - Términos y condiciones
+  - `/privacy` - Política de privacidad
 
 ## Estándares de código
 
@@ -69,4 +80,39 @@ Requisitos: Node 18+.
 ## Notas
 
 - UI basada en Tailwind y shadcn/ui.
-- Estado de servidor con TanStack Query, cliente en `src/lib/queryClient.ts`. 
+- Estado de servidor con TanStack Query, cliente en `src/lib/queryClient.ts`.
+
+## Sistema de Registro de Tiendas
+
+### Características
+- ✅ Formulario de datos de tienda (2 pasos)
+- ✅ Selección de planes de suscripción (Básico, Medio, Premium)
+- ✅ Sistema de emails de confirmación
+- ✅ Validación de formularios
+- ✅ UI responsiva y moderna
+
+### Planes Disponibles
+- **Básico**: FREE - 30 productos, sin anuncios
+- **Medio**: $10/mes - 100 productos, con anuncios
+- **Premium**: $30/mes - 500 productos, estadísticas completas
+
+### Configuración de Emails
+Ver `EMAIL_IMPLEMENTATION.md` para implementar envío real de emails con SendGrid, Mailgun o AWS SES.
+
+### Variables de Entorno
+Copiar `env.example` a `.env` y configurar credenciales del servicio de email elegido.
+
+## Páginas del Footer
+
+### Características
+- ✅ **Centro de Ayuda**: FAQ organizadas, métodos de contacto, recursos útiles
+- ✅ **Términos y Condiciones**: 10 secciones legales, resumen ejecutivo, contacto legal
+- ✅ **Política de Privacidad**: Manejo transparente de datos, derechos del usuario, seguridad
+
+### Diseño
+- UI moderna con gradientes y iconos temáticos
+- Responsive design para todos los dispositivos
+- Navegación interna entre páginas relacionadas
+- CTAs prominentes para contacto y soporte
+
+Ver `FOOTER_PAGES_GUIDE.md` para documentación completa de estas páginas. 

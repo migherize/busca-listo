@@ -1,15 +1,23 @@
 import { Search, Heart, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import type { HeaderProps } from "@shared/schema";
+import { useSearch } from "@/contexts/SearchContext";
 
-export function Header({ searchTerm, onSearchChange }: HeaderProps) {
+export function Header() {
+  const { searchTerm, setSearchTerm } = useSearch();
   return (
     <header className="bg-white shadow-sm border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-blue-600">Buscalisto</h1>
+            <a href="/" className="flex items-center space-x-3">
+              <img 
+                src="/assets/logo2.jpeg" 
+                alt="Busca Listo Logo" 
+                className="h-12 w-auto object-contain"
+              />
+              <h1 className="text-2xl font-bold text-blue-600">Buscalisto</h1>
+            </a>
           </div>
           
           {/* Search Bar */}
@@ -23,7 +31,7 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
                 className="w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg bg-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Buscar productos... ej: Calcibon, ropa, zapatos"
                 value={searchTerm}
-                onChange={(e) => onSearchChange(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
           </div>
