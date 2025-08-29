@@ -1,23 +1,17 @@
 import { useState, useEffect } from "react";
-
 import { RecentProductsContainer } from "@/components/products/containers/Recent/RecentProductsContainer";
 import { MostViewedProductsContainer } from "@/components/products/containers/MostViewed/MostViewedProductsContainer";
+import { DealsProductsContainer } from "@/components/products/containers/Deals/DealsProductsContainer";
 import { PopularCategoriesList } from "@/components/categories/PopularCategories/PopularCategoriesListContainer";
-
-
 
 import { CategoryNavbar } from "@/components/products/CategoryNavbar";
 import { ProductGrid } from "@/components/products/ProductGrid";
-import { DealsCarousel } from "@/components/products/DealsCarousel";
 import { LoadingState } from "@/components/common/LoadingState";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Pagination } from "@/components/common/Pagination";
 import { CustomAdsLeft } from "@/components/ads/CustomAdsLeft";
 import { AdBannerVertical } from "@/components/ads/AdBannerVertical";
-
-
-
 import type { Category } from "@shared/SchemaCategory";
 import { useFetchData } from "@/hooks/useFetchData";
 import { useRecentProducts } from "@/hooks/useRecentProducts";
@@ -78,17 +72,6 @@ export default function Home() {
 
   // Derived UI mode
   const isSearchMode = (debouncedSearchTerm && debouncedSearchTerm.trim() !== "") || selectedCategory !== "all";
-
-
-
-  const offerScore = (price: number, offerPrice: number | null | undefined) => {
-    if (!offerPrice || price <= 0) return 0;
-    return (price - offerPrice) / price;
-  };
-  const dailyDeals = [...products]
-    .filter(p => p.offerPrice !== null && p.offerPrice !== undefined)
-    .sort((a, b) => offerScore(b.price, b.offerPrice) - offerScore(a.price, a.offerPrice))
-    .slice(0, 8);
 
   
 
@@ -193,7 +176,7 @@ export default function Home() {
                   {/* Landing: Ofertas del día */}
                   <section className="mb-10">
                     <h2 className="text-xl font-semibold text-slate-900 mb-4">Ofertas del día</h2>
-                    {isLoading ? <LoadingState /> : <DealsCarousel products={dailyDeals} />}
+                    <DealsProductsContainer maxProducts={8} />
                   </section>
                 </>
               )}

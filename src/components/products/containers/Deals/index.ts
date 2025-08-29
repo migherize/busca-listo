@@ -1,0 +1,1 @@
+export { DealsProductsContainer } from './DealsProductsContainer';

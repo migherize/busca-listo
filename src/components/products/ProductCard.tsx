@@ -2,7 +2,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Package, Store, ExternalLink } from "lucide-react";
-import type { ProductCardProps } from "@shared/schema";
+import { BaseProduct } from "@shared/SchemaProduct";
+
+export interface ProductCardProps {
+  product: BaseProduct;
+}
 
 export function ProductCard({ product }: ProductCardProps) {
   const formatPrice = (price: number) => {
@@ -13,8 +17,8 @@ export function ProductCard({ product }: ProductCardProps) {
     }).format(price);
   };
 
-  const discountPercentage = product.offerPrice
-    ? Math.round(((product. price_usd - product.offerPrice) / product. price_usd) * 100)
+  const discountPercentage = product.price_offer
+    ? Math.round(((product.price_usd - product.price_offer) / product.price_usd) * 100)
     : 0;
 
   const handleVisitStore = () => {
@@ -30,18 +34,8 @@ export function ProductCard({ product }: ProductCardProps) {
           className="w-full h-48 object-cover rounded-t-lg"
         />
         
-        {/* Prescription Badge */}
-        {product.requirePrescription && (
-          <div className="absolute top-2 right-2">
-            <Badge className="bg-red-100 text-red-800 text-xs font-medium px-2 py-1">
-              <Package className="h-3 w-3 mr-1" />
-              Receta
-            </Badge>
-          </div>
-        )}
-        
         {/* Offer Badge */}
-        {product.offerPrice && (
+        {product.price_offer && (
           <div className="absolute top-2 left-2">
             <Badge className="bg-amber-100 text-amber-800 text-xs font-medium px-2 py-1">
               -{discountPercentage}%
@@ -60,29 +54,29 @@ export function ProductCard({ product }: ProductCardProps) {
         
         <div className="mb-2">
           <Badge variant="secondary" className="text-xs">
-            {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+            {product.subcategory_name.charAt(0).toUpperCase() + product.subcategory_name.slice(1)}
           </Badge>
         </div>
         
         <div className="mb-3">
           <div className="flex items-center space-x-2">
-            {product.offerPrice ? (
+            {product.price_offer ? (
               <>
                 <span className="text-lg font-bold text-slate-900">
-                  {formatPrice(product.offerPrice)}
+                  {formatPrice(product.price_offer)}
                 </span>
                 <span className="text-sm text-slate-500 line-through">
-                  {formatPrice(product. price_usd)}
+                  {formatPrice(product.price_usd)}
                 </span>
               </>
             ) : (
               <span className="text-lg font-bold text-slate-900">
-                {formatPrice(product. price_usd)}
+                {formatPrice(product.price_usd)}
               </span>
             )}
           </div>
-          {product.offerDescription && (
-            <p className="text-xs text-amber-600 mt-1">{product.offerDescription}</p>
+          {product.price_offer && (
+            <p className="text-xs text-amber-600 mt-1">{product.price_offer}</p>
           )}
         </div>
         
@@ -90,11 +84,11 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="flex items-center justify-between text-xs text-slate-600">
             <span className="flex items-center">
               <Package className="h-3 w-3 mr-1" />
-              Stock: <span className="font-medium ml-1">{product.stock}</span>
+              Stock: <span className="font-medium ml-1">{product.in_stock}</span>
             </span>
             <span className="flex items-center">
               <Store className="h-3 w-3 mr-1" />
-              {product.supplier}
+              {product.branch_id}
             </span>
           </div>
         </div>

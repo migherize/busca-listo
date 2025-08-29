@@ -17,6 +17,7 @@ export const baseProductSchema = z.object({
   image_url: z.string().nullable().optional(),
   offer_description: z.string().nullable().optional(),
   branch_id: z.number().nullable().optional(), 
+  url: z.string().nullable().optional(),
 });
 
 export type BaseProduct = z.infer<typeof baseProductSchema>;
@@ -39,3 +40,10 @@ export const mostViewedProductSchema = recentProductSchema.extend({
 });
 
 export type MostViewedProduct = z.infer<typeof mostViewedProductSchema>;
+
+export const dealsProductSchema = recentProductSchema.extend({
+  // Los productos en oferta pueden tener campos adicionales específicos
+  // Por ahora usamos el mismo esquema que RecentProduct
+});
+
+export type DealsProduct = z.infer<typeof dealsProductSchema>;
