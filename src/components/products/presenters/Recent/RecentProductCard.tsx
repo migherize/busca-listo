@@ -12,11 +12,20 @@ export function RecentProductCard({ product }: RecentProductCardProps) {
     <Link href={`/product/${product.id}`} className="block">
       <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 cursor-pointer">
         <div className="flex gap-4 p-4">
-          <img
-            src={product.image_url ?? "/assets/logo1.jpeg"}
-            alt={product.name ?? "Producto"}
-            className="w-28 h-28 object-cover rounded-md flex-shrink-0"
-          />
+          {/* Contenedor de imagen mejorado */}
+          <div className="w-32 h-32 flex-shrink-0 bg-slate-100 rounded-md overflow-hidden">
+            <img
+              src={product.image_url ?? "/assets/logo1.jpeg"}
+              alt={product.name ?? "Producto"}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/assets/logo1.jpeg";
+              }}
+            />
+          </div>
+          
           <CardContent className="p-0 flex-1 flex flex-col justify-between">
             <div>
               <h3 className="text-sm font-semibold text-slate-900 line-clamp-2">
@@ -28,7 +37,9 @@ export function RecentProductCard({ product }: RecentProductCardProps) {
             <PriceTag
               priceUsd={product.price_usd}
               priceBs={product.price_bs}
-              offerPrice={product.price_offer}
+              offerPriceUsd={product.price_offer_usd}
+              offerPriceBs={product.price_offer_bs}
+              discountPercent={product.discount_percent}
             />
           </CardContent>
         </div>

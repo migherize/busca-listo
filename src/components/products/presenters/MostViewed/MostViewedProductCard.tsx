@@ -20,11 +20,19 @@ export function MostViewedProductCard({ product }: MostViewedProductCardProps) {
               </Badge>
             </div>
           )}
-          <img
-            src={product.image_url ?? "/assets/logo1.jpeg"}
-            alt={product.name ?? "Producto"}
-            className="w-full h-44 object-cover rounded-t-lg"
-          />
+          {/* Contenedor de imagen mejorado */}
+          <div className="w-full h-44 bg-slate-100 rounded-t-lg overflow-hidden flex items-center justify-center">
+            <img
+              src={product.image_url ?? "/assets/logo1.jpeg"}
+              alt={product.name ?? "Producto"}
+              className="w-full h-full object-contain p-2"
+              loading="lazy"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/assets/logo1.jpeg";
+              }}
+            />
+          </div>
         </div>
         <CardContent className="p-4">
           <div className="min-h-[48px]">
@@ -37,7 +45,9 @@ export function MostViewedProductCard({ product }: MostViewedProductCardProps) {
             <PriceTag
               priceUsd={product.price_usd}
               priceBs={product.price_bs}
-              offerPrice={product.price_offer}
+              offerPriceUsd={product.price_offer_usd}
+              offerPriceBs={product.price_offer_bs}
+              discountPercent={product.discount_percent}
             />
           </div>
         </CardContent>

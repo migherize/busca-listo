@@ -2,16 +2,20 @@ import { useDealsProducts } from "@/hooks/useDealsProducts";
 import { DealsProductsPresenter } from "@/components/products/presenters/Deals/DealsProductsPresenter";
 
 interface DealsProductsContainerProps {
-  maxProducts?: number;
+  maxProducts?: number;  // Productos visibles en el carrusel
+  limit?: number;        // Total de productos a cargar de la API
 }
 
-export function DealsProductsContainer({ maxProducts = 10 }: DealsProductsContainerProps) {
-  const { data: products = [], isLoading, error } = useDealsProducts(maxProducts);
+export function DealsProductsContainer({ 
+  maxProducts = 6, 
+  limit = 20 
+}: DealsProductsContainerProps) {
+  const { data: products = [], isLoading, error } = useDealsProducts(limit);
 
   if (isLoading) {
     return (
       <div className="flex gap-4 overflow-x-auto pb-2">
-        {Array.from({ length: 4 }).map((_, index) => (
+        {Array.from({ length: maxProducts }).map((_, index) => (
           <div key={index} className="min-w-[260px] max-w-[260px]">
             <div className="bg-gray-200 animate-pulse rounded-lg h-64"></div>
           </div>
@@ -28,5 +32,6 @@ export function DealsProductsContainer({ maxProducts = 10 }: DealsProductsContai
     );
   }
 
-  return <DealsProductsPresenter products={products} maxProducts={maxProducts} />;
+  return <DealsProductsPresenter products={products} maxProducts={maxProducts} maxRenderProducts={limit} />;
+  
 }

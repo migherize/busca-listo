@@ -1,37 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
 import type { DealsProduct } from "@shared/SchemaProduct";
-import type { Product } from "@shared/schema";
-import { apiService } from "@/services/apiService";
+import { API_CONFIG } from "@/config/api";
 
-export function useDealsProducts(limit?: number) {
-  return useQuery<DealsProduct[]>({
+export function useDealsProducts(limit: number = 20) {
+  return useQuery<DealsProduct[], Error>({
     queryKey: ["products", "deals", limit],
     queryFn: async () => {
-      const response = await apiService.getDealsProducts(limit);
-      if (!response.success) {
-        throw new Error(response.error || "Error al cargar productos en oferta");
+      const url = new URL(`${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.ALL}`);
+      url.searchParams.append("limit", String(limit));
+
+      const res = await fetch(url.toString());
+      if (!res.ok) throw new Error("Error al cargar productos en oferta");
+      
+      let data = (await res.json()) as DealsProduct[];
+      
+      if (data.length > limit) {
+        data = data.slice(0, limit);
       }
       
-      // Convertir de Product (apiService) a DealsProduct (nuevo esquema)
-      const dealsProducts: DealsProduct[] = response.data.map((product: Product) => ({
-        id: parseInt(product.id),
-        name: product.name,
-        brand_name: product.brand_name,
-        price_bs: product.price,
-        price_usd: product.priceUSD || 0,
-        price_offer: product.offerPrice,
-        image_url: product.image_url,
-        offer_description: product.offerDescription,
-        in_stock: product.stock,
-        active: product.isActive,
-        views: product.views,
-        created_at: product.createdAt,
-        subcategory_id: undefined,
-        subcategory_name: product.subcategory,
-        branch_id: undefined,
-      }));
-      
-      return dealsProducts;
+      return data;
     },
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    retry: 1,
+    refetchOnWindowFocus: false,
   });
 }

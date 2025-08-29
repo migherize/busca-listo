@@ -38,7 +38,13 @@ export function ProductPricing({
         {/* Precio Principal */}
         <div className="text-center">
           <div className="text-3xl font-bold text-blue-900 mb-2">
-            <PriceTag price={price} offerPrice={offerPrice} />
+            <PriceTag
+              priceUsd={priceUSD || 0}
+              priceBs={price}
+              offerPriceUsd={offerPrice}
+              offerPriceBs={offerPrice}
+              discountPercent={discountPercentage}
+            />
           </div>
           
           {hasOffer && (

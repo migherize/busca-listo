@@ -9,7 +9,6 @@ export const baseProductSchema = z.object({
   subcategory_name: z.string().nullable().optional(),
   price_bs: z.number(),
   price_usd: z.number(),
-  price_offer: z.number().nullable().optional(),
   in_stock: z.number().nullable().optional(),
   active: z.boolean().optional(),
   views: z.number().optional(),
@@ -18,6 +17,9 @@ export const baseProductSchema = z.object({
   offer_description: z.string().nullable().optional(),
   branch_id: z.number().nullable().optional(), 
   url: z.string().nullable().optional(),
+  price_offer_usd: z.number().nullable().optional(),
+  price_offer_bs: z.number().nullable().optional(),
+  discount_percent: z.number().nullable().optional(),
 });
 
 export type BaseProduct = z.infer<typeof baseProductSchema>;
@@ -28,7 +30,9 @@ export const recentProductSchema = baseProductSchema.pick({
   brand_name: true,
   price_bs: true,
   price_usd: true,
-  price_offer: true,
+  price_offer_usd: true,
+  price_offer_bs: true,
+  discount_percent: true,
   image_url: true,
   offer_description: true,
 });

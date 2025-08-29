@@ -9,25 +9,17 @@ interface DealsProductCardProps {
 }
 
 export function DealsProductCard({ product }: DealsProductCardProps) {
-  // Calcular el porcentaje de descuento
-  const calculateDiscount = () => {
-    if (!product.price_offer || product.price_bs <= 0) return 0;
-    return Math.round(((product.price_bs - product.price_offer) / product.price_bs) * 100);
-  };
-
-  const discountPercentage = calculateDiscount();
+  const discountPercentage = product.discount_percent || 0;
 
   return (
     <Link href={`/product/${product.id}`} className="block">
       <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200">
         <div className="relative">
           {/* Badge de oferta destacado */}
-          {product.price_offer && discountPercentage > 0 && (
-            <div className="absolute top-2 left-2 z-10">
-              <Badge className="bg-red-600 text-white text-[10px] font-bold px-2 py-1 animate-pulse">
-                🔥 {discountPercentage}% OFF
-              </Badge>
-            </div>
+          {product.discount_percent && product.discount_percent > 0 && (
+            <Badge className="bg-red-600 text-white text-[10px] font-bold px-2 py-1 animate-pulse">
+              🔥 {product.discount_percent}% OFF
+            </Badge>
           )}
           
           {/* Badge de descripción de oferta si existe */}
@@ -55,17 +47,19 @@ export function DealsProductCard({ product }: DealsProductCardProps) {
           
           {/* Precios con énfasis en la oferta */}
           <div className="mt-3">
-            <PriceTag
+          <PriceTag
               priceUsd={product.price_usd}
               priceBs={product.price_bs}
-              offerPrice={product.price_offer}
+              offerPriceUsd={product.price_offer_usd}
+              offerPriceBs={product.price_offer_bs}
+              discountPercent={product.discount_percent}
             />
             
             {/* Información adicional de la oferta */}
-            {product.price_offer && (
+            {product.discount_percent && product.discount_percent > 0 && product.price_offer_bs && (
               <div className="mt-2 text-center">
                 <p className="text-xs text-green-600 font-medium">
-                  ¡Ahorras Bs. {(product.price_bs - product.price_offer).toLocaleString()}!
+                  ¡Ahorras Bs. {(product.price_bs - product.price_offer_bs).toLocaleString()}!
                 </p>
               </div>
             )}

@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import Home from "@/pages/Home/index";
+import CategoryPage from "@/pages/Category";
 import NotFound from "@/pages/NotFound";
 import OurServices from "@/pages/OurServices";
 import ProductDetail from "@/pages/ProductDetail";
@@ -24,6 +25,7 @@ function App() {
           <main className="flex-1">
             <Switch>
               <Route path="/" component={Home} />
+              <Route path="/category/:category" component={CategoryPage} />
               <Route path="/about" component={OurServices} />
               <Route path="/services" component={OurServices} />
               <Route path="/product/:id" component={ProductDetail} />

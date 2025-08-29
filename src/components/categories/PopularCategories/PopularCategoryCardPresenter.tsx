@@ -11,7 +11,7 @@ interface PopularCategoryCardProps {
 export function PopularCategoryCard({ name, categoryKey, imageUrl }: PopularCategoryCardProps) {
   return (
     <Link href={`/category/${categoryKey}`} className="block">
-      <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200">
+      <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 cursor-pointer">
         <img
           src={imageUrl ?? "/assets/defaultcategory.jpeg"}
           alt={name}

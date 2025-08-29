@@ -14,7 +14,6 @@ import { CustomAdsLeft } from "@/components/ads/CustomAdsLeft";
 import { AdBannerVertical } from "@/components/ads/AdBannerVertical";
 import type { Category } from "@shared/SchemaCategory";
 import { useFetchData } from "@/hooks/useFetchData";
-import { useRecentProducts } from "@/hooks/useRecentProducts";
 import { useSearch } from "@/contexts/SearchContext";
 
 export default function Home() {
@@ -23,10 +22,6 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 8;
-
-  // Recientes desde backend
-  const { data: recentProducts = [], isLoading: isLoadingRecent } = useRecentProducts();
-  console.log("Backend recent products:", recentProducts);
 
 
   // Debounce search term
@@ -176,7 +171,10 @@ export default function Home() {
                   {/* Landing: Ofertas del día */}
                   <section className="mb-10">
                     <h2 className="text-xl font-semibold text-slate-900 mb-4">Ofertas del día</h2>
-                    <DealsProductsContainer maxProducts={8} />
+                    <DealsProductsContainer 
+                      maxProducts={6}    
+                      limit={20}         
+                    />
                   </section>
                 </>
               )}
