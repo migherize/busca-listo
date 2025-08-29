@@ -26,7 +26,7 @@ export function ProductCardContainer({
 
   // Calcular descuento
   const discountPercentage = product.offerPrice
-    ? Math.round(((product.price - product.offerPrice) / product.price) * 100)
+    ? Math.round(((product. price_usd - product.offerPrice) / product. price_usd) * 100)
     : 0;
 
   // Formatear precio

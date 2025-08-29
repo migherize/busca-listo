@@ -1,5 +1,14 @@
 import { z } from "zod";
 
+export const baseCategorySchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  description: z.string().nullable().optional(),
+  image_urls: z.array(z.string().url())
+});
+
+export type CategoryPopular= z.infer<typeof baseCategorySchema>;
+
 export const categorySchema = z.enum([
   "all",
   "medicamentos",
@@ -38,11 +47,11 @@ export interface CategoryNavbarProps {
   onCategorySelect: (category: Category | "all") => void;
 }
 
-export const categoryImages: Record<string, string> = {
-  "medicamentos": "/assets/medicamentos.jpeg",
-  "repuestos": "/assets/repuestos.jpeg",
-  "telefonos": "/assets/telefonos.jpeg",
-  "TV": "/assets/TV.jpeg",
-  "comidarapida": "/assets/comidarapida.png",
-  "zapatos": "/assets/zapatos.jpeg",
-};
+// export const categoryImages: Record<string, string> = {
+//   "medicamentos": "/assets/medicamentos.jpeg",
+//   "repuestos": "/assets/repuestos.jpeg",
+//   "telefonos": "/assets/telefonos.jpeg",
+//   "TV": "/assets/TV.jpeg",
+//   "comidarapida": "/assets/comidarapida.png",
+//   "zapatos": "/assets/zapatos.jpeg",
+// };

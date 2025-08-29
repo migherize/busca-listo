@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { ProductCard } from "./ProductCard";
-import { RecentProductCard } from "./RecentProductCard";
-import { MostViewedProductCard } from "./MostViewedProductCard";
+import { RecentProductCard } from "@/components/products/presenters/Recent/RecentProductCard";
+import { MostViewedProductCard } from "@/components/products/presenters/MostViewed/MostViewedProductCard";
 import type { Product } from "@shared/schema";
 
 interface ProductGridPresenterProps {

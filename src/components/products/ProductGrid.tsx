@@ -1,7 +1,7 @@
 import { ProductCard } from "./ProductCard";
 import type { ProductGridProps } from "@shared/schema";
-import { RecentProductCard } from "./RecentProductCard";
-import { MostViewedProductCard } from "./MostViewedProductCard";
+import { RecentProductCard } from "@/components/products/presenters/Recent/RecentProductCard";
+import { MostViewedProductCard } from "@/components/products/presenters/MostViewed/MostViewedProductCard";
 
 type GridVariant = "default" | "recent" | "mostViewed";
 

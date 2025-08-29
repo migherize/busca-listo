@@ -1,6 +1,6 @@
 import { useRecentProducts, useMostViewedProducts, useDealsProducts, usePopularCategories } from "@/hooks";
-import { RecentProductCard } from "./RecentProductCard";
-import { MostViewedProductCard } from "./MostViewedProductCard";
+import { RecentProductCard } from "@/components/products/presenters/Recent/RecentProductCard";
+import { MostViewedProductCard } from "@/components/products/presenters/MostViewed/MostViewedProductCard";
 import { ProductCard } from "./ProductCard";
 import { PopularCategoryCard } from "./PopularCategoryCard";
 

@@ -111,12 +111,12 @@ export function ProductCardPresenter({
               {formatPrice(product.offerPrice!)}
             </span>
             <span className="text-sm text-slate-500 line-through">
-              {formatPrice(product.price)}
+              {formatPrice(product. price_usd)}
             </span>
           </>
         ) : (
           <span className="text-lg font-bold text-slate-900">
-            {formatPrice(product.price)}
+            {formatPrice(product. price_usd)}
           </span>
         )}
       </div>
@@ -190,7 +190,7 @@ export function ProductCardPresenter({
     >
       <div className="relative">
         <img
-          src={product.imageUrl}
+          src={product.image_url}
           alt={product.name}
           className={getImageClasses()}
         />
@@ -204,7 +204,7 @@ export function ProductCardPresenter({
           }`}>
             {product.name}
           </h3>
-          <p className="text-xs text-slate-500 mt-1">{product.brand}</p>
+          <p className="text-xs text-slate-500 mt-1">{product.brand_name}</p>
         </div>
         
         <div className="mb-2">

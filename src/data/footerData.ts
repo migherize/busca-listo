@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPinIcon, PillBottle, Tag, HelpCircle, LifeBuoy } from "lucide-react";
-import { categories } from "@shared/category";
+import { categories } from "@shared/SchemaCategory";
 import type { FooterData } from "@shared/Footer";
 
 const categoryLinks = categories

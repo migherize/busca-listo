@@ -14,7 +14,7 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   const discountPercentage = product.offerPrice
-    ? Math.round(((product.price - product.offerPrice) / product.price) * 100)
+    ? Math.round(((product. price_usd - product.offerPrice) / product. price_usd) * 100)
     : 0;
 
   const handleVisitStore = () => {
@@ -25,7 +25,7 @@ export function ProductCard({ product }: ProductCardProps) {
     <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200">
       <div className="relative">
         <img
-          src={product.imageUrl}
+          src={product.image_url}
           alt={product.name}
           className="w-full h-48 object-cover rounded-t-lg"
         />
@@ -55,7 +55,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <h3 className="text-sm font-medium text-slate-900 line-clamp-2">
             {product.name}
           </h3>
-          <p className="text-xs text-slate-500 mt-1">{product.brand}</p>
+          <p className="text-xs text-slate-500 mt-1">{product.brand_name}</p>
         </div>
         
         <div className="mb-2">
@@ -72,12 +72,12 @@ export function ProductCard({ product }: ProductCardProps) {
                   {formatPrice(product.offerPrice)}
                 </span>
                 <span className="text-sm text-slate-500 line-through">
-                  {formatPrice(product.price)}
+                  {formatPrice(product. price_usd)}
                 </span>
               </>
             ) : (
               <span className="text-lg font-bold text-slate-900">
-                {formatPrice(product.price)}
+                {formatPrice(product. price_usd)}
               </span>
             )}
           </div>

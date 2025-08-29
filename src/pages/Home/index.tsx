@@ -1,20 +1,26 @@
 import { useState, useEffect } from "react";
+
+import { RecentProductsContainer } from "@/components/products/containers/Recent/RecentProductsContainer";
+import { MostViewedProductsContainer } from "@/components/products/containers/MostViewed/MostViewedProductsContainer";
+import { PopularCategoriesList } from "@/components/categories/PopularCategories/PopularCategoriesListContainer";
+
+
+
 import { CategoryNavbar } from "@/components/products/CategoryNavbar";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { DealsCarousel } from "@/components/products/DealsCarousel";
-import { PopularCategoryCard } from "@/components/products/PopularCategoryCard";
 import { LoadingState } from "@/components/common/LoadingState";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Pagination } from "@/components/common/Pagination";
 import { CustomAdsLeft } from "@/components/ads/CustomAdsLeft";
 import { AdBannerVertical } from "@/components/ads/AdBannerVertical";
+
+
+
+import type { Category } from "@shared/SchemaCategory";
 import { useFetchData } from "@/hooks/useFetchData";
-import type { Category } from "@shared/category";
-import { RecentProductsList } from "@/components/products/RecentProductCard";
 import { useRecentProducts } from "@/hooks/useRecentProducts";
-import { MostViewedProductsList } from "@/components/products/MostViewedProductCard";
-import { categoryImages } from "@shared/category";
 import { useSearch } from "@/contexts/SearchContext";
 
 export default function Home() {
@@ -23,6 +29,11 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 8;
+
+  // Recientes desde backend
+  const { data: recentProducts = [], isLoading: isLoadingRecent } = useRecentProducts();
+  console.log("Backend recent products:", recentProducts);
+
 
   // Debounce search term
   useEffect(() => {
@@ -39,9 +50,7 @@ export default function Home() {
     selectedCategory,
   });
 
-  // Recientes desde backend
-  const { data: backendRecentProducts, isLoading: isLoadingRecent } = useRecentProducts();
-  console.log("Backend recent products:", backendRecentProducts);
+
   // Reset to first page when category changes
   useEffect(() => {
     setCurrentPage(1);
@@ -70,15 +79,7 @@ export default function Home() {
   // Derived UI mode
   const isSearchMode = (debouncedSearchTerm && debouncedSearchTerm.trim() !== "") || selectedCategory !== "all";
 
-  // Landing sections (computed from all/filtered products)
-  const recentProducts = (backendRecentProducts && backendRecentProducts.length > 0
-    ? backendRecentProducts
-    : [...products].sort((a, b) => parseInt(b.id, 10) - parseInt(a.id, 10))
-  ).slice(0, 8);
 
-  const mostViewedProducts = [...products]
-    .sort((a, b) => (b.views || 0) - (a.views || 0))
-    .slice(0, 8);
 
   const offerScore = (price: number, offerPrice: number | null | undefined) => {
     if (!offerPrice || price <= 0) return 0;
@@ -89,9 +90,7 @@ export default function Home() {
     .sort((a, b) => offerScore(b.price, b.offerPrice) - offerScore(a.price, a.offerPrice))
     .slice(0, 8);
 
-  const popularSubcategories = Object.entries(categoryImages)
-    .slice(0, 6)
-    .map(([name, image]) => ({ name, image }));
+  
 
   const handlePopularSubcategoryClick = (name: string) => {
     setSelectedCategory("all");
@@ -176,28 +175,19 @@ export default function Home() {
                   {/* Landing: Lo más reciente */}
                   <section className="mb-10">
                     <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más reciente</h2>
-                    {isLoadingRecent || isLoading ? <LoadingState /> : <RecentProductsList products={recentProducts} />}
+                    <RecentProductsContainer></RecentProductsContainer>
                   </section>
 
                   {/* Landing: Lo más visto */}
                   <section className="mb-10">
                     <h2 className="text-xl font-semibold text-slate-900 mb-4">Lo más visto</h2>
-                    {isLoading ? <LoadingState /> : <MostViewedProductsList products={mostViewedProducts} />}
+                    <MostViewedProductsContainer></MostViewedProductsContainer>
                   </section>
 
                   {/* Landing: Categorías más populares (por subcategoría) */}
                   <section className="mb-10">
                     <h2 className="text-xl font-semibold text-slate-900 mb-4">Las categorías más populares</h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                      {popularSubcategories.map((sub) => (
-                        <PopularCategoryCard
-                          key={sub.name}
-                          name={sub.name}
-                          categoryKey={sub.name}
-                          imageUrl={sub.image || "/assets/defaultcategory.jpeg"}
-                        />
-                      ))}
-                    </div>
+                    <PopularCategoriesList></PopularCategoriesList>
                   </section>
 
                   {/* Landing: Ofertas del día */}

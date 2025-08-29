@@ -2,12 +2,9 @@ import { PriceTag } from "@/components/products/PriceTag";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import type { RecentProduct } from "@shared/SchemaProduct";
+
 interface RecentProductCardProps {
   product: RecentProduct;
-}
-
-interface RecentProductsListProps {
-  products: RecentProduct[];
 }
 
 export function RecentProductCard({ product }: RecentProductCardProps) {
@@ -28,7 +25,6 @@ export function RecentProductCard({ product }: RecentProductCardProps) {
               <p className="text-xs text-slate-500 mt-1">{product.brand_name}</p>
             </div>
 
-            {/* Precio */}
             <PriceTag
               priceUsd={product.price_usd}
               priceBs={product.price_bs}
@@ -38,16 +34,5 @@ export function RecentProductCard({ product }: RecentProductCardProps) {
         </div>
       </Card>
     </Link>
-  );
-}
-
-
-export function RecentProductsList({ products }: RecentProductsListProps) {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {products.slice(0, 3).map((product) => (
-        <RecentProductCard key={product.id} product={product} />
-      ))}
-    </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { categories, sortOptions } from "@shared/category";
-import type { CategoryNavbarProps } from "@shared/category";
+import { categories, sortOptions } from "@shared/SchemaCategory";
+import type { CategoryNavbarProps } from "@shared/SchemaCategory";
 
 export function CategoryNavbar({
   selectedCategory,

@@ -12,6 +12,7 @@ export const API_CONFIG = {
       FILTERED: "/products/filter",
     },
     CATEGORIES: {
+      ALL: "/categories",
       POPULAR: "/categories/popular",
     },
   },

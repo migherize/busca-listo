@@ -113,7 +113,7 @@ export function DealsCarouselPresenter({
             <CardContent className="p-4">
               <div className="relative mb-3">
                 <img
-                  src={product.imageUrl}
+                  src={product.image_url}
                   alt={product.name}
                   className="w-full h-32 object-cover rounded-lg"
                 />

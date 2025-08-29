@@ -37,9 +37,9 @@ export function ProductDetail() {
   }
 
   // Preparar imágenes para el carrusel
-  const images = product.imageUrls && product.imageUrls.length > 0 
-    ? product.imageUrls 
-    : [product.imageUrl];
+  const images = product.image_urls && product.image_urls.length > 0 
+    ? product.image_urls 
+    : [product.image_url];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -94,7 +94,7 @@ export function ProductDetail() {
                   {/* Marca */}
                   <div className="flex items-center gap-2">
                     <Building2 className="h-4 w-4 text-slate-500" />
-                    <span className="text-slate-600">Marca: {product.brand}</span>
+                    <span className="text-slate-600">Marca: {product.brand_name}</span>
                   </div>
                   
                   {/* Código del producto */}
@@ -120,10 +120,10 @@ export function ProductDetail() {
           <div className="space-y-6">
             {/* Precios y compra */}
             <ProductPricing
-              price={product.price}
+              price={product. price_usd}
               offerPrice={product.offerPrice}
               historicalPrice={product.historicalPrice}
-              priceUSD={product.priceUSD}
+              priceUSD={product. price_usdUSD}
               offerDescription={product.offerDescription}
               stock={product.stock}
               views={product.views}

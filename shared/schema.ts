@@ -12,12 +12,12 @@ export type Ad = z.infer<typeof adSchema>;
 export const productSchema = z.object({
   id: z.string(),
   name: z.string(),
-  brand: z.string(),
+  brand_name: z.string(),
   category: z.string(),
   subcategory: z.string(),
   price: z.number(),
   offerPrice: z.number().nullable().optional(),
-  imageUrl: z.string(),
+  image_url: z.string(),
   imageUrls: z.array(z.string()).optional(), // Lista de imágenes para carrusel
   stock: z.number(),
   url: z.string(),

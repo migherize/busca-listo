@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { CategoryNavbarPresenter } from "@/components/presenters/CategoryNavbarPresenter";
-import { categories, sortOptions } from "@shared/category";
-import type { Category } from "@shared/category";
+import { categories, sortOptions } from "@shared/SchemaCategory";
+import type { Category } from "@shared/SchemaCategory";
 
 interface CategoryNavbarContainerProps {
   selectedCategory: string | "all";
