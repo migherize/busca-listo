@@ -1,21 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
-
-// Host de tu backend
-// const API_HOST = import.meta.env.VITE_API_HOST;
-const API_HOST = "https://buscalistobackend.onrender.com";
+import { API_CONFIG } from "@/config/api";
 
 export function useRecentProducts() {
   return useQuery<Product[]>({
-    queryKey: ["products", "recientes"], // identifica la caché
+    queryKey: ["products", "recent"],
     queryFn: async () => {
-      const res = await fetch(`${API_HOST}/productos/top/recientes`);
-      if (!res.ok) throw new Error("Error al cargar productos");
-      return res.json() as Promise<Product[]>;
+      const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.RECENT}`;
+      console.log("Fetching:", url);
+
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`Error al cargar productos: ${res.status}`);
+      }
+
+      const data: Product[] = await res.json();
+      return data;
     },
-    staleTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000, 
     cacheTime: 10 * 60 * 1000,
-    retry: 1, 
-    refetchOnWindowFocus: false, 
+    retry: 1,
+    refetchOnWindowFocus: false,
   });
 }
