@@ -3,8 +3,8 @@ export const API_CONFIG = {
   
   ENDPOINTS: {
     PRODUCTS: {
-      RECENT: "/productos/top/newest", //TODO: cambiar a products/top/recent
-      MOST_VIEWED: "/products/top/viewed",
+      RECENT: "/products/top/newest", 
+      MOST_VIEWED: "/products/top/most-viewed",
       DEALS: "/products/deals",
       BY_CATEGORY: "/products/category",
       SEARCH: "/products/search",

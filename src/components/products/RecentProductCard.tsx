@@ -16,7 +16,7 @@ export function RecentProductCard({ product }: RecentProductCardProps) {
       <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 cursor-pointer">
         <div className="flex gap-4 p-4">
           <img
-            src={product.image_url ?? "/logo1.jpeg"}
+            src={product.image_url ?? "/assets/logo1.jpeg"}
             alt={product.name ?? "Producto"}
             className="w-28 h-28 object-cover rounded-md flex-shrink-0"
           />

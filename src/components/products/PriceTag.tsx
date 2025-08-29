@@ -1,12 +1,12 @@
 import React from "react";
 
 interface PriceTagProps {
-  PriceUsd: number;
-  PriceBs: number | null;
-  OfferPrice?: number | null;
+  priceUsd: number;            
+  priceBs: number;             
+  offerPrice?: number | null;  
 }
 
-export function PriceTag({ PriceUsd, OfferPrice, PriceBs }: PriceTagProps) {
+export function PriceTag({ priceUsd, offerPrice, priceBs }: PriceTagProps) {
   const formatPriceUsd = (amount: number) =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -25,21 +25,21 @@ export function PriceTag({ PriceUsd, OfferPrice, PriceBs }: PriceTagProps) {
     <div>
       {/* Precio en USD */}
       <div className="text-base font-bold text-slate-900">
-        {OfferPrice ? (
+        {offerPrice ? (
           <>
-            {formatPriceUsd(OfferPrice)}{" "}
+            {formatPriceUsd(offerPrice)}{" "}
             <span className="text-xs text-slate-500 line-through">
-              {formatPriceUsd(PriceUsd)}
+              {formatPriceUsd(priceUsd)}
             </span>
           </>
         ) : (
-          formatPriceUsd(PriceUsd)
+          formatPriceUsd(priceUsd)
         )}
       </div>
 
       {/* Precio en Bs */}
       <div className="text-xs text-slate-500 mt-1">
-        {formatPriceBs(PriceBs)}
+        {formatPriceBs(priceBs)}
       </div>
     </div>
   );
