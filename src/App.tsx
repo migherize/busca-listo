@@ -9,6 +9,7 @@ import CategoriesPage from "@/pages/Categories";
 import NotFound from "@/pages/NotFound";
 import OurServices from "@/pages/OurServices";
 import ProductDetail from "@/pages/ProductDetail";
+import StorePage from "@/pages/Store/index.tsx";
 import RegisterStore from "@/pages/RegisterStore";
 import Help from "@/pages/Help";
 import Terms from "@/pages/Terms";
@@ -25,17 +26,18 @@ function App() {
           <Header />
           <main className="flex-1">
             <Switch>
-              <Route path="/" component={Home} /> {/* refactoziado */}
-              <Route path="/category/:category" component={CategoryPage} /> {/* refactoziado */}
-              <Route path="/category" component={CategoriesPage} /> {/* refactoziado */}
+              <Route path="/" component={Home} />
+              <Route path="/category/:category" component={CategoryPage} />
+              <Route path="/category" component={CategoriesPage} />
               <Route path="/product/:id" component={ProductDetail} />
+              <Route path="/store/:storeName" component={StorePage} />
               <Route path="/register-store" component={RegisterStore} />
               <Route path="/about" component={OurServices} />
               <Route path="/services" component={OurServices} />
               <Route path="/help" component={Help} />
               <Route path="/terms" component={Terms} />
               <Route path="/privacy" component={Privacy} />
-              <Route component={NotFound} /> {/* refactoziado */}
+              <Route component={NotFound} />
             </Switch>
           </main>
           <Footer />

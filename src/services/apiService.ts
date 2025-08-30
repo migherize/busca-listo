@@ -200,6 +200,58 @@ export const apiService = {
     }
   },
 
+  // Productos por tienda
+  async getProductsByStore(supplierId: string, category?: string, limit?: number): Promise<ApiResponse<Product[]>> {
+    try {
+      if (await isApiAvailable()) {
+        const endpoint = `${API_CONFIG.ENDPOINTS.PRODUCTS.BY_STORE}/${supplierId}`;
+        const params: Record<string, string | number> = {};
+        if (category) params.categoria = category;
+        if (limit) params.limit = limit;
+        
+        const url = buildApiUrl(endpoint, params);
+        const response = await fetch(url);
+        
+        if (response.ok) {
+          const data = await response.json();
+          return { data, success: true };
+        }
+      }
+      
+      // Fallback a mockup - filtrar por supplier_id
+      await simulateApiDelay();
+      const allProducts = getMockProducts();
+      let filteredProducts = allProducts.filter(p => p.supplier === supplierId);
+      
+      // Filtrar por categoría si se especifica
+      if (category && category !== 'all') {
+        filteredProducts = filteredProducts.filter(p => p.subcategory === category);
+      }
+      
+      // Aplicar límite
+      if (limit) {
+        filteredProducts = filteredProducts.slice(0, limit);
+      }
+      
+      return { data: filteredProducts, success: true };
+      
+    } catch (error) {
+      console.error("Error en getProductsByStore:", error);
+      const allProducts = getMockProducts();
+      let filteredProducts = allProducts.filter(p => p.supplier === supplierId);
+      
+      if (category && category !== 'all') {
+        filteredProducts = filteredProducts.filter(p => p.subcategory === category);
+      }
+      
+      if (limit) {
+        filteredProducts = filteredProducts.slice(0, limit);
+      }
+      
+      return { data: filteredProducts, success: true };
+    }
+  },
+
   // Búsqueda de productos
   async searchProducts(searchTerm: string, category?: string, limit?: number): Promise<ApiResponse<Product[]>> {
     try {

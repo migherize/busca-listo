@@ -7,6 +7,7 @@ export const API_CONFIG = {
       MOST_VIEWED: "/products/top/most-viewed",
       DEALS: "/products/deals",
       BY_CATEGORY: "/products/category",
+      BY_STORE: "/products/store",
       SEARCH: "/products/search",
       ALL: "/products",
       FILTERED: "/products/filter",

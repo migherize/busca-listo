@@ -73,7 +73,7 @@ export function ProductDetail() {
       <div className="bg-white border-b border-slate-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-4">
-            <Link href="/" className="flex items-center gap-2 text-slate-600 hover:text-slate-900">
+            <Link to="/" className="flex items-center gap-2 text-slate-600 hover:text-slate-900">
               <ArrowLeft className="h-5 w-5" />
               Volver
             </Link>
@@ -181,10 +181,10 @@ export function ProductDetail() {
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600">Proveedor:</span>
                   <Link 
-                    to={`/store/${product.supplier_name || product.supplier_id}`}
+                    href={`/store/${product.supplier_name || product.id}?id=${product.id}`}
                     className="font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors"
                   >
-                    {product.supplier_name || product.supplier_id}
+                    {product.supplier_name || product.id}
                   </Link>
                 </div>
                 
@@ -229,13 +229,13 @@ export function ProductDetail() {
                   <div className="flex items-start gap-3">
                     <Building2 className="h-5 w-5 text-blue-600 mt-0.5" />
                     <div>
-                      <Link 
-                        to={`/store/${product.supplier_name || product.supplier_id}`}
-                        className="group hover:underline"
-                      >
-                        <h3 className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
-                          {product.supplier_name || product.supplier_id}
-                        </h3>
+                                                                      <Link 
+                          href={`/store/${product.supplier_name || product.id}?id=${product.id}`}
+                          className="group hover:underline"
+                        >
+                          <h3 className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
+                            {product.supplier_name || product.id}
+                          </h3>
                         <p className="text-sm text-slate-600 group-hover:text-blue-600 transition-colors">
                           Tienda oficial - Ver todos los productos
                         </p>
@@ -330,7 +330,7 @@ export function ProductDetail() {
               {/* Botones de acción para la tienda */}
               <div className="mt-6 flex flex-wrap gap-3">
                 {/* Botón principal para ver todos los productos de la tienda */}
-                <Link to={`/store/${product.supplier_name || product.supplier}`}>
+                <Link href={`/store/${product.supplier_name || product.id}?id=${product.id}`}>
                   <Button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700">
                     <Building2 className="h-4 w-4" />
                     Ver Todos los Productos
