@@ -20,7 +20,6 @@ import { ProductFeatures } from "@/components/products/ProductFeatures";
 import { ProductComments } from "@/components/products/ProductComments";
 import { ProductImageCarousel } from "@/components/products/ProductImageCarousel";
 
-
 export function ProductDetail() {
   const { id } = useParams();
   const { data: product, isLoading, error, refetch } = useProductById(id || "");
@@ -34,9 +33,9 @@ export function ProductDetail() {
   }
 
   // Preparar imágenes para el carrusel
-  const images = product.image_urls && product.image_urls.length > 0 
-    ? product.image_urls 
-    : [product.image_url];
+  const images = product.imagenes && product.imagenes.length > 0 
+    ? product.imagenes 
+    : [product.imagenes];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -67,7 +66,7 @@ export function ProductDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Columna Izquierda - Imágenes */}
           <div className="space-y-6">
-            <ProductImageCarousel images={images} productName={product.name} />
+            <ProductImageCarousel images={images} productName={product.name || "Producto"} />
             
             {/* Información básica del producto */}
             <Card>
@@ -75,37 +74,37 @@ export function ProductDetail() {
                 <div className="space-y-4">
                   {/* Categorías */}
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="text-xs">
+                     <Badge variant="outline" className="text-xs">
                       {product.category}
                     </Badge>
                     <Badge variant="outline" className="text-xs">
-                      {product.subcategory}
+                      {product.subcategory_name || "General"}
                     </Badge>
                   </div>
                   
                   {/* Nombre del producto */}
                   <h1 className="text-2xl font-bold text-slate-900 leading-tight">
-                    {product.name}
+                    {product.name || "Nombre del Producto"}
                   </h1>
                   
                   {/* Marca */}
                   <div className="flex items-center gap-2">
                     <Building2 className="h-4 w-4 text-slate-500" />
-                    <span className="text-slate-600">Marca: {product.brand_name}</span>
+                    <span className="text-slate-600">Marca: {product.brand_name || "Sin marca"}</span>
                   </div>
                   
                   {/* Código del producto */}
-                  {product.code && (
+                  {product.id && (
                     <div className="flex items-center gap-2">
                       <Code className="h-4 w-4 text-slate-500" />
-                      <span className="text-slate-600">Código: {product.code}</span>
+                      <span className="text-slate-600">Código: {product.id}</span>
                     </div>
                   )}
                   
                   {/* Requiere receta */}
-                  {product.requirePrescription && (
+                  {product.active && (
                     <Badge variant="destructive" className="text-xs">
-                      Requiere Receta Médica
+                      Producto activo
                     </Badge>
                   )}
                 </div>
@@ -117,13 +116,13 @@ export function ProductDetail() {
           <div className="space-y-6">
             {/* Precios y compra */}
             <ProductPricing
-              price={product. price_usd}
-              offerPrice={product.offerPrice}
-              historicalPrice={product.historicalPrice}
-              priceUSD={product. price_usdUSD}
-              offerDescription={product.offerDescription}
-              stock={product.stock}
-              views={product.views}
+              price={product.price_bs}
+              offerPrice={product.price_offer_bs}
+              historicalPrice={null}
+              priceUSD={product.price_usd}
+              offerDescription={product.offer_description}
+              stock={product.in_stock || 0}
+              views={product.views || 0}
             />
             
             {/* Botones de acción */}
@@ -156,24 +155,22 @@ export function ProductDetail() {
                 
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600">Disponible Online:</span>
-                  <Badge variant={product.availableOnline ? "default" : "secondary"}>
-                    {product.availableOnline ? "Sí" : "No"}
+                  <Badge variant={product.active ? "default" : "secondary"}>
+                    {product.active ? "Sí" : "No"}
                   </Badge>
                 </div>
                 
-                {product.createdAt && (
+                {product.created_at && (
                   <div className="flex items-center justify-between">
                     <span className="text-slate-600">Fecha de Creación:</span>
-                    <span className="font-medium">{new Date(product.createdAt).toLocaleDateString()}</span>
+                    <span className="font-medium">{new Date(product.created_at).toLocaleDateString()}</span>
                   </div>
                 )}
                 
-                {product.createdBy && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-600">Creado por:</span>
-                    <span className="font-medium">{product.createdBy}</span>
-                  </div>
-                )}
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600">Stock:</span>
+                  <span className="font-medium">{product.in_stock || 0} unidades</span>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -182,15 +179,15 @@ export function ProductDetail() {
         <Separator className="my-8" />
 
         {/* Descripción del producto */}
-        {product.description && (
+        {product.offer_description && (
           <div className="mb-8">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">Descripción</CardTitle>
+                <CardTitle className="text-xl">Descripción de la Oferta</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-slate-700 leading-relaxed text-lg">
-                  {product.description}
+                  {product.offer_description}
                 </p>
               </CardContent>
             </Card>
@@ -211,7 +208,7 @@ export function ProductDetail() {
 
         {/* Comentarios */}
         <div className="mb-8">
-          <ProductComments productId={product.id} productName={product.name} />
+          <ProductComments productId={product.id.toString()} productName={product.name || "Producto"} />
         </div>
       </div>
     </div>

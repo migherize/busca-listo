@@ -1,5 +1,5 @@
 import { mockProducts } from "@/mockProducts";
-import type { Product } from "@shared/schema";
+import type { BaseProduct } from "@shared/SchemaProduct";
 import { API_CONFIG, buildApiUrl } from "@/config";
 
 // Interfaz para respuestas de la API
@@ -42,32 +42,31 @@ function getMockProducts(options: {
   searchTerm?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
-} = {}): Product[] {
+} = {}): BaseProduct[] {
   let filteredProducts = [...mockProducts];
   
   const { limit, category, searchTerm, sortBy, sortOrder } = options;
   
   // Filtrar por categoría
   if (category && category !== 'all') {
-    filteredProducts = filteredProducts.filter(p => p.category === category);
+    filteredProducts = filteredProducts.filter(p => p.subcategory_name === category);
   }
   
   // Filtrar por término de búsqueda
   if (searchTerm) {
     const searchLower = searchTerm.toLowerCase();
     filteredProducts = filteredProducts.filter(p =>
-      p.name.toLowerCase().includes(searchLower) ||
-      p.brand.toLowerCase().includes(searchLower) ||
-      p.category.toLowerCase().includes(searchLower) ||
-      p.subcategory.toLowerCase().includes(searchLower)
+      (p.name?.toLowerCase().includes(searchLower) || false) ||
+      (p.brand_name?.toLowerCase().includes(searchLower) || false) ||
+      (p.subcategory_name?.toLowerCase().includes(searchLower) || false)
     );
   }
   
   // Ordenar
   if (sortBy) {
     filteredProducts.sort((a, b) => {
-      let aValue: any = a[sortBy as keyof Product];
-      let bValue: any = b[sortBy as keyof Product];
+      let aValue: any = a[sortBy as keyof BaseProduct];
+      let bValue: any = b[sortBy as keyof BaseProduct];
       
       // Manejar valores undefined
       if (aValue === undefined) aValue = '';

@@ -1,11 +1,13 @@
 // Datos JSON para fallbacks y mockups
 export { default as productsData } from "./products.json";
 export { default as subscriptionsData } from "./subscriptions.json";
-export { default as categoriesData } from "./categories.json";
 export { default as dealsData } from "./deals.json";
 export { default as storesData } from "./stores.json";
 export { default as usersData } from "./users.json";
 export { default as ordersData } from "./orders.json";
+
+// Datos dummy para productos detallados
+export { default as productDetailsData } from './product-details.json';
 
 // Datos estructurados
 export { footerData } from "./footerData";
@@ -32,18 +34,6 @@ export interface ProductsData {
       };
     };
   };
-}
-
-export interface CategoriesData {
-  categories: Array<{
-    id: string;
-    name: string;
-    description: string;
-    image: string;
-    productCount: number;
-    popular: boolean;
-    subcategories: string[];
-  }>;
 }
 
 export interface DealsData {

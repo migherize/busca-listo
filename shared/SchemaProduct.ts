@@ -14,12 +14,21 @@ export const baseProductSchema = z.object({
   views: z.number().optional(),
   created_at: z.string().nullable().optional(),
   image_url: z.string().nullable().optional(),
+  imagenes: z.array(z.string()).optional(),
   offer_description: z.string().nullable().optional(),
   branch_id: z.number().nullable().optional(), 
   url: z.string().nullable().optional(),
   price_offer_usd: z.number().nullable().optional(),
   price_offer_bs: z.number().nullable().optional(),
   discount_percent: z.number().nullable().optional(),
+  characteristics: z.string().nullable().optional(),
+  advancedCharacteristics: z.string().nullable().optional(),
+  accessories: z.string().nullable().optional(),
+  highlightedFeatures: z.string().nullable().optional(),
+  pros: z.string().nullable().optional(),
+  cons: z.string().nullable().optional(),
+  supplier: z.string().nullable().optional(),
+  category: z.string().nullable().optional(),
 });
 
 export type BaseProduct = z.infer<typeof baseProductSchema>;
