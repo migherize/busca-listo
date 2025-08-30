@@ -3,7 +3,9 @@ import { Button } from "@/components/common/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui/card";
 import { Textarea } from "@/components/common/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/common/ui/avatar";
-import { Star, MessageCircle, Send, ThumbsUp, ThumbsDown } from "lucide-react";
+import { Star, MessageCircle, Send, ThumbsUp, ThumbsDown, CheckCircle } from "lucide-react";
+import { Badge } from "@/components/common/ui/badge";
+import type { Comment as ProductComment } from "@shared/SchemaProduct";
 
 interface Comment {
   id: string;
@@ -15,65 +17,44 @@ interface Comment {
   likes: number;
   dislikes: number;
   replies?: Comment[];
+  // Propiedades extendidas para comentarios del producto
+  product_id?: number;
+  created_at?: string;
+  is_verified_purchase?: boolean;
 }
 
 interface ProductCommentsProps {
   productId: string;
   productName: string;
+  mockComments?: ProductComment[];
 }
 
-// Comentarios mockup para demostración
-const mockComments: Comment[] = [
-  {
-    id: "1",
-    author: "María González",
-    avatar: "/assets/avatar1.jpg",
-    rating: 5,
-    content: "Excelente producto, muy buena calidad y precio. Lo recomiendo totalmente.",
-    date: "2024-01-15",
-    likes: 12,
-    dislikes: 0,
-    replies: [
-      {
-        id: "1-1",
-        author: "Juan Pérez",
-        avatar: "/assets/avatar2.jpg",
-        rating: 5,
-        content: "Estoy de acuerdo, es muy bueno.",
-        date: "2024-01-16",
-        likes: 3,
-        dislikes: 0,
-      }
-    ]
-  },
-  {
-    id: "2",
-    author: "Carlos Rodríguez",
-    avatar: "/assets/avatar3.jpg",
-    rating: 4,
-    content: "Buen producto, cumple con lo esperado. La entrega fue rápida.",
-    date: "2024-01-14",
-    likes: 8,
-    dislikes: 1,
-  },
-  {
-    id: "3",
-    author: "Ana Martínez",
-    avatar: "/assets/avatar4.jpg",
-    rating: 5,
-    content: "Superó mis expectativas. Muy satisfecha con la compra.",
-    date: "2024-01-13",
-    likes: 15,
-    dislikes: 0,
-  }
-];
-
-export function ProductComments({ productId, productName }: ProductCommentsProps) {
-  const [comments, setComments] = useState<Comment[]>(mockComments);
+export function ProductComments({ productId, productName, mockComments }: ProductCommentsProps) {
+  const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
   const [rating, setRating] = useState(5);
   const [showReplyForm, setShowReplyForm] = useState<string | null>(null);
   const [replyContent, setReplyContent] = useState("");
+
+  // Convertir comentarios del producto a formato interno
+  const productComments: Comment[] = mockComments ? mockComments.map(comment => ({
+    id: comment.id.toString(),
+    author: comment.user_name,
+    avatar: comment.user_avatar || undefined,
+    rating: comment.rating,
+    content: comment.comment,
+    date: new Date(comment.created_at).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }),
+    likes: comment.helpful_votes,
+    dislikes: 0,
+    // Agregar información adicional del comentario del producto como propiedades extendidas
+    product_id: comment.product_id,
+    created_at: comment.created_at,
+    is_verified_purchase: comment.is_verified_purchase,
+  })) : [];
 
   const handleSubmitComment = () => {
     if (!newComment.trim()) return;
@@ -83,7 +64,11 @@ export function ProductComments({ productId, productName }: ProductCommentsProps
       author: "Usuario Actual",
       rating,
       content: newComment,
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }),
       likes: 0,
       dislikes: 0,
     };
@@ -101,7 +86,11 @@ export function ProductComments({ productId, productName }: ProductCommentsProps
       author: "Usuario Actual",
       rating: 5,
       content: replyContent,
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }),
       likes: 0,
       dislikes: 0,
     };
@@ -152,6 +141,15 @@ export function ProductComments({ productId, productName }: ProductCommentsProps
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
               <span className="font-semibold text-slate-900">{comment.author}</span>
+              
+              {/* Badge de compra verificada si está disponible */}
+              {comment.is_verified_purchase && (
+                <Badge variant="outline" className="flex items-center gap-1 text-xs">
+                  <CheckCircle className="h-3 w-3 text-green-600" />
+                  Compra Verificada
+                </Badge>
+              )}
+              
               <div className="flex items-center gap-1">
                 {renderStars(comment.rating)}
               </div>
@@ -242,6 +240,11 @@ export function ProductComments({ productId, productName }: ProductCommentsProps
           <CardTitle className="flex items-center gap-2 text-xl">
             <MessageCircle className="h-6 w-6 text-blue-600" />
             Comentarios y Reseñas
+            {mockComments && mockComments.length > 0 && (
+              <Badge variant="secondary" className="ml-2">
+                {mockComments.length} comentarios
+              </Badge>
+            )}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -288,8 +291,8 @@ export function ProductComments({ productId, productName }: ProductCommentsProps
 
           {/* Lista de comentarios */}
           <div className="space-y-4">
-            {comments.length > 0 ? (
-              comments.map(comment => renderComment(comment))
+            {productComments.length > 0 ? (
+              productComments.map(comment => renderComment(comment))
             ) : (
               <div className="text-center py-8 text-slate-500">
                 <MessageCircle className="h-12 w-12 mx-auto mb-3 text-slate-300" />

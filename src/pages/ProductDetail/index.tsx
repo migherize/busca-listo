@@ -5,7 +5,16 @@ import {
   Building2, 
   Code,
   Share2,
-  Heart
+  Heart,
+  MapPin,
+  Phone,
+  Mail,
+  Globe,
+  Clock,
+  Star,
+  MessageSquare,
+  ThumbsUp,
+  CheckCircle
 } from "lucide-react";
 import { useParams, Link } from "wouter";
 import { useProductById } from "@/hooks";
@@ -35,7 +44,28 @@ export function ProductDetail() {
   // Preparar imágenes para el carrusel
   const images = product.imagenes && product.imagenes.length > 0 
     ? product.imagenes 
-    : [product.imagenes];
+    : [];
+
+  // Función para renderizar estrellas
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <Star
+        key={i}
+        className={`h-4 w-4 ${
+          i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+        }`}
+      />
+    ));
+  };
+
+  // Función para formatear fecha
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -74,9 +104,9 @@ export function ProductDetail() {
                 <div className="space-y-4">
                   {/* Categorías */}
                   <div className="flex items-center gap-2">
-                     <Badge variant="outline" className="text-xs">
-                      {product.category}
-                    </Badge>
+                   <Badge variant="outline" className="text-xs">
+                    {product.category}
+                  </Badge>
                     <Badge variant="outline" className="text-xs">
                       {product.subcategory_name || "General"}
                     </Badge>
@@ -100,13 +130,13 @@ export function ProductDetail() {
                       <span className="text-slate-600">Código: {product.id}</span>
                     </div>
                   )}
-                  
-                  {/* Requiere receta */}
-                  {product.active && (
-                    <Badge variant="destructive" className="text-xs">
-                      Producto activo
-                    </Badge>
-                  )}
+                   
+                   {/* Requiere receta */}
+                   {product.active && (
+                     <Badge variant="destructive" className="text-xs">
+                       Producto activo
+                     </Badge>
+                   )}
                 </div>
               </CardContent>
             </Card>
@@ -126,7 +156,7 @@ export function ProductDetail() {
             />
             
             {/* Botones de acción */}
-            <Card>
+            {/* <Card>
               <CardContent className="p-6">
                 <div className="space-y-4">
                   <Button className="w-full" size="lg">
@@ -140,7 +170,7 @@ export function ProductDetail() {
                   </Button>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
             
             {/* Información adicional */}
             <Card>
@@ -150,7 +180,12 @@ export function ProductDetail() {
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600">Proveedor:</span>
-                  <span className="font-medium">{product.supplier}</span>
+                  <Link 
+                    to={`/store/${product.supplier_name || product.supplier_id}`}
+                    className="font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+                  >
+                    {product.supplier_name || product.supplier_id}
+                  </Link>
                 </div>
                 
                 <div className="flex items-center justify-between">
@@ -177,6 +212,162 @@ export function ProductDetail() {
         </div>
 
         <Separator className="my-8" />
+
+        {/* Información del Proveedor/Tienda */}
+        <div className="mb-8">
+          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-xl text-blue-900">
+                <Building2 className="h-6 w-6 text-blue-600" />
+                Información de la Tienda
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Información de contacto */}
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <Building2 className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div>
+                      <Link 
+                        to={`/store/${product.supplier_name || product.supplier_id}`}
+                        className="group hover:underline"
+                      >
+                        <h3 className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
+                          {product.supplier_name || product.supplier_id}
+                        </h3>
+                        <p className="text-sm text-slate-600 group-hover:text-blue-600 transition-colors">
+                          Tienda oficial - Ver todos los productos
+                        </p>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {product.supplier_address && (
+                    <div className="flex items-start gap-3">
+                      <MapPin className="h-5 w-5 text-green-600 mt-0.5" />
+                      <div>
+                        <p className="text-sm text-slate-700">{product.supplier_address}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {product.supplier_phone && (
+                    <div className="flex items-center gap-3">
+                      <Phone className="h-5 w-5 text-blue-600" />
+                      <div>
+                        <p className="text-sm text-slate-700">{product.supplier_phone}</p>
+                        <p className="text-xs text-slate-500">Teléfono de contacto</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {product.supplier_email && (
+                    <div className="flex items-center gap-3">
+                      <Mail className="h-5 w-5 text-red-600" />
+                      <div>
+                        <p className="text-sm text-slate-700">{product.supplier_email}</p>
+                        <p className="text-xs text-slate-500">Email de contacto</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Información adicional */}
+                <div className="space-y-4">
+                  {product.supplier_website && (
+                    <div className="flex items-center gap-3">
+                      <Globe className="h-5 w-5 text-purple-600" />
+                      <div>
+                        <a 
+                          href={product.supplier_website} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 hover:text-blue-800 underline"
+                        >
+                          {product.supplier_website}
+                        </a>
+                        <p className="text-xs text-slate-500">Sitio web oficial</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {product.supplier_hours && (
+                    <div className="flex items-center gap-3">
+                      <Clock className="h-5 w-5 text-orange-600" />
+                      <div>
+                        <p className="text-sm text-slate-700">{product.supplier_hours}</p>
+                        <p className="text-xs text-slate-500">Horarios de atención</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {product.supplier_rating && (
+                    <div className="flex items-center gap-3">
+                      <Star className="h-5 w-5 text-yellow-500" />
+                      <div>
+                        <div className="flex items-center gap-1">
+                          <span className="text-sm font-semibold text-slate-900">{product.supplier_rating}</span>
+                          <span className="text-xs text-slate-500">/ 5.0</span>
+                        </div>
+                        <p className="text-xs text-slate-500">Calificación de la tienda</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {product.supplier_reviews && (
+                    <div className="flex items-center gap-3">
+                      <MessageSquare className="h-5 w-5 text-green-600" />
+                      <div>
+                        <p className="text-sm text-slate-700">{product.supplier_reviews} reseñas</p>
+                        <p className="text-xs text-slate-500">Opiniones de clientes</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Botones de acción para la tienda */}
+              <div className="mt-6 flex flex-wrap gap-3">
+                {/* Botón principal para ver todos los productos de la tienda */}
+                <Link to={`/store/${product.supplier_name || product.supplier}`}>
+                  <Button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700">
+                    <Building2 className="h-4 w-4" />
+                    Ver Todos los Productos
+                  </Button>
+                </Link>
+                
+                {product.supplier_phone && (
+                  <Button variant="outline" size="sm" className="flex items-center gap-2">
+                    <Phone className="h-4 w-4" />
+                    Llamar
+                  </Button>
+                )}
+                
+                {product.supplier_email && (
+                  <Button variant="outline" size="sm" className="flex items-center gap-2">
+                    <Mail className="h-4 w-4" />
+                    Enviar Email
+                  </Button>
+                )}
+                
+                {product.supplier_website && (
+                  <Button variant="outline" size="sm" className="flex items-center gap-2">
+                    <Globe className="h-4 w-4" />
+                    Visitar Sitio Web
+                  </Button>
+                )}
+                
+                {product.supplier_address && (
+                  <Button variant="outline" size="sm" className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" />
+                    Ver en Mapa
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Descripción del producto */}
         {product.offer_description && (
@@ -208,7 +399,11 @@ export function ProductDetail() {
 
         {/* Comentarios */}
         <div className="mb-8">
-          <ProductComments productId={product.id.toString()} productName={product.name || "Producto"} />
+          <ProductComments 
+            productId={product.id.toString()} 
+            productName={product.name || "Producto"}
+            mockComments={product.mockComments}
+          />
         </div>
       </div>
     </div>

@@ -425,7 +425,7 @@ export const apiService = {
           url: `https://buscalisto.com/product/${productId}`,
           offerDescription: productType.offerPrice ? "Oferta especial disponible" : null,
           requirePrescription: Math.random() > 0.7, // 30% de probabilidad de requerir receta
-          supplier: "Farmacias Nuevo Siglo",
+          supplier_name: "Farmacias Nuevo Siglo",
           availableOnline: true,
           views: Math.floor(Math.random() * 2000) + 100, // Vistas aleatorias entre 100-2100
         };

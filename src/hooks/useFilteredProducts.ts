@@ -11,7 +11,7 @@ interface ProductFilters {
   inStock?: boolean;
   availableOnline?: boolean;
   requirePrescription?: boolean;
-  supplier?: string;
+  supplier_name?: string;
 }
 
 interface UseFilteredProductsParams {

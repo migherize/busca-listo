@@ -30,7 +30,7 @@ function transformProductData(rawProduct: any, farmaciaName: string): Product | 
     url: rawProduct.url,
     offerDescription: rawProduct.oferta ? "Oferta disponible" : null,
     requirePrescription: rawProduct.necesario_recipe_medico,
-    supplier: farmaciaName,
+    supplier_name: farmaciaName,
     availableOnline: true,
     views: rawProduct.views ? parseInt(rawProduct.views, 10) : undefined,
   };

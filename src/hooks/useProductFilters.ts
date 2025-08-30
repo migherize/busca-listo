@@ -9,7 +9,7 @@ export interface ProductFilters {
   inStock?: boolean;
   availableOnline?: boolean;
   requirePrescription?: boolean;
-  supplier?: string;
+  supplier_name?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
 }
@@ -77,7 +77,7 @@ export function useProductFilters(initialFilters: Partial<ProductFilters> = {}) 
     if (filters.inStock !== undefined) summary.push(`En stock: ${filters.inStock ? 'Sí' : 'No'}`);
     if (filters.availableOnline !== undefined) summary.push(`Disponible online: ${filters.availableOnline ? 'Sí' : 'No'}`);
     if (filters.requirePrescription !== undefined) summary.push(`Requiere receta: ${filters.requirePrescription ? 'Sí' : 'No'}`);
-    if (filters.supplier) summary.push(`Proveedor: ${filters.supplier}`);
+    if (filters.supplier_name) summary.push(`Proveedor: ${filters.supplier_name}`);
     
     return summary;
   }, [filters]);

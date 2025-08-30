@@ -1,5 +1,20 @@
 import { z } from "zod";
 
+// Esquema para comentarios
+export const commentSchema = z.object({
+  id: z.number(),
+  product_id: z.number(),
+  user_name: z.string(),
+  user_avatar: z.string().nullable().optional(),
+  rating: z.number().min(1).max(5),
+  comment: z.string(),
+  created_at: z.string(),
+  helpful_votes: z.number().default(0),
+  is_verified_purchase: z.boolean().default(false),
+});
+
+export type Comment = z.infer<typeof commentSchema>;
+
 export const baseProductSchema = z.object({
   id: z.number(),
   name: z.string().nullable().optional(),
@@ -27,8 +42,17 @@ export const baseProductSchema = z.object({
   highlightedFeatures: z.string().nullable().optional(),
   pros: z.string().nullable().optional(),
   cons: z.string().nullable().optional(),
-  supplier: z.string().nullable().optional(),
+  supplier_id: z.number().nullable().optional(),
   category: z.string().nullable().optional(),
+  supplier_name: z.string().nullable().optional(),
+  supplier_address: z.string().nullable().optional(),
+  supplier_phone: z.string().nullable().optional(),
+  supplier_email: z.string().nullable().optional(),
+  supplier_website: z.string().nullable().optional(),
+  supplier_hours: z.string().nullable().optional(),
+  supplier_rating: z.number().nullable().optional(),
+  supplier_reviews: z.number().nullable().optional(),
+  mockComments: z.array(commentSchema).optional(),
 });
 
 export type BaseProduct = z.infer<typeof baseProductSchema>;
@@ -60,3 +84,45 @@ export const dealsProductSchema = recentProductSchema.extend({
 });
 
 export type DealsProduct = z.infer<typeof dealsProductSchema>;
+
+
+export const detailsProductSchema = baseProductSchema.pick({
+  id: true,
+  name: true,
+  brand_id: true,
+  brand_name: true,
+  subcategory_id: true,
+  subcategory_name: true,
+  price_bs: true,
+  price_usd: true,
+  in_stock: true,
+  active: true,
+  views: true,
+  created_at: true,
+  imagenes: true,
+  offer_description: true,
+  branch_id: true,
+  url: true,
+  price_offer_usd: true,
+  price_offer_bs: true,
+  discount_percent: true,
+  characteristics: true,
+  advancedCharacteristics: true,
+  accessories: true,
+  highlightedFeatures: true,
+  pros: true,
+  cons: true,
+  category: true,
+  supplier_id: true,
+  supplier_name: true,
+  supplier_address: true,
+  supplier_phone: true,
+  supplier_email: true,
+  supplier_website: true,
+  supplier_hours: true,
+  supplier_rating: true,
+  supplier_reviews: true,
+  mockComments: true,
+});
+
+export type detailsProduct = z.infer<typeof detailsProductSchema>;
