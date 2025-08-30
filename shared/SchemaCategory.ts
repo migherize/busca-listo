@@ -42,10 +42,7 @@ export const sortOptions = [
   { key: "descuento", label: "Descuento" },
 ];
 
-export interface CategoryNavbarProps {
-  selectedCategory: Category | "all";
-  onCategorySelect: (category: Category | "all") => void;
-}
+
 
 // export const categoryImages: Record<string, string> = {
 //   "medicamentos": "/assets/medicamentos.jpeg",

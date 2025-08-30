@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import { CategoryNavbar } from "@/components/products/CategoryNavbar";
+import { SearchResults } from "@/components/common/SearchResults";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { LoadingState } from "@/components/common/LoadingState";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Pagination } from "@/components/common/Pagination";
 import { useProductsByCategory } from "@/hooks/useProductsByCategory";
+import { useSearch } from "@/contexts/SearchContext";
 import type { Category } from "@shared/SchemaCategory";
 
 export default function CategoryPage() {
   const [, setLocation] = useLocation();
+  const { searchTerm } = useSearch();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedSort, setSelectedSort] = useState("relevancia");
   const resultsPerPage = 12;
@@ -110,16 +112,15 @@ export default function CategoryPage() {
             </p>
           </div>
 
-          {/* Navegación de categorías y ordenamiento */}
-          <CategoryNavbar
-            selectedCategory={selectedCategory}
-            onCategorySelect={handleCategorySelect}
-            selectedSort={selectedSort}
-            onSortSelect={handleSortSelect}
+          {/* Componente de búsqueda y resultados */}
+          <SearchResults 
+            className="mb-8"
+            resultsPerPage={12}
+            showCategoryNavbar={true}
           />
 
-          {/* Contenido de productos */}
-          {products && products.length > 0 ? (
+          {/* Contenido de productos de la categoría (solo cuando no hay búsqueda activa) */}
+          {!searchTerm && products && products.length > 0 && (
             <>
               <ProductGrid products={paginatedProducts} />
               {totalPages > 1 && (
@@ -134,12 +135,6 @@ export default function CategoryPage() {
                 </div>
               )}
             </>
-          ) : (
-            <EmptyState
-              searchTerm=""
-              selectedCategory={selectedCategory}
-              onClearFilters={() => setLocation("/")}
-            />
           )}
         </div>
       </main>
