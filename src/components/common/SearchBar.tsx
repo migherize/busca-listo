@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import { Button } from "@/components/common/ui/button";
-import { Input } from "@/components/common/ui/button";
+import { Input } from "@/components/common/ui/input";
 import { useSearch } from "@/contexts/SearchContext";
 
 interface SearchBarProps {

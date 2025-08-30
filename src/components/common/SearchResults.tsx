@@ -4,7 +4,7 @@ import { LoadingState } from "@/components/common/LoadingState";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Pagination } from "@/components/common/Pagination";
-import { CategoryNavbarContainer } from "@/components/containers/CategoryNavbarContainer";
+import { CategoryNavbarContainer } from "@/components/categories/containers/CategoryNavbar/CategoryNavbarContainer";
 import { useFetchData } from "@/hooks/useFetchData";
 import { useSearch } from "@/contexts/SearchContext";
 import type { Category } from "@shared/SchemaCategory";

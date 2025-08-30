@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { CategoryNavbarPresenter } from "@/components/presenters/CategoryNavbarPresenter";
+import { CategoryNavbarPresenter } from "@/components/categories/presenters/CategoryNavbar/CategoryNavbarPresenter";
 import { categories, sortOptions } from "@shared/SchemaCategory";
 import type { Category } from "@shared/SchemaCategory";
 

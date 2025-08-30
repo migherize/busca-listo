@@ -3,7 +3,7 @@ export { ProductGridPresenter } from "./ProductGridPresenter";
 export { DealsCarouselPresenter } from "./DealsCarouselPresenter";
 export { PopularCategoryPresenter } from "./PopularCategoryPresenter";
 export { ProductCardPresenter } from "./ProductCardPresenter";
-export { CategoryNavbarPresenter } from "./CategoryNavbarPresenter";
+export { CategoryNavbarPresenter } from "../categories/presenters/CategoryNavbar/CategoryNavbarPresenter";
 
 // Futuros presenters
 // export { ProductDetailPresenter } from "./ProductDetailPresenter";
