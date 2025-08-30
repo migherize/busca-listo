@@ -215,3 +215,4 @@ export function ProductImageCarousel({ images, productName }: ProductImageCarous
   );
 }
 
+
