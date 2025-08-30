@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Button } from '@/components/common/ui/button';
+import { Card } from '@/components/common/ui/card';
 import { QRCode } from '@/components/qr-code';
 import { PDFDownload } from '@/components/common/PDFDownload';
 import { Footer } from "@/components/layout/Footer";

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/common/ui/button";
 import { Search } from "lucide-react";
 import type { EmptyStateProps } from "@shared/schema";
 

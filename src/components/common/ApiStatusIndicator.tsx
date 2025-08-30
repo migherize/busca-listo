@@ -1,6 +1,6 @@
 import { useApiStatus } from "@/hooks";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/common/ui/badge";
+import { Button } from "@/components/common/ui/button";
 import { RefreshCw } from "lucide-react";
 
 export function ApiStatusIndicator() {

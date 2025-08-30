@@ -1,5 +1,5 @@
 import { PriceTag } from "@/components/products/PriceTag";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/common/ui/card";
 import { Link } from "wouter";
 import type { RecentProduct } from "@shared/SchemaProduct";
 

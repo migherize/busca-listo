@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/common/ui/badge";
+import { Card, CardContent } from "@/components/common/ui/card";
 import { PriceTag } from "@/components/products/PriceTag";
 import type { MostViewedProduct } from "@shared/SchemaProduct";
 import { Link } from "wouter";

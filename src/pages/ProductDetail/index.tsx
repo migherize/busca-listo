@@ -4,10 +4,10 @@ import { ProductImageCarousel } from "@/components/products/ProductImageCarousel
 import { ProductFeatures } from "@/components/products/ProductFeatures";
 import { ProductPricing } from "@/components/products/ProductPricing";
 import { ProductComments } from "@/components/products/ProductComments";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/common/ui/badge";
+import { Button } from "@/components/common/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui/card";
+import { Separator } from "@/components/common/ui/separator";
 import { 
   ArrowLeft, 
   ExternalLink, 

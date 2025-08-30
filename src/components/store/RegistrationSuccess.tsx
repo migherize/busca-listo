@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/common/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/ui/card";
 import { CheckCircle, Mail, Home, Store } from "lucide-react";
 
 interface RegistrationSuccessProps {

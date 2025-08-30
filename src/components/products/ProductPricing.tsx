@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/common/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui/card";
 import { TrendingDown, DollarSign, Calendar, Tag } from "lucide-react";
 import { PriceTag } from "./PriceTag";
 

@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/common/ui/button';
 import { Download } from 'lucide-react';
 import type { PDFDownloadProps } from '@shared/schema';
 

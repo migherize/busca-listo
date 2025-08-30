@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/common/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui/card";
+import { Textarea } from "@/components/common/ui/textarea";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/common/ui/avatar";
 import { Star, MessageCircle, Send, ThumbsUp, ThumbsDown } from "lucide-react";
 
 interface Comment {

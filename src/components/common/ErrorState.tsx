@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/common/ui/button";
 import { AlertTriangle } from "lucide-react";
 import type { ErrorStateProps } from "@shared/schema";
 

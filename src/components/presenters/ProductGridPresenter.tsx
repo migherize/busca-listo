@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/common/ui/button";
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { ProductCard } from "./ProductCard";
 import { RecentProductCard } from "@/components/products/presenters/Recent/RecentProductCard";

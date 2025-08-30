@@ -9,8 +9,8 @@ import { Pagination } from "@/components/common/Pagination";
 import { useProductsByCategory } from "@/hooks/useProductsByCategory";
 import { useAllCategories } from "@/hooks/useAllCategories";
 import { useSearch } from "@/contexts/SearchContext";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui/card";
+import { Button } from "@/components/common/ui/button";
 import { Link } from "wouter";
 import { 
   Pill, 

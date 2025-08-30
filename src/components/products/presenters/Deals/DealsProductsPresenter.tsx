@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/common/ui/button";
 import type { DealsProduct } from "@shared/SchemaProduct";
 import { DealsProductCard } from "@/components/products/presenters/Deals/DealsProductCard";
 

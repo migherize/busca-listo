@@ -1,5 +1,4 @@
-// components/categories/PopularCategoryCard.tsx
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/common/ui/card";
 import { Link } from "wouter";
 
 interface PopularCategoryCardProps {

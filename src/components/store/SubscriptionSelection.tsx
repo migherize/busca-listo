@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/common/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/ui/card";
+import { Badge } from "@/components/common/ui/badge";
 import { Check, ArrowLeft, Star, Zap, Crown } from "lucide-react";
 import subscriptionsData from "@/data/subscriptions.json";
 import emailService from "@/services/emailService";

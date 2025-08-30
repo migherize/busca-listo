@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/common/ui/button";
+import { Badge } from "@/components/common/ui/badge";
 import { Filter, SortAsc, SortDesc } from "lucide-react";
 import type { Category } from "@shared/SchemaCategory";
 
