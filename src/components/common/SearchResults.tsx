@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ProductGrid } from "@/components/products/ProductGrid";
+import { ProductCard } from "@/components/products/ProductCard";
 import { LoadingState } from "@/components/common/LoadingState";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
@@ -7,7 +7,6 @@ import { Pagination } from "@/components/common/Pagination";
 import { CategoryNavbarContainer } from "@/components/categories/containers/CategoryNavbar/CategoryNavbarContainer";
 import { useFetchData } from "@/hooks/useFetchData";
 import { useSearch } from "@/contexts/SearchContext";
-import type { Category } from "@shared/SchemaCategory";
 
 interface SearchResultsProps {
   className?: string;
@@ -99,7 +98,7 @@ export function SearchResults({
               : "Todos los productos"}
         </h2>
         <p className="text-slate-600">{products.length} productos encontrados</p>
-        
+
         {/* Botón para limpiar filtros */}
         {(searchTerm || selectedCategory !== "all") && (
           <button
@@ -124,7 +123,11 @@ export function SearchResults({
         />
       ) : (
         <>
-          <ProductGrid products={paginatedProducts} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {paginatedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
           {totalPages > 1 && (
             <div className="mt-8">
               <Pagination

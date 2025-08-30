@@ -28,10 +28,10 @@ function App() {
               <Route path="/" component={Home} /> {/* refactoziado */}
               <Route path="/category/:category" component={CategoryPage} /> {/* refactoziado */}
               <Route path="/category" component={CategoriesPage} /> {/* refactoziado */}
-              <Route path="/about" component={OurServices} />
-              <Route path="/services" component={OurServices} />
               <Route path="/product/:id" component={ProductDetail} />
               <Route path="/register-store" component={RegisterStore} />
+              <Route path="/about" component={OurServices} />
+              <Route path="/services" component={OurServices} />
               <Route path="/help" component={Help} />
               <Route path="/terms" component={Terms} />
               <Route path="/privacy" component={Privacy} />

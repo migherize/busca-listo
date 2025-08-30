@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { SearchResults } from "@/components/common/SearchResults";
-import { ProductGrid } from "@/components/products/ProductGrid";
+import { ProductCard } from "@/components/products/ProductCard";
 import { LoadingState } from "@/components/common/LoadingState";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
@@ -168,7 +168,11 @@ export default function CategoryPage() {
               {/* Contenido de productos de la categoría (solo cuando no hay búsqueda activa) */}
               {!searchTerm && products && products.length > 0 && (
                 <>
-                  <ProductGrid products={paginatedProducts} />
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {paginatedProducts.map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
                   {totalPages > 1 && (
                     <div className="mt-8">
                       <Pagination

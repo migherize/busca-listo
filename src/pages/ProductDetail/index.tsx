@@ -1,28 +1,25 @@
-import { useParams } from "wouter";
-import { useProductById } from "@/hooks";
-import { ProductImageCarousel } from "@/components/products/ProductImageCarousel";
-import { ProductFeatures } from "@/components/products/ProductFeatures";
-import { ProductPricing } from "@/components/products/ProductPricing";
-import { ProductComments } from "@/components/products/ProductComments";
-import { Badge } from "@/components/common/ui/badge";
-import { Button } from "@/components/common/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui/card";
-import { Separator } from "@/components/common/ui/separator";
 import { 
   ArrowLeft, 
   ExternalLink, 
   Package, 
   Building2, 
-  Calendar,
-  Eye,
   Code,
-  Star,
   Share2,
   Heart
 } from "lucide-react";
-import { Link } from "wouter";
+import { useParams, Link } from "wouter";
+import { useProductById } from "@/hooks";
+import { Badge } from "@/components/common/ui/badge";
+import { Button } from "@/components/common/ui/button";
+import { Separator } from "@/components/common/ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui/card";
+import { ProductPricing } from "@/components/common/pricing/ProductPricing";
 import { LoadingState } from "@/components/common/LoadingState";
 import { ErrorState } from "@/components/common/ErrorState";
+import { ProductFeatures } from "@/components/products/ProductFeatures";
+import { ProductComments } from "@/components/products/ProductComments";
+import { ProductImageCarousel } from "@/components/products/ProductImageCarousel";
+
 
 export function ProductDetail() {
   const { id } = useParams();
