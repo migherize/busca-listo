@@ -1,5 +1,5 @@
 import { usePopularCategories } from "@/hooks/usePopularCategories";
-import { PopularCategoryCard } from "./PopularCategoryCardPresenter";
+import { PopularCategoryCard } from "@/components/categories/presenters/PopularCategories/PopularCategoryCardPresenter";
 import type { CategoryPopular } from "@shared/SchemaCategory";
 
 interface PopularCategoriesListProps {
@@ -30,7 +30,7 @@ export function PopularCategoriesList({ limit = 6 }: PopularCategoriesListProps)
         <PopularCategoryCard
           key={cat.name}
           name={cat.name}
-          categoryKey={cat.name}
+          categoryKey={cat.key}
           imageUrl={cat.image_urls?.[0]}
         />
       ))}

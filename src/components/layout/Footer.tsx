@@ -227,7 +227,7 @@ export function Footer() {
                       {categories.map((category: any) => (
                         <li key={category.id}>
                           <Link 
-                            href={`/category/${category.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                            href={`/category/${category.key.toLowerCase().replace(/\s+/g, '-')}`} 
                             className="hover:text-white transition-colors"
                           >
                             {category.name}

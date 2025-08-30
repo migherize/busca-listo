@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
 import { RecentProductsContainer } from "@/components/products/containers/Recent/RecentProductsContainer";
 import { MostViewedProductsContainer } from "@/components/products/containers/MostViewed/MostViewedProductsContainer";
 import { DealsProductsContainer } from "@/components/products/containers/Deals/DealsProductsContainer";
-import { PopularCategoriesList } from "@/components/categories/PopularCategories/PopularCategoriesListContainer";
+import { PopularCategoriesList } from "@/components/categories/containers/PopularCategories/PopularCategoriesListContainer";
 
 import { SearchResults } from "@/components/common/SearchResults";
 import { CustomAdsLeft } from "@/components/ads/CustomAdsLeft";
@@ -11,11 +10,6 @@ import { useSearch } from "@/contexts/SearchContext";
 
 export default function Home() {
   const { searchTerm } = useSearch();
-
-  const handlePopularSubcategoryClick = (name: string) => {
-    // La búsqueda se maneja automáticamente a través del contexto
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <div className="min-h-screen bg-slate-50 overflow-x-hidden">

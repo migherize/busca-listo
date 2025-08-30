@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import Home from "@/pages/Home/index";
 import CategoryPage from "@/pages/Category";
+import CategoriesPage from "@/pages/Categories";
 import NotFound from "@/pages/NotFound";
 import OurServices from "@/pages/OurServices";
 import ProductDetail from "@/pages/ProductDetail";
@@ -24,8 +25,9 @@ function App() {
           <Header />
           <main className="flex-1">
             <Switch>
-              <Route path="/" component={Home} />
-              <Route path="/category/:category" component={CategoryPage} />
+              <Route path="/" component={Home} /> {/* refactoziado */}
+              <Route path="/category/:category" component={CategoryPage} /> {/* refactoziado */}
+              <Route path="/category" component={CategoriesPage} /> {/* refactoziado */}
               <Route path="/about" component={OurServices} />
               <Route path="/services" component={OurServices} />
               <Route path="/product/:id" component={ProductDetail} />
@@ -33,7 +35,7 @@ function App() {
               <Route path="/help" component={Help} />
               <Route path="/terms" component={Terms} />
               <Route path="/privacy" component={Privacy} />
-              <Route component={NotFound} />
+              <Route component={NotFound} /> {/* refactoziado */}
             </Switch>
           </main>
           <Footer />

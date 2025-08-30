@@ -3,6 +3,7 @@ import { z } from "zod";
 export const baseCategorySchema = z.object({
   id: z.number(),
   name: z.string(),
+  key: z.string(),
   description: z.string().nullable().optional(),
   image_urls: z.array(z.string().url())
 });
@@ -14,7 +15,7 @@ export const categorySchema = z.enum([
   "medicamentos",
   "repuestos",
   "telefonos",
-  "TV",
+  "tv",
   "comidarapida",
   "zapatos",
   "suplementos",
@@ -41,14 +42,3 @@ export const sortOptions = [
   { key: "popularidad", label: "Popularidad" },
   { key: "descuento", label: "Descuento" },
 ];
-
-
-
-// export const categoryImages: Record<string, string> = {
-//   "medicamentos": "/assets/medicamentos.jpeg",
-//   "repuestos": "/assets/repuestos.jpeg",
-//   "telefonos": "/assets/telefonos.jpeg",
-//   "TV": "/assets/TV.jpeg",
-//   "comidarapida": "/assets/comidarapida.png",
-//   "zapatos": "/assets/zapatos.jpeg",
-// };
