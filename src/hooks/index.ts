@@ -6,6 +6,7 @@ export { useProductsByCategory } from './useProductsByCategory';
 export { useSearchProducts } from './useSearchProducts';
 export { useAllProducts } from './useAllProducts';
 export { usePopularCategories } from './usePopularCategories';
+export { useAllCategories } from './useAllCategories';
 export { useFilteredProducts } from './useFilteredProducts';
 export { useProductPagination } from './useProductPagination';
 export { useProductFilters } from './useProductFilters';

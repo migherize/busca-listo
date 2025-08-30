@@ -1,8 +1,11 @@
 import { Link } from "wouter";
 import { footerData } from "@/data/footerData";
 import { PillBottle } from "lucide-react";
+import { useAllCategories } from "@/hooks/useAllCategories";
 
 export function Footer() {
+  const { data: categories, isLoading, error } = useAllCategories();
+  
   return (
     <footer className="bg-gray-800 text-white py-12 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -184,18 +187,50 @@ export function Footer() {
             {(() => {
               const categoriasSection = footerData.sections.find(s => s.title === "Categorías");
               if (!categoriasSection) return null;
+              
+              if (isLoading) {
+                return (
+                  <>
+                    <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
+                      {categoriasSection.icon && <categoriasSection.icon className="w-5 h-5" />}
+                      <span>{categoriasSection.title}</span>
+                    </h4>
+                    <div className="space-y-2">
+                      {[...Array(6)].map((_, i) => (
+                        <div key={i} className="h-4 bg-gray-600 rounded animate-pulse"></div>
+                      ))}
+                    </div>
+                  </>
+                );
+              }
+              
+              if (error || !categories || !Array.isArray(categories)) {
+                return (
+                  <>
+                    <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
+                      {categoriasSection.icon && <categoriasSection.icon className="w-5 h-5" />}
+                      <span>{categoriasSection.title}</span>
+                    </h4>
+                    <p className="text-gray-400 text-sm">Error al cargar categorías</p>
+                  </>
+                );
+              }
+              
               return (
                 <>
                   <h4 className="flex items-center font-semibold text-white mb-4 space-x-2">
                     {categoriasSection.icon && <categoriasSection.icon className="w-5 h-5" />}
                     <span>{categoriasSection.title}</span>
                   </h4>
-                  {categoriasSection.links?.length && (
+                  {categories.length > 0 && (
                     <ul className="space-y-2 text-sm text-gray-300">
-                      {categoriasSection.links.map(link => (
-                        <li key={link.label}>
-                          <Link href={link.href} className="hover:text-white transition-colors">
-                            {link.label}
+                      {categories.map((category: any) => (
+                        <li key={category.id}>
+                          <Link 
+                            href={`/category/${category.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                            className="hover:text-white transition-colors"
+                          >
+                            {category.name}
                           </Link>
                         </li>
                       ))}
