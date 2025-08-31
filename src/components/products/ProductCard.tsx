@@ -17,8 +17,8 @@ export function ProductCard({ product }: ProductCardProps) {
     }).format(price);
   };
 
-  const discountPercentage = product.price_offer
-    ? Math.round(((product.price_bs - product.price_offer) / product.price_bs) * 100)
+  const discountPercentage = product.price_offer_bs
+    ? Math.round(((product.price_bs - product.price_offer_bs) / product.price_bs) * 100)
     : 0;
 
   const handleVisitStore = () => {
@@ -37,7 +37,7 @@ export function ProductCard({ product }: ProductCardProps) {
         />
         
         {/* Offer Badge */}
-        {product.price_offer && (
+        {product.price_offer_bs && (
           <div className="absolute top-2 left-2">
             <Badge className="bg-amber-100 text-amber-800 text-xs font-medium px-2 py-1">
               -{discountPercentage}%
@@ -66,10 +66,10 @@ export function ProductCard({ product }: ProductCardProps) {
         
         <div className="mb-3">
           <div className="flex items-center space-x-2">
-            {product.price_offer ? (
+            {product.price_offer_bs ? (
               <>
                 <span className="text-lg font-bold text-slate-900">
-                  {formatPrice(product.price_offer)}
+                  {formatPrice(product.price_offer_bs)}
                 </span>
                 <span className="text-sm text-slate-500 line-through">
                   {formatPrice(product.price_bs)}
@@ -81,9 +81,9 @@ export function ProductCard({ product }: ProductCardProps) {
               </span>
             )}
           </div>
-          {product.price_offer && (
+          {product.price_offer_bs && (
             <p className="text-xs text-amber-600 mt-1">
-              Precio en oferta: {formatPrice(product.price_offer)}
+              Precio en oferta: {formatPrice(product.price_offer_bs)}
             </p>
           )}
         </div>

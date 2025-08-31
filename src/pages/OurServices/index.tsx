@@ -1,7 +1,7 @@
 import { Button } from '@/components/common/ui/button';
 import { Card } from '@/components/common/ui/card';
 import { QRCode } from '@/components/qr-code';
-import { PDFDownload } from '@/components/common/PDFDownload';
+
 import { Footer } from "@/components/layout/Footer";
 import { 
   PillBottle, 
@@ -49,9 +49,13 @@ export default function OurServices() {
             </div>
           </div>
           <div className="flex gap-3">
-            <PDFDownload targetId="flyer-content">
+            <Button 
+              variant="outline"
+              className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+            >
+              <Download className="w-4 h-4 mr-2" />
               Descargar PDF
-            </PDFDownload>
+            </Button>
             <Button 
               onClick={() => window.open(registrationUrl, '_blank')}
               data-testid="button-view-demo"

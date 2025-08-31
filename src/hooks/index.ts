@@ -8,10 +8,7 @@ export { useAllProducts } from './useAllProducts';
 export { usePopularCategories } from './usePopularCategories';
 export { useAllCategories } from './useAllCategories';
 export { useFilteredProducts } from './useFilteredProducts';
-export { useProductPagination } from './useProductPagination';
-export { useProductFilters } from './useProductFilters';
 export { useProductById } from './useProductById';
-export { useApiStatus } from './useApiStatus';
 
 // Hooks existentes
 export { useFetchData } from './useFetchData';

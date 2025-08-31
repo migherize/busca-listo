@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "@shared/schema";
+import type { BaseProduct } from "@shared/SchemaProduct";
 import { apiService } from "@/services/apiService";
 
 export function useProductsByCategory(category: string, limit?: number) {
-  return useQuery<Product[]>({
+  return useQuery<BaseProduct[]>({
     queryKey: ["products", "category", category, limit],
     queryFn: async () => {
       const response = await apiService.getProductsByCategory(category, limit);

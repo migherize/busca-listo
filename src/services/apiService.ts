@@ -17,22 +17,29 @@ interface PaginatedResponse<T> {
 }
 
 // Función helper para verificar si la API está disponible
+// Función para verificar si la API está disponible
+// Por ahora deshabilitada para evitar peticiones constantes
 async function isApiAvailable(): Promise<boolean> {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 segundos de timeout
-    
-    const response = await fetch(buildApiUrl("/health"), { 
-      signal: controller.signal,
-      method: 'HEAD' // Solo verificar si responde, no descargar contenido
-    });
-    
-    clearTimeout(timeoutId);
-    return response.ok;
-  } catch (error) {
-    console.warn("API no disponible, usando datos mockup:", error);
-    return false;
-  }
+  // Temporalmente deshabilitado para evitar peticiones fallidas
+  // TODO: Implementar verificación de API cuando el backend esté listo
+  return false;
+  
+  // Código original comentado:
+  // try {
+  //   const controller = new AbortController();
+  //   const timeoutId = setTimeout(() => controller.abort(), 5000);
+  //   
+  //   const response = await fetch(buildApiUrl("/health"), { 
+  //     signal: controller.signal,
+  //     method: 'HEAD'
+  //   });
+  //   
+  //   clearTimeout(timeoutId);
+  //   return response.ok;
+  // } catch (error) {
+  //   console.warn("API no disponible, usando datos mockup:", error);
+  //   return false;
+  // }
 }
 
 // Función helper para obtener productos mockup con filtros
@@ -42,14 +49,14 @@ function getMockProducts(options: {
   searchTerm?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
-} = {}): BaseProduct[] {
+} = {}): BaseBaseProduct[] {
   let filteredProducts = [...mockProducts];
   
   const { limit, category, searchTerm, sortBy, sortOrder } = options;
   
   // Filtrar por categoría
   if (category && category !== 'all') {
-    filteredProducts = filteredProducts.filter(p => p.subcategory_name === category);
+    filteredProducts = filteredProducts.filter(p => p.subcategory_name_name === category);
   }
   
   // Filtrar por término de búsqueda
@@ -58,7 +65,7 @@ function getMockProducts(options: {
     filteredProducts = filteredProducts.filter(p =>
       (p.name?.toLowerCase().includes(searchLower) || false) ||
       (p.brand_name?.toLowerCase().includes(searchLower) || false) ||
-      (p.subcategory_name?.toLowerCase().includes(searchLower) || false)
+      (p.subcategory_name_name?.toLowerCase().includes(searchLower) || false)
     );
   }
   
@@ -95,7 +102,7 @@ function simulateApiDelay(ms: number = 300): Promise<void> {
 // Servicio principal de API con fallback
 export const apiService = {
   // Productos recientes
-  async getRecentProducts(limit?: number): Promise<ApiResponse<Product[]>> {
+  async getRecentProducts(limit?: number): Promise<ApiResponse<BaseBaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
         const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS.RECENT, limit ? { limit } : undefined);
@@ -121,7 +128,7 @@ export const apiService = {
   },
 
   // Productos más vistos
-  async getMostViewedProducts(limit?: number): Promise<ApiResponse<Product[]>> {
+  async getMostViewedProducts(limit?: number): Promise<ApiResponse<BaseBaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
         const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS.MOST_VIEWED, limit ? { limit } : undefined);
@@ -146,7 +153,7 @@ export const apiService = {
   },
 
   // Productos en oferta
-  async getDealsProducts(limit?: number): Promise<ApiResponse<Product[]>> {
+  async getDealsProducts(limit?: number): Promise<ApiResponse<BaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
         const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS.DEALS, limit ? { limit } : undefined);
@@ -161,21 +168,21 @@ export const apiService = {
       // Fallback a mockup - filtrar productos con oferta
       await simulateApiDelay();
       const allProducts = getMockProducts();
-      const dealsProducts = allProducts.filter(p => p.offerPrice !== null && p.offerPrice !== undefined);
+      const dealsProducts = allProducts.filter(p => p.price_offer_bs !== null && p.price_offer_bs !== undefined);
       const mockData = dealsProducts.slice(0, limit || dealsProducts.length);
       return { data: mockData, success: true };
       
     } catch (error) {
       console.error("Error en getDealsProducts:", error);
       const allProducts = getMockProducts();
-      const dealsProducts = allProducts.filter(p => p.offerPrice !== null && p.offerPrice !== undefined);
+      const dealsProducts = allProducts.filter(p => p.price_offer_bs !== null && p.price_offer_bs !== undefined);
       const mockData = dealsProducts.slice(0, limit || dealsProducts.length);
       return { data: mockData, success: true };
     }
   },
 
   // Productos por categoría
-  async getProductsByCategory(category: string, limit?: number): Promise<ApiResponse<Product[]>> {
+  async getProductsByCategory(category: string, limit?: number): Promise<ApiResponse<BaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
         const endpoint = `${API_CONFIG.ENDPOINTS.PRODUCTS.BY_CATEGORY}/${category}`;
@@ -201,10 +208,10 @@ export const apiService = {
   },
 
   // Productos por tienda
-  async getProductsByStore(supplierId: string, category?: string, limit?: number): Promise<ApiResponse<Product[]>> {
+  async getProductsByStore(supplier_idId: string, category?: string, limit?: number): Promise<ApiResponse<BaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
-        const endpoint = `${API_CONFIG.ENDPOINTS.PRODUCTS.BY_STORE}/${supplierId}`;
+        const endpoint = `${API_CONFIG.ENDPOINTS.PRODUCTS.BY_STORE}/${supplier_idId}`;
         const params: Record<string, string | number> = {};
         if (category) params.categoria = category;
         if (limit) params.limit = limit;
@@ -218,14 +225,14 @@ export const apiService = {
         }
       }
       
-      // Fallback a mockup - filtrar por supplier_id
+      // Fallback a mockup - filtrar por supplier_id_id
       await simulateApiDelay();
       const allProducts = getMockProducts();
-      let filteredProducts = allProducts.filter(p => p.supplier === supplierId);
+      let filteredProducts = allProducts.filter(p => p.supplier_id === supplier_idId);
       
       // Filtrar por categoría si se especifica
       if (category && category !== 'all') {
-        filteredProducts = filteredProducts.filter(p => p.subcategory === category);
+        filteredProducts = filteredProducts.filter(p => p.subcategory_name === category);
       }
       
       // Aplicar límite
@@ -238,10 +245,10 @@ export const apiService = {
     } catch (error) {
       console.error("Error en getProductsByStore:", error);
       const allProducts = getMockProducts();
-      let filteredProducts = allProducts.filter(p => p.supplier === supplierId);
+      let filteredProducts = allProducts.filter(p => p.supplier_id === supplier_idId);
       
       if (category && category !== 'all') {
-        filteredProducts = filteredProducts.filter(p => p.subcategory === category);
+        filteredProducts = filteredProducts.filter(p => p.subcategory_name === category);
       }
       
       if (limit) {
@@ -253,7 +260,7 @@ export const apiService = {
   },
 
   // Búsqueda de productos
-  async searchProducts(searchTerm: string, category?: string, limit?: number): Promise<ApiResponse<Product[]>> {
+  async searchProducts(searchTerm: string, category?: string, limit?: number): Promise<ApiResponse<BaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
         const params: Record<string, string | number> = {};
@@ -423,9 +430,9 @@ export const apiService = {
             name: "Paracetamol 500mg - Alivio del Dolor y Fiebre",
             brand: "Genérico",
             category: "medicamentos",
-            subcategory: "analgésicos",
+            subcategory_name: "analgésicos",
             price: 1250.00,
-            offerPrice: 999.00,
+            price_offer_bs: 999.00,
             description: "El Paracetamol 500mg es un medicamento analgésico y antipirético ampliamente utilizado para aliviar el dolor leve a moderado y reducir la fiebre. Es especialmente efectivo para dolores de cabeza, dolores musculares, dolores de muelas, dolores menstruales y síntomas de resfriado o gripe.",
             characteristics: "• Alivio rápido del dolor leve a moderado\n• Reducción efectiva de la fiebre\n• Seguro para la mayoría de las personas\n• No causa irritación estomacal\n• Efectivo para dolores de cabeza y musculares\n• Ideal para síntomas de resfriado y gripe"
           },
@@ -433,9 +440,9 @@ export const apiService = {
             name: "Ibuprofeno 400mg - Antiinflamatorio y Analgésico",
             brand: "Genérico",
             category: "medicamentos",
-            subcategory: "antiinflamatorios",
+            subcategory_name: "antiinflamatorios",
             price: 1800.00,
-            offerPrice: 1500.00,
+            price_offer_bs: 1500.00,
             description: "El Ibuprofeno 400mg es un medicamento antiinflamatorio no esteroideo (AINE) que reduce la inflamación, el dolor y la fiebre. Es efectivo para dolores musculares, artritis, dolores de cabeza y cólicos menstruales.",
             characteristics: "• Reduce la inflamación y el dolor\n• Efectivo para dolores musculares\n• Alivia síntomas de artritis\n• Reduce la fiebre\n• Acción rápida y duradera\n• Disponible sin receta médica"
           },
@@ -443,9 +450,9 @@ export const apiService = {
             name: "Vitamina C 1000mg - Refuerzo Inmunológico",
             brand: "Suplementos Plus",
             category: "vitaminas",
-            subcategory: "inmunidad",
+            subcategory_name: "inmunidad",
             price: 2200.00,
-            offerPrice: null,
+            price_offer_bs: null,
             description: "La Vitamina C 1000mg es un suplemento nutricional que fortalece el sistema inmunológico, actúa como antioxidante y ayuda en la formación de colágeno. Ideal para prevenir resfriados y mejorar la salud general.",
             characteristics: "• Fortalece el sistema inmunológico\n• Actúa como antioxidante\n• Ayuda en la formación de colágeno\n• Previene resfriados\n• Mejora la absorción de hierro\n• Apoya la salud de la piel"
           },
@@ -453,9 +460,9 @@ export const apiService = {
             name: "Omeprazol 20mg - Protector Gástrico",
             brand: "Genérico",
             category: "medicamentos",
-            subcategory: "gastrointestinal",
+            subcategory_name: "gastrointestinal",
             price: 3200.00,
-            offerPrice: 2800.00,
+            price_offer_bs: 2800.00,
             description: "El Omeprazol 20mg es un medicamento que reduce la producción de ácido estomacal, aliviando la acidez, reflujo gastroesofágico y úlceras estomacales. Proporciona alivio prolongado y protección gástrica.",
             characteristics: "• Reduce la producción de ácido estomacal\n• Alivia la acidez y reflujo\n• Protege contra úlceras\n• Efecto prolongado de 24 horas\n• Seguro para uso a largo plazo\n• Mejora la calidad de vida"
           }
@@ -469,15 +476,15 @@ export const apiService = {
           name: productType.name,
           brand: productType.brand,
           category: productType.category,
-          subcategory: productType.subcategory,
+          subcategory_name: productType.subcategory_name,
           price: productType.price,
-          offerPrice: productType.offerPrice,
+          price_offer_bs: productType.price_offer_bs,
           imageUrl: "https://www.farmaciasnuevosiglo.com/img/articulos/8751041d-c1ae-4f8a-a318-e224e83ee08f.png",
           stock: Math.floor(Math.random() * 100) + 20, // Stock aleatorio entre 20-120
           url: `https://buscalisto.com/product/${productId}`,
-          offerDescription: productType.offerPrice ? "Oferta especial disponible" : null,
+          offerDescription: productType.price_offer_bs ? "Oferta especial disponible" : null,
           requirePrescription: Math.random() > 0.7, // 30% de probabilidad de requerir receta
-          supplier_name: "Farmacias Nuevo Siglo",
+          supplier_id_name: "Farmacias Nuevo Siglo",
           availableOnline: true,
           views: Math.floor(Math.random() * 2000) + 100, // Vistas aleatorias entre 100-2100
         };

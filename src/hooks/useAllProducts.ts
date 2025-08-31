@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "@shared/schema";
+import type { BaseProduct } from "@shared/SchemaProduct";
 import { apiService } from "@/services/apiService";
 
 interface UseAllProductsParams {
@@ -17,7 +17,7 @@ export function useAllProducts({
   sortBy, 
   sortOrder = 'desc' 
 }: UseAllProductsParams = {}) {
-  return useQuery<{ products: Product[]; total: number; totalPages: number }>({
+  return useQuery<{ products: BaseProduct[]; total: number; totalPages: number }>({
     queryKey: ["products", "all", page, limit, category, sortBy, sortOrder],
     queryFn: async () => {
       const response = await apiService.getAllProducts({ page, limit, category, sortBy, sortOrder });

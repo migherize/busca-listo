@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "@shared/schema";
+import type { BaseProduct } from "@shared/SchemaProduct";
 import { apiService } from "@/services/apiService";
 
 interface ProductFilters {
@@ -29,7 +29,7 @@ export function useFilteredProducts({
   sortBy, 
   sortOrder = 'desc' 
 }: UseFilteredProductsParams) {
-  return useQuery<{ products: Product[]; total: number; totalPages: number }>({
+  return useQuery<{ products: BaseProduct[]; total: number; totalPages: number }>({
     queryKey: ["products", "filtered", filters, page, limit, sortBy, sortOrder],
     queryFn: async () => {
       // Por ahora, usamos getAllProducts con filtros básicos

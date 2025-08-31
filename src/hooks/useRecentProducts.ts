@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "@shared/schema";
+import type { BaseProduct } from "@shared/SchemaProduct";
 import { API_CONFIG } from "@/config/api";
 
 export function useRecentProducts() {
-  return useQuery<Product[]>({
+  return useQuery<BaseProduct[]>({
     queryKey: ["products", "recent"],
     queryFn: async () => {
       const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.RECENT}`;
@@ -14,7 +14,7 @@ export function useRecentProducts() {
         throw new Error(`Error al cargar productos: ${res.status}`);
       }
 
-      const data: Product[] = await res.json();
+      const data: BaseProduct[] = await res.json();
       return data;
     },
     staleTime: 5 * 60 * 1000, 

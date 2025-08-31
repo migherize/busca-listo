@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { BaseProduct } from "./SchemaProduct";
 
 export const adSchema = z.object({
   id: z.number(),
@@ -9,43 +10,8 @@ export const adSchema = z.object({
 
 export type Ad = z.infer<typeof adSchema>;
 
-export const productSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  brand_name: z.string(),
-  category: z.string(),
-  subcategory: z.string(),
-  price: z.number(),
-  offerPrice: z.number().nullable().optional(),
-  image_url: z.string(),
-  imageUrls: z.array(z.string()).optional(), // Lista de imágenes para carrusel
-  stock: z.number(),
-  url: z.string(),
-  offerDescription: z.string().nullable().optional(),
-  requirePrescription: z.boolean(),
-  supplier: z.string(),
-  availableOnline: z.boolean(),
-  views: z.number().optional(),
-  
-  // Campos adicionales del backend
-  description: z.string().nullable().optional(),
-  characteristics: z.string().nullable().optional(),
-  advancedCharacteristics: z.string().nullable().optional(),
-  accessories: z.string().nullable().optional(),
-  highlightedFeatures: z.string().nullable().optional(),
-  pros: z.string().nullable().optional(),
-  cons: z.string().nullable().optional(),
-  historicalPrice: z.number().nullable().optional(),
-  priceUSD: z.number().nullable().optional(),
-  
-  // Metadatos
-  createdAt: z.string().nullable().optional(),
-  createdBy: z.string().nullable().optional(),
-  isActive: z.boolean().optional(),
-  code: z.string().nullable().optional(),
-});
-
-export type Product = z.infer<typeof productSchema>;
+// Product schema moved to SchemaProduct.ts to avoid duplication
+// Use BaseProduct or specific product types from SchemaProduct.ts instead
 
 // ---------- Component Props (UI domain) ----------
 
@@ -58,13 +24,12 @@ export interface AdBannerProps {
   adSlot: string;
 }
 
-
 export interface ProductCardProps {
-  product: Product;
+  product: BaseProduct;
 }
 
 export interface ProductGridProps {
-  products: Product[];
+  products: BaseProduct[];
 }
 
 export interface QRCodeProps {
@@ -92,8 +57,4 @@ export interface ErrorStateProps {
   onRetry: () => void;
 }
 
-export interface PDFDownloadProps {
-  targetId: string;
-  filename?: string;
-  children?: React.ReactNode;
-}
+

@@ -1,8 +1,8 @@
 import rawData from "./data/products.json";
-import type { Product } from "@shared/schema";
+import type { BaseProduct } from "@shared/SchemaProduct";
 
 let productId = 1;
-export const mockProducts: Product[] = [];
+export const mockProducts: BaseProduct[] = [];
 
 // Función para transformar datos del JSON a Product
 function transformProductData(rawProduct: any, farmaciaName: string): Product | null {

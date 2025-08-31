@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getMockProducts } from "@/mockProducts";
-import type { Product } from "@shared/schema";
+import type { BaseProduct } from "@shared/SchemaProduct";
 
 interface UseFetchDataProps {
   searchTerm: string;
@@ -8,14 +8,14 @@ interface UseFetchDataProps {
 }
 
 interface UseFetchDataReturn {
-  products: Product[];
+  products: BaseProduct[];
   isLoading: boolean;
   error: string | null;
   refetch: () => void;
 }
 
 export const useFetchData = ({ searchTerm, selectedCategory }: UseFetchDataProps): UseFetchDataReturn => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<BaseProduct[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
