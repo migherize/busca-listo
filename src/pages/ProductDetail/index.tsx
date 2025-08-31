@@ -25,9 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui
 import { ProductPricing } from "@/components/common/pricing/ProductPricing";
 import { LoadingState } from "@/components/common/LoadingState";
 import { ErrorState } from "@/components/common/ErrorState";
-import { ProductFeatures } from "@/components/products/ProductFeatures";
-import { ProductComments } from "@/components/products/ProductComments";
-import { ProductImageCarousel } from "@/components/products/ProductImageCarousel";
+import { ProductFeatures, ProductComments, ProductImageCarousel } from "@/components/products/containers/Details";
 
 export function ProductDetail() {
   const { id } = useParams();
