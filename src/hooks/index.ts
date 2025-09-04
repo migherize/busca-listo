@@ -3,10 +3,12 @@ export { useRecentProducts } from './useRecentProducts';
 export { useMostViewedProducts } from './useMostViewedProducts';
 export { useDealsProducts } from './useDealsProducts';
 export { useProductsByCategory } from './useProductsByCategory';
+export { useProductsByCompany } from './useProductsByCompany';
 export { useSearchProducts } from './useSearchProducts';
 export { useAllProducts } from './useAllProducts';
 export { usePopularCategories } from './usePopularCategories';
 export { useAllCategories } from './useAllCategories';
+export { useAllStores } from './useAllStores';
 export { useFilteredProducts } from './useFilteredProducts';
 export { useProductById } from './useProductById';
 

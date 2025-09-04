@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  HOST: import.meta.env.VITE_API_HOST || "https://buscalistobackend.onrender.com",
+  HOST: import.meta.env.VITE_API_HOST || "http://localhost:8000",
   
   ENDPOINTS: {
     PRODUCTS: {
@@ -8,13 +8,18 @@ export const API_CONFIG = {
       DEALS: "/products/deals",
       BY_CATEGORY: "/products/category",
       BY_STORE: "/products/store",
+      BY_COMPANY: "/products/company",
       SEARCH: "/products/search",
       ALL: "/products",
       FILTERED: "/products/filter",
+      DETAIL: "/products",
     },
     CATEGORIES: {
       ALL: "/categories",
       POPULAR: "/categories/popular",
+    },
+    COMPANIES: {
+      ALL: "/companies",
     },
   },
   

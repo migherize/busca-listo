@@ -18,28 +18,22 @@ interface PaginatedResponse<T> {
 
 // Función helper para verificar si la API está disponible
 // Función para verificar si la API está disponible
-// Por ahora deshabilitada para evitar peticiones constantes
 async function isApiAvailable(): Promise<boolean> {
-  // Temporalmente deshabilitado para evitar peticiones fallidas
-  // TODO: Implementar verificación de API cuando el backend esté listo
-  return false;
-  
-  // Código original comentado:
-  // try {
-  //   const controller = new AbortController();
-  //   const timeoutId = setTimeout(() => controller.abort(), 5000);
-  //   
-  //   const response = await fetch(buildApiUrl("/health"), { 
-  //     signal: controller.signal,
-  //     method: 'HEAD'
-  //   });
-  //   
-  //   clearTimeout(timeoutId);
-  //   return response.ok;
-  // } catch (error) {
-  //   console.warn("API no disponible, usando datos mockup:", error);
-  //   return false;
-  // }
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    
+    const response = await fetch(buildApiUrl("/"), { 
+      signal: controller.signal,
+      method: 'HEAD'
+    });
+    
+    clearTimeout(timeoutId);
+    return response.ok;
+  } catch (error) {
+    console.warn("API no disponible, usando datos mockup:", error);
+    return false;
+  }
 }
 
 // Función helper para obtener productos mockup con filtros
@@ -49,14 +43,14 @@ function getMockProducts(options: {
   searchTerm?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
-} = {}): BaseBaseProduct[] {
+} = {}): BaseProduct[] {
   let filteredProducts = [...mockProducts];
   
   const { limit, category, searchTerm, sortBy, sortOrder } = options;
   
   // Filtrar por categoría
   if (category && category !== 'all') {
-    filteredProducts = filteredProducts.filter(p => p.subcategory_name_name === category);
+    filteredProducts = filteredProducts.filter(p => p.subcategory_name === category);
   }
   
   // Filtrar por término de búsqueda
@@ -65,7 +59,7 @@ function getMockProducts(options: {
     filteredProducts = filteredProducts.filter(p =>
       (p.name?.toLowerCase().includes(searchLower) || false) ||
       (p.brand_name?.toLowerCase().includes(searchLower) || false) ||
-      (p.subcategory_name_name?.toLowerCase().includes(searchLower) || false)
+      (p.subcategory_name?.toLowerCase().includes(searchLower) || false)
     );
   }
   
@@ -102,7 +96,7 @@ function simulateApiDelay(ms: number = 300): Promise<void> {
 // Servicio principal de API con fallback
 export const apiService = {
   // Productos recientes
-  async getRecentProducts(limit?: number): Promise<ApiResponse<BaseBaseProduct[]>> {
+  async getRecentProducts(limit?: number): Promise<ApiResponse<BaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
         const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS.RECENT, limit ? { limit } : undefined);
@@ -128,7 +122,7 @@ export const apiService = {
   },
 
   // Productos más vistos
-  async getMostViewedProducts(limit?: number): Promise<ApiResponse<BaseBaseProduct[]>> {
+  async getMostViewedProducts(limit?: number): Promise<ApiResponse<BaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
         const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS.MOST_VIEWED, limit ? { limit } : undefined);
@@ -208,10 +202,10 @@ export const apiService = {
   },
 
   // Productos por tienda
-  async getProductsByStore(supplier_idId: string, category?: string, limit?: number): Promise<ApiResponse<BaseProduct[]>> {
+  async getProductsByStore(supplierId: string, category?: string, limit?: number): Promise<ApiResponse<BaseProduct[]>> {
     try {
       if (await isApiAvailable()) {
-        const endpoint = `${API_CONFIG.ENDPOINTS.PRODUCTS.BY_STORE}/${supplier_idId}`;
+        const endpoint = `${API_CONFIG.ENDPOINTS.PRODUCTS.BY_STORE}/${supplierId}`;
         const params: Record<string, string | number> = {};
         if (category) params.categoria = category;
         if (limit) params.limit = limit;
@@ -225,10 +219,10 @@ export const apiService = {
         }
       }
       
-      // Fallback a mockup - filtrar por supplier_id_id
+      // Fallback a mockup - filtrar por supplier_id
       await simulateApiDelay();
       const allProducts = getMockProducts();
-      let filteredProducts = allProducts.filter(p => p.supplier_id === supplier_idId);
+      let filteredProducts = allProducts.filter(p => p.supplier_id === supplierId.toString());
       
       // Filtrar por categoría si se especifica
       if (category && category !== 'all') {
@@ -245,7 +239,7 @@ export const apiService = {
     } catch (error) {
       console.error("Error en getProductsByStore:", error);
       const allProducts = getMockProducts();
-      let filteredProducts = allProducts.filter(p => p.supplier_id === supplier_idId);
+      let filteredProducts = allProducts.filter(p => p.supplier_id === supplierId.toString());
       
       if (category && category !== 'all') {
         filteredProducts = filteredProducts.filter(p => p.subcategory_name === category);
@@ -256,6 +250,30 @@ export const apiService = {
       }
       
       return { data: filteredProducts, success: true };
+    }
+  },
+
+  // Productos por empresa
+  async getProductsByCompany(companyName: string, categoryId?: number, limit?: number): Promise<ApiResponse<BaseProduct[]>> {
+    try {
+      const endpoint = `${API_CONFIG.ENDPOINTS.PRODUCTS.BY_COMPANY}/${encodeURIComponent(companyName)}`;
+      const params: Record<string, string | number> = {};
+      if (categoryId) params.category_id = categoryId;
+      if (limit) params.limit = limit;
+      
+      const url = buildApiUrl(endpoint, params);
+      const response = await fetch(url);
+      
+      if (response.ok) {
+        const data = await response.json();
+        return { data, success: true };
+      } else {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      
+    } catch (error) {
+      console.error("Error en getProductsByCompany:", error);
+      throw new Error(`Error al cargar productos de la empresa ${companyName}: ${error instanceof Error ? error.message : 'Error desconocido'}`);
     }
   },
 
@@ -358,6 +376,25 @@ export const apiService = {
       };
       
       return { data: paginatedData, success: true };
+    }
+  },
+
+  // Obtener todas las tiendas/empresas
+  async getAllStores(): Promise<ApiResponse<any[]>> {
+    try {
+      const url = buildApiUrl(API_CONFIG.ENDPOINTS.COMPANIES.ALL);
+      const response = await fetch(url);
+      
+      if (response.ok) {
+        const data = await response.json();
+        return { data, success: true };
+      } else {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      
+    } catch (error) {
+      console.error("Error en getAllStores:", error);
+      throw new Error(`Error al cargar las tiendas: ${error instanceof Error ? error.message : 'Error desconocido'}`);
     }
   },
 

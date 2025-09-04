@@ -179,10 +179,10 @@ export function ProductDetail() {
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600">Proveedor:</span>
                   <Link 
-                    href={`/store/${product.supplier_name || product.id}?id=${product.id}`}
+                    href={`/store/${product.supplier_name || product.id || "proveedor"}?id=${product.id || "0"}`}
                     className="font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors"
                   >
-                    {product.supplier_name || product.id}
+                    {product.supplier_name || product.id || "Proveedor"}
                   </Link>
                 </div>
                 
@@ -228,11 +228,11 @@ export function ProductDetail() {
                     <Building2 className="h-5 w-5 text-blue-600 mt-0.5" />
                     <div>
                                                                       <Link 
-                          href={`/store/${product.supplier_name || product.id}?id=${product.id}`}
+                          href={`/store/${product.supplier_name || product.id || "proveedor"}?id=${product.id || "0"}`}
                           className="group hover:underline"
                         >
                           <h3 className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
-                            {product.supplier_name || product.id}
+                            {product.supplier_name || product.id || "Proveedor"}
                           </h3>
                         <p className="text-sm text-slate-600 group-hover:text-blue-600 transition-colors">
                           Tienda oficial - Ver todos los productos
@@ -328,7 +328,7 @@ export function ProductDetail() {
               {/* Botones de acción para la tienda */}
               <div className="mt-6 flex flex-wrap gap-3">
                 {/* Botón principal para ver todos los productos de la tienda */}
-                <Link href={`/store/${product.supplier_name || product.id}?id=${product.id}`}>
+                <Link href={`/store/${product.supplier_name || product.id || "proveedor"}?id=${product.id || "0"}`}>
                   <Button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700">
                     <Building2 className="h-4 w-4" />
                     Ver Todos los Productos
@@ -398,7 +398,7 @@ export function ProductDetail() {
         {/* Comentarios */}
         <div className="mb-8">
           <ProductComments 
-            productId={product.id.toString()} 
+            productId={product.id?.toString() || "0"} 
             productName={product.name || "Producto"}
             mockComments={product.mockComments}
           />

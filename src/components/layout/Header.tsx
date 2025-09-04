@@ -1,4 +1,6 @@
 import { SearchBar } from "@/components/common/SearchBar";
+import { Link } from "wouter";
+import { Store } from "lucide-react";
 
 export function Header() {
   const handleRegisterStore = () => {
@@ -22,7 +24,13 @@ export function Header() {
             />
           </div>
 
-          <div className="w-full sm:w-auto flex justify-center sm:justify-end order-3 sm:order-3">
+          <div className="w-full sm:w-auto flex justify-center sm:justify-end order-3 sm:order-3 gap-3">
+            <Link href="/stores">
+              <button className="w-full sm:w-auto bg-slate-100 text-slate-700 px-6 py-3 sm:px-4 sm:py-2 rounded-full text-sm font-medium hover:bg-slate-200 transition-colors flex items-center gap-2">
+                <Store className="h-4 w-4" />
+                Ver Tiendas
+              </button>
+            </Link>
             <button
               className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 sm:px-4 sm:py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors"
               onClick={handleRegisterStore}

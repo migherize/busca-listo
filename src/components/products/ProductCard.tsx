@@ -3,6 +3,7 @@ import { Button } from "@/components/common/ui/button";
 import { Card, CardContent } from "@/components/common/ui/card";
 import { Package, Store, ExternalLink } from "lucide-react";
 import { BaseProduct } from "@shared/SchemaProduct";
+import { Link } from "wouter";
 
 export interface ProductCardProps {
   product: BaseProduct;
@@ -21,14 +22,17 @@ export function ProductCard({ product }: ProductCardProps) {
     ? Math.round(((product.price_bs - product.price_offer_bs) / product.price_bs) * 100)
     : 0;
 
-  const handleVisitStore = () => {
+  const handleVisitStore = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevenir navegación del Link padre
+    e.stopPropagation(); // Detener propagación del evento
     if (product.url) {
       window.open(product.url, "_blank", "noopener noreferrer");
     }
   };
 
   return (
-    <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200">
+    <Link href={`/product/${product.id}`} className="block">
+      <Card className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 cursor-pointer">
       <div className="relative">
         <img
           src={product.image_url ?? "/assets/logo1.jpeg"}
@@ -114,5 +118,6 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
       </CardContent>
     </Card>
+    </Link>
   );
 }

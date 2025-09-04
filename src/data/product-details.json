@@ -1,0 +1,91 @@
+{
+  "product": {
+    "id": 123,
+    "name": "Samsung Galaxy S24 Ultra",
+    "brand_id": 5,
+    "price_bs": 1500.0,
+    "price_usd": 15.0,
+    "subcategory_id": 3,
+    "in_stock": 50,
+    "branch_id": 10,
+    "active": true,
+    "views": 500,
+    "created_at": "2025-01-01T00:00:00.000Z",
+    "code": "SGS24U-256GB",
+    "brand_name": "Samsung",
+    "subcategory_name": "Smartphones",
+    "category": "Electrónicos",
+    "imagenes": [
+      "/assets/samsung-s24-1.jpg",
+      "/assets/samsung-s24-2.jpg",
+      "/assets/samsung-s24-3.jpg"
+    ],
+    "characteristics": "Pantalla Dynamic AMOLED 2X de 6.8 pulgadas, Procesador Snapdragon 8 Gen 3, 256GB de almacenamiento",
+    "advancedCharacteristics": "Cámara principal de 200MP con zoom óptico 10x, batería de 5000mAh, carga rápida de 45W, resistencia al agua IP68",
+    "accessories": "Cargador USB-C, cable USB-C a USB-C, funda protectora, película protectora de pantalla",
+    "highlightedFeatures": "S Pen incluido, grabación de video 8K, carga inalámbrica, carga inversa",
+    "pros": "Excelente cámara, pantalla de alta calidad, rendimiento excepcional, S Pen muy útil",
+    "cons": "Precio elevado, tamaño grande puede ser incómodo para algunas personas"
+  },
+  "pricing": {
+    "price_bs": 1500.0,
+    "price_usd": 15.0,
+    "price_offer_usd": 12.0,
+    "price_offer_bs": 1200.0,
+    "discount_percent": 20.0,
+    "offer_description": "Oferta especial por tiempo limitado - Ahorra 20% en tu nuevo Samsung Galaxy S24 Ultra"
+  },
+  "company": {
+    "supplier_id": 10,
+    "supplier_name": "ElectroTech Venezuela",
+    "supplier_branch": "Sucursal Centro",
+    "supplier_address": "Av. Francisco de Miranda, Torre Parque Cristal, Caracas, Venezuela",
+    "supplier_phone": "+58-212-555-0123",
+    "supplier_email": "ventas@electrotech.com.ve",
+    "supplier_website": "https://www.electrotech.com.ve",
+    "supplier_hours": "Lunes a Viernes: 9:00 AM - 7:00 PM, Sábados: 9:00 AM - 5:00 PM",
+    "supplier_rating": 4.5,
+    "supplier_reviews": 150
+  },
+  "meta": {
+    "views": 500,
+    "created_at": "2025-01-01T00:00:00.000Z",
+    "url": "https://buscalisto.com/product/123",
+    "mockComments": [
+      {
+        "id": 1,
+        "product_id": 123,
+        "user_name": "María González",
+        "user_avatar": "/assets/avatar1.jpg",
+        "rating": 5,
+        "comment": "Excelente producto, muy buena calidad y llegó en perfectas condiciones. Lo recomiendo totalmente.",
+        "created_at": "2025-01-15T10:30:00Z",
+        "helpful_votes": 12,
+        "is_verified_purchase": true
+      },
+      {
+        "id": 2,
+        "product_id": 123,
+        "user_name": "Carlos Rodríguez",
+        "user_avatar": "/assets/avatar2.jpg",
+        "rating": 4,
+        "comment": "Buen producto, cumple con lo esperado. El envío fue rápido y el precio está bien.",
+        "created_at": "2025-01-12T14:20:00Z",
+        "helpful_votes": 8,
+        "is_verified_purchase": true
+      },
+      {
+        "id": 3,
+        "product_id": 123,
+        "user_name": "Ana Martínez",
+        "user_avatar": "/assets/avatar3.jpg",
+        "rating": 5,
+        "comment": "Super satisfecha con la compra. El producto es exactamente como se describe y la atención fue excelente.",
+        "created_at": "2025-01-10T09:15:00Z",
+        "helpful_votes": 15,
+        "is_verified_purchase": true
+      }
+    ]
+  }
+}
+  

@@ -10,6 +10,7 @@ import NotFound from "@/pages/NotFound";
 import OurServices from "@/pages/OurServices";
 import ProductDetail from "@/pages/ProductDetail";
 import StorePage from "@/pages/Store/index.tsx";
+import StoresPage from "@/pages/Stores/index.tsx";
 import RegisterStore from "@/pages/RegisterStore";
 import Help from "@/pages/Help";
 import Terms from "@/pages/Terms";
@@ -30,6 +31,7 @@ function App() {
               <Route path="/category/:category" component={CategoryPage} />
               <Route path="/category" component={CategoriesPage} />
               <Route path="/product/:id" component={ProductDetail} />
+              <Route path="/stores" component={StoresPage} />
               <Route path="/store/:storeName" component={StorePage} />
               <Route path="/register-store" component={RegisterStore} />
               <Route path="/about" component={OurServices} />

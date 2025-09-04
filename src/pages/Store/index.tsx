@@ -7,6 +7,7 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Pagination } from "@/components/common/Pagination";
 import { useProductsByStore } from "@/hooks/useProductsByStore";
+import { useProductsByCompany } from "@/hooks/useProductsByCompany";
 import { useAllCategories } from "@/hooks/useAllCategories";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/common/ui/card";
 import { Button } from "@/components/common/ui/button";
@@ -28,7 +29,8 @@ import {
   MapPin,
   Phone,
   Globe,
-  Clock
+  Clock,
+  Package
 } from "lucide-react";
 import type { Category } from "@shared/SchemaCategory";
 
@@ -51,9 +53,21 @@ export default function StorePage() {
   // Obtener todas las categorías desde la API
   const { data: apiCategories = [], isLoading: categoriesLoading, error: categoriesError } = useAllCategories();
 
-  // Obtener productos de la tienda
-  const { data: products = [], isLoading, error, refetch } = useProductsByStore(supplierId, selectedCategory === "all" ? undefined : selectedCategory);
+  // Obtener productos de la tienda usando el nuevo endpoint por empresa
+  const { data: allProducts = [], isLoading, error, refetch } = useProductsByCompany(
+    storeName || supplierId, 
+    undefined // Obtener todos los productos sin filtro
+  );
 
+  // Filtrar productos por categoría seleccionada
+  const products = selectedCategory === "all" 
+    ? allProducts 
+    : allProducts.filter(product => 
+        product.category_name?.toLowerCase() === selectedCategory.toLowerCase()
+      );
+  for (const product of products) {
+    console.log(product.category_key);
+  }
   // Paginación
   const totalPages = Math.ceil((products?.length || 0) / resultsPerPage);
   const startIndex = (currentPage - 1) * resultsPerPage;
@@ -96,6 +110,25 @@ export default function StorePage() {
     return categoryNames[category] || category;
   };
 
+
+
+  // Obtener categorías únicas de los productos
+  const getUniqueCategories = () => {
+    const categories = allProducts.reduce((acc: Array<{id: number, name: string}>, product) => {
+      if (product.category_id && product.category_name) {
+        const exists = acc.find(cat => cat.id === product.category_id);
+        if (!exists) {
+          acc.push({ id: product.category_id, name: product.category_name });
+        }
+      }
+      return acc;
+    }, []);
+    
+    return categories.sort((a, b) => a.name.localeCompare(b.name));
+  };
+
+  const uniqueCategories = getUniqueCategories();
+
   // Definir todas las categorías para el sidebar
   const allCategories = [
     { key: "all" as const, name: "Todos los Productos", icon: Grid3X3, color: "text-blue-600" },
@@ -109,6 +142,18 @@ export default function StorePage() {
     { key: "belleza" as Category, name: "Belleza", icon: Sparkles, color: "text-indigo-600" },
     { key: "ropa" as Category, name: "Ropa", icon: Shirt, color: "text-teal-600" },
   ];
+
+  // Función para obtener el icono de categoría basado en category_key
+  const getCategoryIcon = (categoryKey: string) => {
+    const category = allCategories.find(cat => cat.key === categoryKey);
+    return category ? category.icon : Package; // Icono por defecto
+  };
+
+  // Función para obtener el color de categoría basado en category_key
+  const getCategoryColor = (categoryKey: string) => {
+    const category = allCategories.find(cat => cat.key === categoryKey);
+    return category ? category.color : "text-slate-600"; // Color por defecto
+  };
 
   if (isLoading || categoriesLoading) {
     return <LoadingState />;
@@ -153,7 +198,10 @@ export default function StorePage() {
                   </div>
                 </div>
                 <p className="text-slate-600 text-lg">
-                  {products?.length || 0} productos disponibles en esta tienda
+                  {selectedCategory === "all" 
+                    ? `${allProducts?.length || 0} productos disponibles en esta tienda`
+                    : `${products?.length || 0} productos en ${getCategoryDisplayName(selectedCategory)}`
+                  }
                 </p>
               </div>
 
@@ -215,14 +263,39 @@ export default function StorePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  {allCategories.map((category) => {
-                    const IconComponent = category.icon;
-                    const isActive = category.key === selectedCategory;
+                  {/* Categoría "Todos" */}
+                  <button
+                    onClick={() => handleCategorySelect("all")}
+                    className={`
+                      w-full text-left flex items-center gap-3 p-3 rounded-lg transition-all duration-200 cursor-pointer
+                      ${selectedCategory === "all"
+                        ? 'bg-blue-50 border-2 border-blue-200 text-blue-700' 
+                        : 'hover:bg-slate-50 border-2 border-transparent hover:border-slate-200'
+                      }
+                    `}
+                  >
+                    <Grid3X3 className="h-5 w-5 text-blue-600" />
+                    <span className={`font-medium ${selectedCategory === "all" ? 'text-blue-700' : 'text-slate-700'}`}>
+                      Todos los Productos
+                    </span>
+                    {selectedCategory === "all" && (
+                      <div className="ml-auto w-2 h-2 bg-blue-600 rounded-full"></div>
+                    )}
+                  </button>
+
+                  {/* Categorías dinámicas del backend */}
+                  {uniqueCategories.map((category) => {
+                    const isActive = selectedCategory === category.name.toLowerCase();
+                    // Buscar el category_key correspondiente en los productos
+                    const productWithCategory = allProducts.find(p => p.category_name === category.name);
+                    const categoryKey = productWithCategory?.category_key || category.name.toLowerCase();
+                    const CategoryIcon = getCategoryIcon(categoryKey);
+                    const categoryColor = getCategoryColor(categoryKey);
                     
                     return (
                       <button
-                        key={category.key} 
-                        onClick={() => handleCategorySelect(category.key)}
+                        key={category.id} 
+                        onClick={() => handleCategorySelect(category.name.toLowerCase() as Category)}
                         className={`
                           w-full text-left flex items-center gap-3 p-3 rounded-lg transition-all duration-200 cursor-pointer
                           ${isActive 
@@ -231,7 +304,7 @@ export default function StorePage() {
                           }
                         `}
                       >
-                        <IconComponent className={`h-5 w-5 ${category.color}`} />
+                        <CategoryIcon className={`h-5 w-5 ${categoryColor}`} />
                         <span className={`font-medium ${isActive ? 'text-blue-700' : 'text-slate-700'}`}>
                           {category.name}
                         </span>
