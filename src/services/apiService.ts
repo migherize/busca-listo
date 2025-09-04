@@ -222,7 +222,7 @@ export const apiService = {
       // Fallback a mockup - filtrar por supplier_id
       await simulateApiDelay();
       const allProducts = getMockProducts();
-      let filteredProducts = allProducts.filter(p => p.supplier_id === supplierId.toString());
+      let filteredProducts = allProducts.filter(p => p.supplier_id?.toString() === supplierId.toString());
       
       // Filtrar por categoría si se especifica
       if (category && category !== 'all') {
@@ -239,7 +239,7 @@ export const apiService = {
     } catch (error) {
       console.error("Error en getProductsByStore:", error);
       const allProducts = getMockProducts();
-      let filteredProducts = allProducts.filter(p => p.supplier_id === supplierId.toString());
+      let filteredProducts = allProducts.filter(p => p.supplier_id?.toString() === supplierId.toString());
       
       if (category && category !== 'all') {
         filteredProducts = filteredProducts.filter(p => p.subcategory_name === category);
@@ -278,32 +278,66 @@ export const apiService = {
   },
 
   // Búsqueda de productos
-  async searchProducts(searchTerm: string, category?: string, limit?: number): Promise<ApiResponse<BaseProduct[]>> {
+  async searchProducts(
+    searchTerm: string, 
+    category?: string, 
+    limit?: number,
+    page?: number,
+    sortBy?: string,
+    sortOrder?: string
+  ): Promise<ApiResponse<any>> {
     try {
-      if (await isApiAvailable()) {
-        const params: Record<string, string | number> = {};
-        if (searchTerm) params.q = searchTerm;
-        if (category) params.categoria = category;
-        if (limit) params.limit = limit;
-        
-        const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS.SEARCH, params);
-        const response = await fetch(url);
-        
-        if (response.ok) {
-          const data = await response.json();
-          return { data, success: true };
-        }
-      }
+      const params: Record<string, string | number> = {};
+      if (searchTerm) params.q = searchTerm;
+      if (category) params.categoria = category;
+      if (limit) params.limit = limit;
+      if (page) params.page = page;
+      if (sortBy) params.sort_by = sortBy;
+      if (sortOrder) params.sort_order = sortOrder;
       
-      // Fallback a mockup
-      await simulateApiDelay();
-      const mockData = getMockProducts({ limit, category, searchTerm });
-      return { data: mockData, success: true };
+      const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS.SEARCH, params);
+      console.log("🔍 Búsqueda URL:", url);
+      console.log("🔍 Parámetros:", params);
+      
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log("🔍 Response status:", response.status);
+      console.log("🔍 Response ok:", response.ok);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log("🔍 Response data:", data);
+        return { data, success: true };
+      } else {
+        const errorText = await response.text();
+        console.error("🔍 Error response:", errorText);
+        throw new Error(`HTTP ${response.status}: ${errorText}`);
+      }
       
     } catch (error) {
       console.error("Error en searchProducts:", error);
-      const mockData = getMockProducts({ limit, category, searchTerm });
-      return { data: mockData, success: true };
+      
+      // Fallback a mockup en caso de error
+      console.log("🔄 Usando fallback a datos mock");
+      const mockProducts = getMockProducts({ limit, category, searchTerm });
+      const mockResponse = {
+        products: mockProducts,
+        total: mockProducts.length,
+        page: page || 1,
+        limit: limit || 20,
+        total_pages: Math.ceil(mockProducts.length / (limit || 20)),
+        search_term: searchTerm,
+        category: category,
+        sort_by: sortBy || "relevance",
+        sort_order: sortOrder || "desc"
+      };
+      
+      return { data: mockResponse, success: true };
     }
   },
 
@@ -314,7 +348,7 @@ export const apiService = {
     category?: string;
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';
-  } = {}): Promise<ApiResponse<PaginatedResponse<Product>>> {
+  } = {}): Promise<ApiResponse<PaginatedResponse<BaseProduct>>> {
     try {
       if (await isApiAvailable()) {
         const params: Record<string, string | number> = {
@@ -348,7 +382,7 @@ export const apiService = {
       const startIndex = (page - 1) * limit;
       const endIndex = startIndex + limit;
       
-      const paginatedData: PaginatedResponse<Product> = {
+      const paginatedData: PaginatedResponse<BaseProduct> = {
         products: allProducts.slice(startIndex, endIndex),
         total: allProducts.length,
         totalPages: Math.ceil(allProducts.length / limit),
@@ -369,7 +403,7 @@ export const apiService = {
       const startIndex = (page - 1) * limit;
       const endIndex = startIndex + limit;
       
-      const paginatedData: PaginatedResponse<Product> = {
+      const paginatedData: PaginatedResponse<BaseProduct> = {
         products: allProducts.slice(startIndex, endIndex),
         total: allProducts.length,
         totalPages: Math.ceil(allProducts.length / limit),
@@ -442,7 +476,7 @@ export const apiService = {
   },
 
   // Obtener producto por ID
-  async getProductById(productId: string): Promise<ApiResponse<Product>> {
+  async getProductById(productId: string): Promise<ApiResponse<BaseProduct>> {
     try {
       if (await isApiAvailable()) {
         const url = buildApiUrl(`${API_CONFIG.ENDPOINTS.PRODUCTS.ALL}/${productId}`);
@@ -458,7 +492,7 @@ export const apiService = {
       await simulateApiDelay();
       
       // Buscar en productos mockup existentes
-      let mockProduct = mockProducts.find(p => p.id === productId);
+      let mockProduct = mockProducts.find(p => p.id?.toString() === productId);
       
       if (!mockProduct) {
         // Si no existe, crear un producto mockup completo basado en el ID
@@ -509,65 +543,31 @@ export const apiService = {
         const productType = productTypes[parseInt(productId) % productTypes.length];
         
         mockProduct = {
-          id: productId,
+          id: parseInt(productId) || 1,
           name: productType.name,
-          brand: productType.brand,
+          brand_name: productType.brand,
           category: productType.category,
           subcategory_name: productType.subcategory_name,
-          price: productType.price,
+          price_bs: productType.price,
+          price_usd: productType.price / 100, // Conversión aproximada
           price_offer_bs: productType.price_offer_bs,
-          imageUrl: "https://www.farmaciasnuevosiglo.com/img/articulos/8751041d-c1ae-4f8a-a318-e224e83ee08f.png",
-          stock: Math.floor(Math.random() * 100) + 20, // Stock aleatorio entre 20-120
+          image_url: "https://www.farmaciasnuevosiglo.com/img/articulos/8751041d-c1ae-4f8a-a318-e224e83ee08f.png",
+          in_stock: Math.floor(Math.random() * 100) + 20, // Stock aleatorio entre 20-120
           url: `https://buscalisto.com/product/${productId}`,
-          offerDescription: productType.price_offer_bs ? "Oferta especial disponible" : null,
-          requirePrescription: Math.random() > 0.7, // 30% de probabilidad de requerir receta
-          supplier_id_name: "Farmacias Nuevo Siglo",
-          availableOnline: true,
+          offer_description: productType.price_offer_bs ? "Oferta especial disponible" : null,
+          supplier_name: "Farmacias Nuevo Siglo",
           views: Math.floor(Math.random() * 2000) + 100, // Vistas aleatorias entre 100-2100
+          active: true,
+          created_at: new Date().toISOString(),
         };
       }
       
       // Enriquecer el producto mockup con datos detallados
-      const enrichedProduct: Product = {
+      const enrichedProduct: BaseProduct = {
         ...mockProduct,
-        // Múltiples imágenes para el carrusel
-        imageUrls: [
-          mockProduct.imageUrl,
-          "https://www.farmaciasnuevosiglo.com/img/articulos/ab6c55bc-1305-4e73-bd77-348cbe71bb4e.png",
-          "https://www.farmaciasnuevosiglo.com/img/articulos/f5dbac29-a87c-41ee-9ad3-8e75b8ec300d.png",
-          "https://www.farmaciasnuevosiglo.com/img/articulos/c907a69f-8674-46f8-b3de-d19cb3326129.png",
-        ],
-        
-        // Descripción detallada (usar la del tipo de producto si existe)
-        description: mockProduct.description || `Descripción detallada de ${mockProduct.name}. Este producto ofrece soluciones efectivas para las necesidades de salud más comunes, con calidad farmacéutica garantizada y precios accesibles para todos.`,
-        
-        // Características principales (usar las del tipo de producto si existen)
-        characteristics: mockProduct.characteristics || `• Producto de alta calidad\n• Efectividad comprobada\n• Seguro para el consumo\n• Disponible sin receta médica\n• Precio accesible\n• Respaldado por años de experiencia`,
-        
-        // Características avanzadas
-        advancedCharacteristics: `• Fórmula de liberación controlada\n• Metabolización segura y eficiente\n• Vida media optimizada\n• Alta biodisponibilidad\n• Compatibilidad farmacológica\n• Mínimas interacciones medicamentosas`,
-        
-        // Accesorios
-        accessories: `• Empaque original del fabricante\n• Prospecto informativo completo\n• Instrucciones de uso detalladas\n• Información de seguridad\n• Fecha de caducidad visible\n• Lote de fabricación`,
-        
-        // Características destacadas
-        highlightedFeatures: `• Acción rápida y efectiva\n• Seguridad comprobada\n• Calidad farmacéutica\n• Precio competitivo\n• Disponibilidad garantizada\n• Respaldo médico`,
-        
-        // Pros
-        pros: `• Efectividad comprobada\n• Seguro para uso regular\n• No causa dependencia\n• Precio accesible\n• Fácil de conseguir\n• Mínimos efectos secundarios`,
-        
-        // Contras
-        cons: `• Respetar dosis recomendadas\n• Consultar médico si persisten síntomas\n• No exceder uso prolongado\n• Mantener fuera del alcance de niños\n• Almacenar en lugar fresco y seco`,
-        
-        // Precios (generar variaciones realistas)
-        historicalPrice: mockProduct.price * (0.85 + Math.random() * 0.3), // Entre 85% y 115% del precio actual
-        priceUSD: mockProduct.price / (100 + Math.random() * 50), // Conversión variable
-        
-        // Metadatos
-        createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(), // Últimos 30 días
-        createdBy: ["Dr. Carlos Méndez", "Dra. Ana Rodríguez", "Dr. Luis González"][Math.floor(Math.random() * 3)],
-        isActive: true,
-        code: `${mockProduct.category.substring(0, 3).toUpperCase()}-${productId}-${Math.floor(Math.random() * 1000)}`,
+        id: mockProduct?.id || 1,
+        price_bs: mockProduct?.price_bs || 0,
+        price_usd: mockProduct?.price_usd || 0,
       };
       
       return { data: enrichedProduct, success: true };

@@ -5,7 +5,7 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Pagination } from "@/components/common/Pagination";
 import { CategoryNavbarContainer } from "@/components/categories/containers/CategoryNavbar/CategoryNavbarContainer";
-import { useFetchData } from "@/hooks/useFetchData";
+import { useSearchProducts } from "@/hooks/useSearchProducts";
 import { useSearch } from "@/contexts/SearchContext";
 
 interface SearchResultsProps {
@@ -23,7 +23,7 @@ export function SearchResults({
 }: SearchResultsProps) {
   const { searchTerm } = useSearch();
   const [selectedCategory, setSelectedCategory] = useState<string | "all">("all");
-  const [selectedSort, setSelectedSort] = useState<string>("precio");
+  const [selectedSort, setSelectedSort] = useState<string>("relevance");
   const [currentPage, setCurrentPage] = useState(1);
 
   // Resetear página cuando cambien los filtros
@@ -31,23 +31,47 @@ export function SearchResults({
     setCurrentPage(1);
   }, [searchTerm, selectedCategory, selectedSort]);
 
-  // Obtener datos de búsqueda
-  const { products, isLoading, error, refetch } = useFetchData({
+  // Mapear el sort del frontend al sort del backend
+  const getBackendSortBy = (frontendSort: string) => {
+    switch (frontendSort) {
+      case "precio":
+        return "price";
+      case "popularidad":
+        return "views";
+      case "fecha":
+        return "created_at";
+      case "relevancia":
+      default:
+        return "relevance";
+    }
+  };
+
+  // Obtener datos de búsqueda usando el nuevo endpoint
+  const { 
+    data: searchResponse, 
+    isLoading, 
+    error, 
+    refetch 
+  } = useSearchProducts(
     searchTerm,
-    selectedCategory,
-  });
+    selectedCategory !== "all" ? selectedCategory : undefined,
+    resultsPerPage,
+    currentPage,
+    getBackendSortBy(selectedSort),
+    "desc"
+  );
+
+  // Extraer datos de la respuesta
+  const products = searchResponse?.products || [];
+  const totalResults = searchResponse?.total || 0;
+  const totalPages = searchResponse?.total_pages || 0;
 
   // Notificar cambio en resultados
   useEffect(() => {
     if (onResultsChange) {
-      onResultsChange(products.length);
+      onResultsChange(totalResults);
     }
-  }, [products.length, onResultsChange]);
-
-  // Paginación
-  const totalPages = Math.ceil(products.length / resultsPerPage);
-  const startIndex = (currentPage - 1) * resultsPerPage;
-  const paginatedProducts = products.slice(startIndex, startIndex + resultsPerPage);
+  }, [totalResults, onResultsChange]);
 
   const handleCategorySelect = (category: string | "all") => {
     setSelectedCategory(category);
@@ -64,7 +88,7 @@ export function SearchResults({
 
   const handleClearFilters = () => {
     setSelectedCategory("all");
-    setSelectedSort("precio");
+    setSelectedSort("relevance");
     setCurrentPage(1);
   };
 
@@ -97,7 +121,7 @@ export function SearchResults({
               ? `Productos de ${selectedCategory}`
               : "Todos los productos"}
         </h2>
-        <p className="text-slate-600">{products.length} productos encontrados</p>
+        <p className="text-slate-600">{totalResults} productos encontrados</p>
 
         {/* Botón para limpiar filtros */}
         {(searchTerm || selectedCategory !== "all") && (
@@ -114,7 +138,7 @@ export function SearchResults({
       {isLoading ? (
         <LoadingState />
       ) : error ? (
-        <ErrorState error={error} onRetry={refetch} />
+        <ErrorState error={error instanceof Error ? error.message : "Error desconocido"} onRetry={refetch} />
       ) : products.length === 0 ? (
         <EmptyState
           searchTerm={searchTerm || "tu búsqueda"}
@@ -124,7 +148,7 @@ export function SearchResults({
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {paginatedProducts.map((product) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
