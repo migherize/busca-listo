@@ -1,5 +1,6 @@
 import { usePopularCategories } from "@/hooks/usePopularCategories";
 import { PopularCategoryCard } from "@/components/categories/presenters/PopularCategories/PopularCategoryCardPresenter";
+import { CategorySkeleton } from "@/components/common/skeleton";
 import type { CategoryPopular } from "@shared/SchemaCategory";
 
 interface PopularCategoriesListProps {
@@ -8,20 +9,38 @@ interface PopularCategoriesListProps {
 
 export function PopularCategoriesList({ limit = 6 }: PopularCategoriesListProps) {
   const { data: categories, isLoading, error } = usePopularCategories(limit);
-  console.log("Backend most views categories:", categories);
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        {Array.from({ length: limit }).map((_, idx) => (
-          <div key={idx} className="bg-gray-200 animate-pulse rounded-lg h-32"></div>
-        ))}
-      </div>
+      <CategorySkeleton 
+        count={limit}
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
+        variant="grid"
+      />
     );
   }
 
-  if (error || !categories) {
-    return <div className="text-center py-8 text-red-500">Error al cargar categorías populares</div>;
+  if (error) {
+    return (
+      <CategorySkeleton 
+        count={limit}
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
+        variant="grid"
+      />
+    );
+  }
+
+  if (!categories || categories.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <div className="text-gray-500 text-lg font-medium mb-2">
+          No hay categorías populares disponibles
+        </div>
+        <div className="text-gray-400 text-sm">
+          Vuelve pronto para ver las categorías más populares
+        </div>
+      </div>
+    );
   }
 
   return (

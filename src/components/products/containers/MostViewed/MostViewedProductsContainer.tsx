@@ -1,5 +1,6 @@
 import { useMostViewedProducts } from "@/hooks/useMostViewedProducts";
 import { MostViewedProductsPresenter } from "@/components/products/presenters/MostViewed/MostViewedProductsPresenter";
+import { ProductSkeleton } from "@/components/common/skeleton";
 
 interface MostViewedProductsContainerProps {
   maxProducts?: number;
@@ -10,16 +11,35 @@ export function MostViewedProductsContainer({ maxProducts = 4 }: MostViewedProdu
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {Array.from({ length: maxProducts }).map((_, idx) => (
-          <div key={idx} className="bg-gray-200 animate-pulse rounded-lg h-64"></div>
-        ))}
-      </div>
+      <ProductSkeleton 
+        count={maxProducts}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
+        variant="card"
+      />
     );
   }
 
   if (error) {
-    return <div className="text-center py-8 text-red-500">Error al cargar productos más vistos</div>;
+    return (
+      <ProductSkeleton 
+        count={maxProducts}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
+        variant="card"
+      />
+    );
+  }
+
+  if (!mostViewedProducts || mostViewedProducts.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <div className="text-gray-500 text-lg font-medium mb-2">
+          No hay productos populares disponibles
+        </div>
+        <div className="text-gray-400 text-sm">
+          Vuelve pronto para ver los productos más vistos
+        </div>
+      </div>
+    );
   }
 
   return <MostViewedProductsPresenter products={mostViewedProducts} maxProducts={maxProducts} />;

@@ -8,16 +8,15 @@ export function useMostViewedProducts(
   return useQuery<MostViewedProduct[], Error>({
     queryKey: ["products", "mostViewed", limit],
     queryFn: async () => {
-      const url = new URL(`${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.MOST_VIEWED}`);
-      url.searchParams.append("limit", String(limit));
+      const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.MOST_VIEWED}?limit=${limit}`;
 
-      const res = await fetch(url.toString());
+      const res = await fetch(url);
       if (!res.ok) throw new Error("Error al cargar productos más vistos");
       const data = (await res.json()) as MostViewedProduct[];
       return data;
     },
     staleTime: 5 * 60 * 1000,
-    cacheTime: 10 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
     retry: 1,
     refetchOnWindowFocus: false,
   });

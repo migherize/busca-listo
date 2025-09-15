@@ -1,5 +1,6 @@
 import { useDealsProducts } from "@/hooks/useDealsProducts";
 import { DealsProductsPresenter } from "@/components/products/presenters/Deals/DealsProductsPresenter";
+import { DealsSkeleton } from "@/components/common/skeleton";
 
 interface DealsProductsContainerProps {
   maxProducts?: number;  // Productos visibles en el carrusel
@@ -14,24 +15,32 @@ export function DealsProductsContainer({
 
   if (isLoading) {
     return (
-      <div className="flex gap-4 overflow-x-auto pb-2">
-        {Array.from({ length: maxProducts }).map((_, index) => (
-          <div key={index} className="min-w-[260px] max-w-[260px]">
-            <div className="bg-gray-200 animate-pulse rounded-lg h-64"></div>
-          </div>
-        ))}
-      </div>
+      <DealsSkeleton 
+        count={maxProducts}
+      />
     );
   }
 
-  if (error || !products || products.length === 0) {
+  if (error) {
+    return (
+      <DealsSkeleton 
+        count={maxProducts}
+      />
+    );
+  }
+
+  if (!products || products.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-red-500">No hay ofertas disponibles en este momento</p>
+        <div className="text-gray-500 text-lg font-medium mb-2">
+          No hay ofertas disponibles en este momento
+        </div>
+        <div className="text-gray-400 text-sm">
+          Vuelve pronto para ver las mejores ofertas
+        </div>
       </div>
     );
   }
 
   return <DealsProductsPresenter products={products} maxProducts={maxProducts} maxRenderProducts={limit} />;
-  
 }

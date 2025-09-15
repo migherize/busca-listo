@@ -1,5 +1,6 @@
 import { useRecentProducts } from "@/hooks/useRecentProducts";
 import { RecentProductsPresenter } from "@/components/products/presenters/Recent/RecentProductsPresenter";
+import { ProductSkeleton } from "@/components/common/skeleton";
 
 interface RecentProductsContainerProps {
   maxProducts?: number;
@@ -10,18 +11,33 @@ export function RecentProductsContainer({ maxProducts = 3 }: RecentProductsConta
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {Array.from({ length: maxProducts }).map((_, idx) => (
-          <div key={idx} className="bg-gray-200 animate-pulse rounded-lg h-28"></div>
-        ))}
-      </div>
+      <ProductSkeleton 
+        count={maxProducts}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+        variant="card"
+      />
     );
   }
 
   if (error) {
     return (
-      <div className="text-center py-8 text-red-500">
-        Error al cargar productos recientes
+      <ProductSkeleton 
+        count={maxProducts}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+        variant="card"
+      />
+    );
+  }
+
+  if (!products || products.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <div className="text-gray-500 text-lg font-medium mb-2">
+          No hay productos recientes disponibles
+        </div>
+        <div className="text-gray-400 text-sm">
+          Vuelve pronto para ver los últimos productos
+        </div>
       </div>
     );
   }

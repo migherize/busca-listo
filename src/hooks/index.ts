@@ -13,7 +13,6 @@ export { useFilteredProducts } from './useFilteredProducts';
 export { useProductById } from './useProductById';
 
 // Hooks existentes
-export { useFetchData } from './useFetchData';
 export { useIsMobile } from './use-mobile';
 export { useToast } from './use-toast';
 
