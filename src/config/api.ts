@@ -3,23 +3,23 @@ export const API_CONFIG = {
   
   ENDPOINTS: {
     PRODUCTS: {
-      RECENT: "/products/top/newest", 
-      MOST_VIEWED: "/products/top/most-viewed",
-      DEALS: "/products/deals",
-      BY_CATEGORY: "/products/category",
-      BY_STORE: "/products/store",
-      BY_COMPANY: "/products/company",
-      SEARCH: "/products/search",
-      ALL: "/products",
-      FILTERED: "/products/filter",
-      DETAIL: "/products",
+      RECENT: "/api/products/top/newest", 
+      MOST_VIEWED: "/api/products/top/most-viewed",
+      DEALS: "/api/products/deals",
+      BY_CATEGORY: "/api/products/category",
+      BY_STORE: "/api/products/store",
+      BY_COMPANY: "/api/products/company",
+      SEARCH: "/api/products/search",
+      ALL: "/api/products",
+      FILTERED: "/api/products/filter",
+      DETAIL: "/api/products",
     },
     CATEGORIES: {
-      ALL: "/categories",
-      POPULAR: "/categories/popular",
+      ALL: "/api/categories",
+      POPULAR: "/api/categories/popular",
     },
     COMPANIES: {
-      ALL: "/companies",
+      ALL: "/api/companies",
     },
   },
   
