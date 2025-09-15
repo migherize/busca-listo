@@ -31,17 +31,23 @@ export const API_CONFIG = {
 } as const;
 
 export const buildApiUrl = (endpoint: string, params?: Record<string, string | number>) => {
-  const url = new URL(endpoint, API_CONFIG.HOST);
+  let url = `${API_CONFIG.HOST}${endpoint}`;
   
   if (params) {
+    const searchParams = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== '') {
-        url.searchParams.append(key, value.toString());
+        searchParams.append(key, value.toString());
       }
     });
+    
+    const queryString = searchParams.toString();
+    if (queryString) {
+      url += `?${queryString}`;
+    }
   }
   
-  return url.toString();
+  return url;
 };
 
 

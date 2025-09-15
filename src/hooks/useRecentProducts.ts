@@ -7,7 +7,7 @@ export function useRecentProducts() {
     queryKey: ["products", "recent"],
     queryFn: async () => {
       const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.RECENT}`;
-      console.log("Fetching:", url);
+      console.log("Fetching useRecentProducts:", url);
 
       const res = await fetch(url);
       if (!res.ok) {

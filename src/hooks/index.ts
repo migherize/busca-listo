@@ -18,6 +18,3 @@ export { useToast } from './use-toast';
 
 // Configuración de API
 export { API_CONFIG, buildApiUrl } from '@/config';
-
-// Servicios
-export { apiService } from '@/services';

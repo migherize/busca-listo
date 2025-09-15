@@ -8,6 +8,7 @@ export function useDealsProducts(limit: number = 20) {
     queryFn: async () => {
       try {
         const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.DEALS}?limit=${limit}`;
+        console.log("Fetching useDealsProducts:", url);
 
         const res = await fetch(url);
         if (!res.ok) throw new Error("Error al cargar productos en oferta");

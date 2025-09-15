@@ -9,6 +9,7 @@ export function useMostViewedProducts(
     queryKey: ["products", "mostViewed", limit],
     queryFn: async () => {
       const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.MOST_VIEWED}?limit=${limit}`;
+      console.log("Fetching useMostViewedProducts:", url);
 
       const res = await fetch(url);
       if (!res.ok) throw new Error("Error al cargar productos más vistos");

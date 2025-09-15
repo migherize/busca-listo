@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import type { BaseProduct } from "@shared/SchemaProduct";
-import { apiService } from "@/services/apiService";
+import { API_CONFIG, buildApiUrl } from "@/config";
 
 interface ProductFilters {
   category?: string;
@@ -34,20 +34,27 @@ export function useFilteredProducts({
     queryFn: async () => {
       // Por ahora, usamos getAllProducts con filtros básicos
       // En el futuro, podemos implementar filtros más avanzados en el servicio
-      const response = await apiService.getAllProducts({ 
-        page, 
-        limit, 
-        category: filters.category, 
-        sortBy, 
-        sortOrder 
-      });
+      const params: Record<string, string | number> = {
+        page: page || 1,
+        limit: limit || 20,
+        orden: sortOrder || 'desc',
+      };
       
-      if (!response.success) {
-        throw new Error(response.error || "Error al filtrar productos");
+      if (filters.category) params.categoria = filters.category;
+      if (sortBy) params.ordenarPor = sortBy;
+      
+      const url = buildApiUrl(API_CONFIG.ENDPOINTS.PRODUCTS.ALL, params);
+      console.log("Fetching useFilteredProducts:", url);
+      
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error al filtrar productos: ${response.status}`);
       }
       
+      const apiData = await response.json();
+      
       // Aplicar filtros adicionales en el cliente si es necesario
-      let filteredProducts = response.data.products;
+      let filteredProducts = apiData.products;
       
       if (filters.brand) {
         filteredProducts = filteredProducts.filter(p => 

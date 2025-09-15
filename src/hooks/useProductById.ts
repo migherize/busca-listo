@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import type { detailsProduct } from "@shared/SchemaProduct";
-import { apiService } from "@/services/apiService";
 import { API_CONFIG, buildApiUrl } from "@/config";
 
 export function useProductById(productId: string) {
@@ -68,88 +67,81 @@ export function useProductById(productId: string) {
       } catch (error) {
         console.warn("Error al obtener producto de la API, usando fallback:", error);
         
-        // Fallback: usar el servicio de API que tiene lógica de mockup
-        const result = await apiService.getProductById(productId);
-        if (result.success) {
-          // Convertir el formato del apiService al formato esperado por detailsProduct
-          const product = result.data;
-          const detailsProduct: detailsProduct = {
-            id: parseInt(productId),
-            name: product.name || `Producto ${productId}`,
-            brand_id: null,
-            brand_name: product.brand || "Marca Genérica",
-            subcategory_id: null,
-            subcategory_name: product.subcategory_name || "general",
-            price_bs: product.price || 1500,
-            price_usd: product.priceUSD || 15,
-            in_stock: product.stock || 50,
-            active: product.isActive !== false,
-            views: product.views || 500,
-            created_at: product.createdAt || "2025-01-01T00:00:00.000Z",
-            imagenes: product.imageUrls || ["/assets/logo1.jpeg", "/assets/logo2.jpeg"],
-            offer_description: product.offerDescription || product.description || "Descripción del producto",
-            branch_id: null,
-            url: product.url || `https://buscalisto.com/product/${productId}`,
-            price_offer_usd: product.price_offer_bs ? (product.price_offer_bs / 100) : null,
-            price_offer_bs: product.price_offer_bs || null,
-            discount_percent: product.price_offer_bs ? Math.round(((product.price - product.price_offer_bs) / product.price) * 100) : null,
-            characteristics: product.characteristics || "Características del producto",
-            advancedCharacteristics: product.advancedCharacteristics || "Detalles técnicos",
-            accessories: product.accessories || "Accesorios incluidos",
-            highlightedFeatures: product.highlightedFeatures || "Características destacadas",
-            pros: product.pros || "Ventajas del producto",
-            cons: product.cons || "Consideraciones importantes",
-            category: product.category || "Categoría General",
-            supplier_id: product.supplier_id || 10,
-            supplier_name: product.supplier_id_name || "Proveedor",
-            supplier_address: "Dirección del proveedor",
-            supplier_phone: "+00-000-0000000",
-            supplier_email: "info@proveedor.com",
-            supplier_website: "https://www.proveedor.com",
-            supplier_hours: "Lunes a Viernes: 9:00 AM - 6:00 PM",
-            supplier_rating: 4.0,
-            supplier_reviews: 0,
-            mockComments: [
-              {
-                id: 1,
-                product_id: parseInt(productId),
-                user_name: "María González",
-                user_avatar: "/assets/avatar1.jpg",
-                rating: 5,
-                comment: "Excelente producto, muy buena calidad y llegó en perfectas condiciones. Lo recomiendo totalmente.",
-                created_at: "2025-01-15T10:30:00Z",
-                helpful_votes: 12,
-                is_verified_purchase: true,
-              },
-              {
-                id: 2,
-                product_id: parseInt(productId),
-                user_name: "Carlos Rodríguez",
-                user_avatar: "/assets/avatar2.jpg",
-                rating: 4,
-                comment: "Buen producto, cumple con lo esperado. El envío fue rápido y el precio está bien.",
-                created_at: "2025-01-12T14:20:00Z",
-                helpful_votes: 8,
-                is_verified_purchase: true,
-              },
-              {
-                id: 3,
-                product_id: parseInt(productId),
-                user_name: "Ana Martínez",
-                user_avatar: "/assets/avatar3.jpg",
-                rating: 5,
-                comment: "Super satisfecha con la compra. El producto es exactamente como se describe y la atención fue excelente.",
-                created_at: "2025-01-10T09:15:00Z",
-                helpful_votes: 15,
-                is_verified_purchase: true,
-              },
-            ],
-          };
-          console.log("Producto fallback generado:", detailsProduct);
-          return detailsProduct;
-        } else {
-          throw new Error("No se pudo obtener el producto");
-        }
+        // Fallback: generar producto mockup
+        const detailsProduct: detailsProduct = {
+          id: parseInt(productId),
+          name: `Producto ${productId}`,
+          brand_id: null,
+          brand_name: "Marca Genérica",
+          subcategory_id: null,
+          subcategory_name: "general",
+          price_bs: 1500,
+          price_usd: 15,
+          in_stock: 50,
+          active: true,
+          views: 500,
+          created_at: "2025-01-01T00:00:00.000Z",
+          imagenes: ["/assets/logo1.jpeg", "/assets/logo2.jpeg"],
+          offer_description: "Descripción del producto",
+          branch_id: null,
+          url: `https://buscalisto.com/product/${productId}`,
+          price_offer_usd: null,
+          price_offer_bs: null,
+          discount_percent: null,
+          characteristics: "Características del producto",
+          advancedCharacteristics: "Detalles técnicos",
+          accessories: "Accesorios incluidos",
+          highlightedFeatures: "Características destacadas",
+          pros: "Ventajas del producto",
+          cons: "Consideraciones importantes",
+          category: "Categoría General",
+          supplier_id: 10,
+          supplier_name: "Proveedor",
+          supplier_address: "Dirección del proveedor",
+          supplier_phone: "+00-000-0000000",
+          supplier_email: "info@proveedor.com",
+          supplier_website: "https://www.proveedor.com",
+          supplier_hours: "Lunes a Viernes: 9:00 AM - 6:00 PM",
+          supplier_rating: 4.0,
+          supplier_reviews: 0,
+          mockComments: [
+            {
+              id: 1,
+              product_id: parseInt(productId),
+              user_name: "María González",
+              user_avatar: "/assets/avatar1.jpg",
+              rating: 5,
+              comment: "Excelente producto, muy buena calidad y llegó en perfectas condiciones. Lo recomiendo totalmente.",
+              created_at: "2025-01-15T10:30:00Z",
+              helpful_votes: 12,
+              is_verified_purchase: true,
+            },
+            {
+              id: 2,
+              product_id: parseInt(productId),
+              user_name: "Carlos Rodríguez",
+              user_avatar: "/assets/avatar2.jpg",
+              rating: 4,
+              comment: "Buen producto, cumple con lo esperado. El envío fue rápido y el precio está bien.",
+              created_at: "2025-01-12T14:20:00Z",
+              helpful_votes: 8,
+              is_verified_purchase: true,
+            },
+            {
+              id: 3,
+              product_id: parseInt(productId),
+              user_name: "Ana Martínez",
+              user_avatar: "/assets/avatar3.jpg",
+              rating: 5,
+              comment: "Super satisfecha con la compra. El producto es exactamente como se describe y la atención fue excelente.",
+              created_at: "2025-01-10T09:15:00Z",
+              helpful_votes: 15,
+              is_verified_purchase: true,
+            },
+          ],
+        };
+        console.log("Producto fallback generado:", detailsProduct);
+        return detailsProduct;
       }
     },
     enabled: !!productId,

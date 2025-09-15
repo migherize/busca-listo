@@ -1,30 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { apiService } from "@/services/apiService";
-
-interface StoreData {
-  id: number;
-  name: string;
-  phone?: string;
-  logo?: string;
-  location_name?: string;
-  branches_count: number;
-  products_count: number;
-  created_at?: string;
-  active: boolean;
-}
+import { API_CONFIG } from "@/config/api";
 
 export function useAllStores() {
-  return useQuery<StoreData[]>({
+  return useQuery<any[], Error>({
     queryKey: ["stores", "all"],
     queryFn: async () => {
-      const response = await apiService.getAllStores();
-      if (!response.success) {
-        throw new Error(response.error || "Error al cargar las tiendas");
-      }
-      return response.data;
+      const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.COMPANIES.ALL}`;
+      console.log("Fetching useAllStores:", url);
+
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Error al cargar tiendas");
+      const data = (await res.json()) as any[];
+      return data;
     },
-    retry: 3, // Reintentar 3 veces en caso de error
-    retryDelay: 1000, // Esperar 1 segundo entre reintentos
-    staleTime: 5 * 60 * 1000, // Los datos son válidos por 5 minutos
+    staleTime: 10 * 60 * 1000, // 10 minutos
+    gcTime: 20 * 60 * 1000, // 20 minutos
+    retry: 1,
+    refetchOnWindowFocus: false,
   });
 }
