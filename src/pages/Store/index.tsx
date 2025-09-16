@@ -45,7 +45,9 @@ export default function StorePage() {
   // Obtener el supplier_id de los parámetros de consulta o usar el storeName como fallback
   const getSupplierId = (): string => {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('id') || storeName || '';
+    const id = urlParams.get('id') || storeName || '';
+    console.log("StorePage - storeName:", storeName, "supplierId:", id, "urlParams:", Object.fromEntries(urlParams));
+    return id;
   };
   
   const supplierId = getSupplierId();
@@ -54,8 +56,11 @@ export default function StorePage() {
   const { data: apiCategories = [], isLoading: categoriesLoading, error: categoriesError } = useAllCategories();
 
   // Obtener productos de la tienda usando el nuevo endpoint por empresa
+  const companyName = storeName || supplierId;
+  console.log("StorePage - calling useProductsByCompany with:", companyName);
+  
   const { data: allProducts = [], isLoading, error, refetch } = useProductsByCompany(
-    storeName || supplierId, 
+    companyName, 
     undefined // Obtener todos los productos sin filtro
   );
 

@@ -26,20 +26,19 @@ export function Header() {
             </a>
             
             {/* Botones - Solo en mobile, ocultos en desktop */}
-            <div className="flex gap-2 sm:hidden">
+            <div className="flex items-center gap-2 sm:hidden">
+              <span className="text-xs font-medium text-slate-600">Tienda:</span>
               <Link href="/stores">
-                <button className="w-auto bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-xs font-medium hover:bg-slate-200 transition-colors flex items-center gap-1">
+                <button className="w-auto bg-blue-50 text-blue-700 border border-blue-200 px-3 py-2 rounded-full text-xs font-medium hover:bg-blue-100 hover:border-blue-300 transition-colors flex items-center gap-1">
                   <Store className="h-3 w-3" />
-                  <span className="hidden xs:inline">Ver Tiendas</span>
-                  <span className="xs:hidden">Tiendas</span>
+                  <span>Ver</span>
                 </button>
               </Link>
               <button
-                className="w-auto bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-medium hover:bg-blue-700 transition-colors"
+                className="w-auto bg-blue-600 text-white px-3 py-2 rounded-full text-xs font-medium hover:bg-blue-700 transition-colors"
                 onClick={handleRegisterStore}
               >
-                <span className="hidden xs:inline">Registrar Tienda</span>
-                <span className="xs:hidden">Registrar</span>
+                <span>Registrarse</span>
               </button>
             </div>
           </div>
