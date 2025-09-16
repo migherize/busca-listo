@@ -1,5 +1,8 @@
+const API_HOST = import.meta.env.VITE_API_HOST || (import.meta.env.PROD ? "https://buscalisto.com" : "http://localhost:8000");
+console.log("API_CONFIG.HOST:", API_HOST, "PROD:", import.meta.env.PROD, "VITE_API_HOST:", import.meta.env.VITE_API_HOST);
+
 export const API_CONFIG = {
-  HOST: import.meta.env.VITE_API_HOST || "http://localhost:8000",
+  HOST: API_HOST,
   
   ENDPOINTS: {
     PRODUCTS: {
