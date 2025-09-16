@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { DealsProduct } from "@shared/SchemaProduct";
 import { API_CONFIG } from "@/config/api";
+import { fetchWithCors } from "@/utils/fetchWithCors";
 
 export function useDealsProducts(limit: number = 20) {
   return useQuery<DealsProduct[], Error>({
@@ -10,16 +11,14 @@ export function useDealsProducts(limit: number = 20) {
         const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.DEALS}?limit=${limit}`;
         console.log("Fetching useDealsProducts:", url);
 
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("Error al cargar productos en oferta");
+        const data = await fetchWithCors(url);
+        let dealsData = data as DealsProduct[];
         
-        let data = (await res.json()) as DealsProduct[];
-        
-        if (data.length > limit) {
-          data = data.slice(0, limit);
+        if (dealsData.length > limit) {
+          dealsData = dealsData.slice(0, limit);
         }
         
-        return data;
+        return dealsData;
       } catch (error) {
         // Si hay error en la API, lanzar el error para que se maneje en el componente
         throw error;

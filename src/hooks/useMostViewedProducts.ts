@@ -1,6 +1,7 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import type { MostViewedProduct } from "@shared/SchemaProduct";
 import { API_CONFIG } from "@/config/api";
+import { fetchWithCors } from "@/utils/fetchWithCors";
 
 export function useMostViewedProducts(
   limit: number = 4
@@ -11,10 +12,8 @@ export function useMostViewedProducts(
       const url = `${API_CONFIG.HOST}${API_CONFIG.ENDPOINTS.PRODUCTS.MOST_VIEWED}?limit=${limit}`;
       console.log("Fetching useMostViewedProducts:", url);
 
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Error al cargar productos más vistos");
-      const data = (await res.json()) as MostViewedProduct[];
-      return data;
+      const data = await fetchWithCors(url);
+      return data as MostViewedProduct[];
     },
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
